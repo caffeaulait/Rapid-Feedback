@@ -1,12 +1,14 @@
 import React from 'react';
 import styles from './SignUp.module.css';
 import logo from '../../assets/images/logo.jpg';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as auth from '../../store/actions/auth';
 
 class SignUp extends React.Component {
   state = {
     firstName: '',
-    LastName: '',
+    lastName: '',
     password: '',
     confirm: '',
     email: '',
@@ -17,11 +19,19 @@ class SignUp extends React.Component {
     this.setState({ [type]: event.target.value });
   };
 
-  signUp = () => {};
+  signUp = (event) => {
+    event.preventDefault();
+    this.props.onAuthenticate(this.state.email, this.state.password, false);
+  };
 
   render() {
+    let redirect = null;
+    if (this.props.isAuthenticated) {
+      redirect = <Redirect to='/home' />;
+    }
     return (
       <>
+        {redirect}
         <div className={styles.left_frame}>
           <img src={logo} alt='Logo' className={styles.logo} />
           <div className={styles.app_name}>
@@ -40,7 +50,7 @@ class SignUp extends React.Component {
           <div className={styles.login_form}>
             <form onSubmit={this.signUp}>
               <div className='form-group'>
-                <div style={{ float: 'left' }}>
+                <div style={{ float: 'left', width: '45%' }}>
                   <label>FirstName</label>
                   <input
                     type='text'
@@ -50,7 +60,7 @@ class SignUp extends React.Component {
                     onChange={(event) => this.inputChange(event)}
                   />
                 </div>
-                <div style={{ float: 'right' }}>
+                <div style={{ float: 'right', width: '45%' }}>
                   <label>LastName</label>
                   <input
                     type='text'
@@ -114,4 +124,18 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+    error: state.auth.error,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuthenticate: (email, password, isLogin) =>
+      dispatch(auth.onAuth(email, password, isLogin)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from './Login.module.css';
 import logo from '../../assets/images/logo.jpg';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as auth from '../../store/actions/auth';
 
 class Login extends React.Component {
   state = {
@@ -13,14 +16,22 @@ class Login extends React.Component {
     this.setState({ [type]: event.target.value });
   };
 
-  login = () => {};
+  login = (event) => {
+    event.preventDefault();
+    this.props.onAuthenticate(this.state.email, this.state.password, true);
+  };
 
   goToSignUp = () => {
     this.props.history.push('/signup');
   };
   render() {
+    let redirect = null;
+    if (this.props.isAuthenticated) {
+      redirect = <Redirect to='/home' />;
+    }
     return (
       <>
+        {redirect}
         <div className={styles.left_frame}></div>
         <div className={styles.main}>
           <img src={logo} alt='Logo' className={styles.logo} />
@@ -72,4 +83,18 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+    error: state.auth.error,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuthenticate: (email, password, isLogin) =>
+      dispatch(auth.onAuth(email, password, isLogin)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
