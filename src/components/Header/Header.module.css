@@ -1,0 +1,30 @@
+.container {
+  background-color: #003f8a;
+  height: 20vh;
+}
+
+.logo {
+  float: left;
+  height: 15vh;
+  width: 15vh;
+}
+
+.mynav {
+  text-transform: uppercase;
+  clear: both;
+}
+
+li a {
+  color: white;
+  font-size: 1.2em;
+}
+
+.title {
+  position: relative;
+  left: 5vw;
+  top: 5vh;
+  color: white;
+  text-transform: uppercase;
+  font-size: x-large;
+  float: left;
+}
