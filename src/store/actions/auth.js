@@ -41,6 +41,7 @@ export const onAuth = (email, password, isLogin) => {
       .then((response) => {
         console.log(response);
         dispatch(authSuccess(response.data.idToken, response.data.localId));
+        
       })
       .catch((error) => {
         dispatch(authFail(error.response.data.error));

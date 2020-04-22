@@ -20,3 +20,41 @@ class App extends React.Component {
 }
 
 export default App;
+
+/*
+routes:
+1. /login   login to the app
+
+2. /signup  signup to the app
+
+3. /home    select one of the three modules
+
+4. /admin                           N/A
+      /projects                     list all projects
+          /new                      add new project
+          /:id                      project overview
+              /edit                 edit project detail
+              /groups               manage project groups
+              /groups/add           add new groups 
+              /students             manage project students
+              /students/add         add new students
+              /marker               manage project marker
+              /criteria             set project criteria
+              /criteriaWeight       set project criteria weights
+              /criteriaConfirm      confirm project criteria
+
+5. /assess                          N/A
+      /projects                     list all projects for assessment
+          /:id                      project overview
+              /:groupId(studentId)  real-time assessment for group/student
+                        
+6. /review                          N/A
+      /projects                     list all projects
+          /:id                      N/A 
+              /:groupId(studentId)  N/A
+                  /grade            show the grade history for a student/group
+                      /:id          show assessment detail
+                          /edit     re-edit assessment
+                  /report           upload audio and send reports
+                  
+*/
