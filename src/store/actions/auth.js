@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as actions from './actions';
 
-const API_KEY = 'AIzaSyDkfsypS-20fgShtdrQzWKSZZRKa3GaCZo';
+// const API_KEY = 'AIzaSyDkfsypS-20fgShtdrQzWKSZZRKa3GaCZo';
 
 export const authStart = () => {
   return { type: actions.AUTH_START };
@@ -22,29 +22,53 @@ export const authFail = (error) => {
   };
 };
 
-export const onAuth = (email, password, isLogin) => {
+export const onSignUp = (
+  staffId,
+  email,
+  password,
+  firstName,
+  lastName,
+  isAdmin
+) => {
   return (dispatch) => {
     dispatch(authStart);
     const data = {
-      email,
+      uni_id: staffId,
+      first_name: firstName,
+      last_name: lastName,
+      uni_email: email,
       password,
-      returnSecureToken: true,
+      is_coordinator: isAdmin ? 1 : 0,
     };
-    let url;
-    if (isLogin) {
-      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
-    } else {
-      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
-    }
+    const url = '172.16.0.119:8099/v1/markers/register';
     axios
       .post(url, data)
       .then((response) => {
         console.log(response);
-        dispatch(authSuccess(response.data.idToken, response.data.localId));
-        
+        dispatch(authSuccess(response.token, response.id));
       })
       .catch((error) => {
-        dispatch(authFail(error.response.data.error));
+        dispatch(authFail(error));
+      });
+  };
+};
+
+export const onLogin = (email, password) => {
+  return (dispatch) => {
+    dispatch(authStart);
+    const data = {
+      uni_email: email,
+      password,
+    };
+    const url = '172.16.0.119:8099/v1/markers/login';
+    axios
+      .post(url, data)
+      .then((response) => {
+        console.log(response);
+        dispatch(authSuccess(response.token, response.id));
+      })
+      .catch((error) => {
+        dispatch(authFail(error));
       });
   };
 };

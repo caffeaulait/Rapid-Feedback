@@ -12,16 +12,26 @@ class SignUp extends React.Component {
     password: '',
     confirm: '',
     email: '',
+    staffId: 0,
+    isAdmin: false,
   };
 
   inputChange = (event) => {
     let type = event.target.name;
-    this.setState({ [type]: event.target.value });
+    const value =
+      type === 'isAdmin' ? event.target.checked : event.target.value;
+    this.setState({ [type]: value });
+    console.log(value);
   };
 
   signUp = (event) => {
     event.preventDefault();
-    this.props.onAuthenticate(this.state.email, this.state.password, false);
+    this.props.onAuthenticate(
+      this.state.email,
+      this.state.password,
+      false,
+      this.state.isCoordinator
+    );
   };
 
   render() {
@@ -72,10 +82,16 @@ class SignUp extends React.Component {
                 </div>
               </div>
               <div style={{ clear: 'both' }}></div>
-              {/* <div className='form-group'>
-                <label>UserName</label>
-                <input type='text' className='form-control' />
-              </div> */}
+              <div className='form-group'>
+                <label>Staff Number</label>
+                <input
+                  type='number'
+                  name='staffId'
+                  value={this.state.staffId}
+                  className='form-control'
+                  onChange={(event) => this.inputChange(event)}
+                />
+              </div>
               <div className='form-group'>
                 <label>E-mail</label>
                 <input
@@ -106,6 +122,18 @@ class SignUp extends React.Component {
                   onChange={(event) => this.inputChange(event)}
                 />
               </div>
+
+              <div className='form-group'>
+                <label>
+                  <input
+                    name='isAdmin'
+                    type='checkbox'
+                    checked={this.state.isCoordinator}
+                    onChange={(event) => this.inputChange(event)}
+                  />
+                  &nbsp; I am subject Coordinator
+                </label>
+              </div>
               <button
                 type='submit'
                 className='btn btn-primary'
@@ -133,8 +161,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuthenticate: (email, password, isLogin) =>
-      dispatch(auth.onAuth(email, password, isLogin)),
+    onAuthenticate: (staffId, email, password, firstName, lastName, isAdmin) =>
+      dispatch(
+        auth.onSignUp(staffId, email, password, firstName, lastName, isAdmin)
+      ),
   };
 };
 
