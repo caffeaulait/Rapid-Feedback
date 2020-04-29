@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import styles from './Header.module.css';
 import React from 'react';
 import Logo from '../../assets/images/logo.jpg';

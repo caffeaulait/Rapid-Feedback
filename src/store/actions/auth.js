@@ -1,7 +1,10 @@
 import axios from 'axios';
 import * as actions from './actions';
 
-// const API_KEY = 'AIzaSyDkfsypS-20fgShtdrQzWKSZZRKa3GaCZo';
+const proxy = 'https://cors-anywhere.herokuapp.com/';
+
+const address =
+  'http://ec2-13-211-29-46.ap-southeast-2.compute.amazonaws.com:8022/v1';
 
 export const authStart = () => {
   return { type: actions.AUTH_START };
@@ -40,11 +43,14 @@ export const onSignUp = (
       password,
       is_coordinator: isAdmin ? 1 : 0,
     };
-    const url = '172.16.0.119:8099/v1/markers/register';
+    console.log(data);
+    const url = proxy + address + '/markers/register';
     axios
       .post(url, data)
       .then((response) => {
         console.log(response);
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('id', response.id);
         dispatch(authSuccess(response.token, response.id));
       })
       .catch((error) => {
@@ -60,15 +66,25 @@ export const onLogin = (email, password) => {
       uni_email: email,
       password,
     };
-    const url = '172.16.0.119:8099/v1/markers/login';
+    const url = proxy + address + '/markers/login';
     axios
       .post(url, data)
       .then((response) => {
         console.log(response);
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('id', response.id);
         dispatch(authSuccess(response.token, response.id));
       })
       .catch((error) => {
         dispatch(authFail(error));
       });
+  };
+};
+
+export const logout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('id');
+  return {
+    type: actions.AUTH_LOGOUT,
   };
 };

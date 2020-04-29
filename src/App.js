@@ -4,6 +4,7 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 import Login from './containers/Login/Login';
 import SignUp from './containers/SignUp/SignUp';
 import Home from './components/Home/Home';
+import Logout from './containers/Logout/Logout';
 
 class App extends React.Component {
   render() {
@@ -11,6 +12,7 @@ class App extends React.Component {
       <Switch>
         <Route path='/login' component={Login}></Route>
         <Route path='/signup' component={SignUp}></Route>
+        <Route path='logout' component={Logout}></Route>
         <Route path='/home' component={Home}></Route>
         <Redirect from='/' to='/login'></Redirect>
       </Switch>
