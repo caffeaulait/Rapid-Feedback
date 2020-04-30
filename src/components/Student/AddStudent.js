@@ -1,6 +1,5 @@
 import React from 'react';
-import styles from './AddStudent.module.css';
-import ReactDom from 'react-dom';
+import styles from './Student.module.css';
 
 class AddStudent extends React.Component {
 
@@ -16,7 +15,9 @@ class AddStudent extends React.Component {
     this.handleInputChange2 = this.handleInputChange2.bind(this);
     this.handleInputChange3 = this.handleInputChange3.bind(this);
   }
-
+componentDidMount(){
+  console.log(this)
+}
   handleInputChange1(event) {
     const target = event.target;
     const value = target.value;
@@ -49,6 +50,7 @@ class AddStudent extends React.Component {
 
   Submit = () => {
     console.log(this.state)
+    if (this.props.Sub instanceof Function) this.props.Sub();
   }
 
   render() {
@@ -74,7 +76,7 @@ class AddStudent extends React.Component {
                 name="stuName"
                 type="text"
                 value={this.state.stuName}
-                onChange={this.handleInputChange2} />
+                onChange={this.handleInputChange2}/>
             </label>
             <br />
             <label>
