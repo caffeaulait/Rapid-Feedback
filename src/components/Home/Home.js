@@ -15,6 +15,12 @@ class Home extends React.Component {
     console.log('change avatar');
   };
 
+  goToAdmin = () => {};
+
+  goToAssess = () => {};
+
+  gotToReport = () => {};
+
   render() {
     // if (!this.props.isAuthenticated) {
     //   this.props.history.push('/login');
@@ -49,17 +55,17 @@ class Home extends React.Component {
           </div>
 
           <div className={styles.right}>
-            <div>
+            <div onClick={this.goToAdmin}>
               <img src={Admin} alt='admin'></img>
               <p>Administration</p>
             </div>
 
-            <div>
+            <div onClick={this.goToAssess}>
               <img src={Assess} alt='assess'></img>
               <p>Real-time Assessment</p>
             </div>
 
-            <div>
+            <div onClick={this.gotToReport}>
               <img src={Report} alt='report'></img>
               <p>Report</p>
             </div>
