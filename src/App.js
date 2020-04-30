@@ -12,7 +12,7 @@ class App extends React.Component {
       <Switch>
         <Route path='/login' component={Login}></Route>
         <Route path='/signup' component={SignUp}></Route>
-        <Route path='logout' component={Logout}></Route>
+        <Route path='/logout' component={Logout}></Route>
         <Route path='/home' component={Home}></Route>
         <Redirect from='/' to='/login'></Redirect>
       </Switch>

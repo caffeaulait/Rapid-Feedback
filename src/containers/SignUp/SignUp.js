@@ -24,8 +24,8 @@ class SignUp extends React.Component {
   };
 
   signUp = (event) => {
-    const id = parseInt(this.state.staffId);
     event.preventDefault();
+    const id = parseInt(this.state.staffId);
     this.props.onAuthenticate(
       id,
       this.state.email,

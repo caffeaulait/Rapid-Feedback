@@ -2,9 +2,16 @@ import axios from 'axios';
 import * as actions from './actions';
 
 const proxy = 'https://cors-anywhere.herokuapp.com/';
+// const proxy = '';
 
 const address =
   'http://ec2-13-211-29-46.ap-southeast-2.compute.amazonaws.com:8022/v1';
+
+// const config = {
+//   headers: {
+//     Origin: 'http://localhost:3000',
+//   },
+// };
 
 export const authStart = () => {
   return { type: actions.AUTH_START };
@@ -63,7 +70,7 @@ export const onLogin = (email, password) => {
   return (dispatch) => {
     dispatch(authStart);
     const data = {
-      uni_email: email,
+      username: email,
       password,
     };
     const url = proxy + address + '/markers/login';

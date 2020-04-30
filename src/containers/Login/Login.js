@@ -18,7 +18,7 @@ class Login extends React.Component {
 
   login = (event) => {
     event.preventDefault();
-    this.props.onAuthenticate(this.state.email, this.state.password, true);
+    this.props.onAuthenticate(this.state.email, this.state.password);
   };
 
   goToSignUp = () => {
