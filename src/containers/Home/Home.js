@@ -2,7 +2,7 @@
 import React, { Fragment } from 'react';
 import styles from './Home.module.css';
 import { connect } from 'react-redux';
-import Header from '../Header/Header';
+import Header from '../../components/Header/Header';
 import Calendar from '../../assets/images/calendar.svg';
 import Avatar from '../../assets/images/avatar.svg';
 import Admin from '../../assets/images/admin.svg';
@@ -11,15 +11,25 @@ import Report from '../../assets/images/report.svg';
 import { NavLink } from 'react-router-dom';
 
 class Home extends React.Component {
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   onChangeAvatar = () => {
     console.log('change avatar');
   };
 
-  goToAdmin = () => {};
+  goToAdmin = () => {
+    this.props.history.push('/admin');
+  };
 
-  goToAssess = () => {};
+  goToAssess = () => {
+    this.props.history.push('/assess');
+  };
 
-  gotToReport = () => {};
+  gotToReport = () => {
+    this.props.history.push('/report');
+  };
 
   render() {
     // if (!this.props.isAuthenticated) {

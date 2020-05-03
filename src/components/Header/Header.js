@@ -2,6 +2,7 @@
 import styles from './Header.module.css';
 import React from 'react';
 import Logo from '../../assets/images/logo.jpg';
+import { Link, withRouter } from 'react-router-dom';
 
 const Header = (props) => (
   <div className={styles.container}>
@@ -9,27 +10,27 @@ const Header = (props) => (
     <div className={styles.title}>Rapid Feedback</div>
     <ul className={'nav justify-content-end ' + styles.mynav}>
       <li className='nav-item'>
-        <a className='nav-link active' href='#'>
+        <Link className='nav-link active' to='/home'>
           Home
-        </a>
+        </Link>
       </li>
       <li className='nav-item'>
-        <a className='nav-link' href='#'>
+        <Link className='nav-link' to='/admin'>
           Administration
-        </a>
+        </Link>
       </li>
       <li className='nav-item'>
-        <a className='nav-link' href='#'>
+        <Link className='nav-link' to='/assess'>
           Assessment
-        </a>
+        </Link>
       </li>
       <li className='nav-item'>
-        <a className='nav-link' href='#'>
+        <Link className='nav-link' to='/report'>
           Report
-        </a>
+        </Link>
       </li>
     </ul>
   </div>
 );
 
-export default Header;
+export default withRouter(Header);

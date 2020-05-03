@@ -3,8 +3,11 @@ import './App.css';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import Login from './containers/Login/Login';
 import SignUp from './containers/SignUp/SignUp';
-import Home from './components/Home/Home';
+import Home from './containers/Home/Home';
 import Logout from './containers/Logout/Logout';
+import Admin from './containers/Admin/Admin';
+import Report from './containers/Report/Report';
+import Assess from './containers/Assess/Assess';
 
 class App extends React.Component {
   render() {
@@ -14,6 +17,9 @@ class App extends React.Component {
         <Route path='/signup' component={SignUp}></Route>
         <Route path='/logout' component={Logout}></Route>
         <Route path='/home' component={Home}></Route>
+        <Route path='/admin' component={Admin}></Route>
+        <Route path='/report' component={Report}></Route>
+        <Route path='/assess' component={Assess}></Route>
         <Redirect from='/' to='/login'></Redirect>
       </Switch>
     );
@@ -50,7 +56,7 @@ routes:
           /:id                      project overview
               /:groupId(studentId)  real-time assessment for group/student
                         
-6. /review                          N/A
+6. /report                          N/A
       /projects                     list all projects
           /:id                      N/A 
               /:groupId(studentId)  N/A

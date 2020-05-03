@@ -1,17 +1,5 @@
-import axios from 'axios';
 import * as actions from './actions';
-
-const proxy = 'https://cors-anywhere.herokuapp.com/';
-// const proxy = '';
-
-const address =
-  'http://ec2-13-211-29-46.ap-southeast-2.compute.amazonaws.com:8022/v1';
-
-// const config = {
-//   headers: {
-//     Origin: 'http://localhost:3000',
-//   },
-// };
+import * as api from '../api';
 
 export const authStart = () => {
   return { type: actions.AUTH_START };
@@ -50,10 +38,9 @@ export const onSignUp = (
       password,
       is_coordinator: isAdmin ? 1 : 0,
     };
-    console.log(data);
-    const url = proxy + address + '/markers/register';
-    axios
-      .post(url, data)
+    // console.log(data);
+    api
+      .signUp(data)
       .then((response) => {
         console.log(response);
         localStorage.setItem('token', response.token);
@@ -73,9 +60,8 @@ export const onLogin = (email, password) => {
       username: email,
       password,
     };
-    const url = proxy + address + '/markers/login';
-    axios
-      .post(url, data)
+    api
+      .login(data)
       .then((response) => {
         console.log(response);
         localStorage.setItem('token', response.token);
@@ -88,7 +74,7 @@ export const onLogin = (email, password) => {
   };
 };
 
-export const logout = () => {
+export const onLogout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('id');
   return {

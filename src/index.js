@@ -8,12 +8,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import authReducer from './store/reducers/auth';
+import projectReducer from './store/reducers/project';
 
 //enable redux devtools
 const enhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  proj: projectReducer,
 });
 
 const store = createStore(rootReducer, enhancers(applyMiddleware(thunk)));
