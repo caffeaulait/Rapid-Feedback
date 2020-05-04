@@ -56,7 +56,7 @@ class Home extends React.Component {
               <a alt='avatar' href='#' onClick={this.onChangeAvatar}>
                 <img src={Avatar} alt='avatar' className={styles.avatar}></img>
               </a>
-              <p>Welcome, Mr.xx</p>
+              <p>Welcome, Mr.{this.props.lastName}</p>
             </div>
             <div>
               <p>select one module to proceed</p>
@@ -90,6 +90,7 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
     error: state.auth.error,
+    lastName: state.auth.lastName,
   };
 };
 

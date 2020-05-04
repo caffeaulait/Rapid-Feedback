@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Projects from './Projects/Projects';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -20,13 +20,13 @@ class Admin extends React.Component {
     return (
       <>
         <Header></Header>
-        <p>This is admin page</p>
-        <DatePicker
+        {/* <DatePicker
           selected={this.state.date}
           onChange={this.selectDate}
-        ></DatePicker>
+        ></DatePicker> */}
         <Switch>
           <Route path={url + '/projects'} component={Projects}></Route>
+          <Redirect from={url} to={url + '/projects'}></Redirect>
         </Switch>
       </>
     );

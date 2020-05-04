@@ -4,6 +4,8 @@ const initialState = {
   token: null,
   uid: null,
   error: null,
+  lastName: '',
+  isCoordinator: false,
 };
 
 const authStart = (state, action) => {
@@ -15,6 +17,8 @@ const authSuccess = (state, action) => {
     ...state,
     token: action.token,
     uid: action.uid,
+    lastName: action.lastName,
+    isCoordinator: action.isCoordinator,
   };
 };
 

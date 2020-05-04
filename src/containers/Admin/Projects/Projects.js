@@ -1,24 +1,52 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Project from '../../../components/Project/Project';
+import * as actions from '../../../store/actions/project';
+import styles from './Projects.module.css';
 
 class Projects extends React.Component {
+  componentDidMount() {
+    this.props.fetchProjects();
+  }
+
+  projectSelectedHandler = (id) => {
+    this.props.history.push(this.props.map.path + '/' + id);
+  };
+
   render() {
     let projects = <p style={{ textAlign: 'center' }}>No projects Avaiable</p>;
-    if (!this.state) return <div>{projects}</div>;
+    if (!this.state) {
+      projects = this.props.projects.map((project) => {
+        return (
+          <Project
+            key={project.id}
+            project={project}
+            clicked={() => this.projectSelectedHandler(project.id)}
+          />
+        );
+      });
+    }
+    return (
+      <div>
+        <div>My projects:</div>
+        {projects}
+      </div>
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
-    error: state.projects.error,
+    projects: state.proj.projects,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // onAuthenticate: (email, password) =>
-    //   dispatch(auth.onLogin(email, password)),
+    fetchProjects: () => {
+      dispatch(actions.onFetchProjects());
+    },
   };
 };
 

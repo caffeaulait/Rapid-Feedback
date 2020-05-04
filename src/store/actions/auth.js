@@ -5,11 +5,13 @@ export const authStart = () => {
   return { type: actions.AUTH_START };
 };
 
-export const authSuccess = (token, uid) => {
+export const authSuccess = (token, uid, lastName, isCoordinator) => {
   return {
     type: actions.AUTH_SUCCESS,
     token,
     uid,
+    lastName,
+    isCoordinator,
   };
 };
 
@@ -43,9 +45,16 @@ export const onSignUp = (
       .signUp(data)
       .then((response) => {
         console.log(response);
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('id', response.id);
-        dispatch(authSuccess(response.token, response.id));
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('id', response.data.id);
+        dispatch(
+          authSuccess(
+            response.data.token,
+            response.data.id,
+            response.daat.last_name,
+            response.data.is_coordinator
+          )
+        );
       })
       .catch((error) => {
         dispatch(authFail(error));
@@ -64,9 +73,16 @@ export const onLogin = (email, password) => {
       .login(data)
       .then((response) => {
         console.log(response);
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('id', response.id);
-        dispatch(authSuccess(response.token, response.id));
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('id', response.data.id);
+        dispatch(
+          authSuccess(
+            response.data.token,
+            response.data.id,
+            response.data.last_name,
+            response.data.is_coordinator
+          )
+        );
       })
       .catch((error) => {
         dispatch(authFail(error));

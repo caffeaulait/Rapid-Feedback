@@ -24,5 +24,5 @@ export const signUp = (data) => {
 };
 
 export const getProjects = (id) => {
-  return instance.get(`/markers/projects/${id}`);
+  return instance.get(`/projects/${id}`);
 };
