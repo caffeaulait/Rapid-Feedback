@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const proxy = 'https://cors-anywhere.herokuapp.com/';
-const proxy = '';
+const proxy = 'https://cors-anywhere.herokuapp.com/';
+// const proxy = '';
 
 const address =
   'http://ec2-13-211-29-46.ap-southeast-2.compute.amazonaws.com:8022/v1';
