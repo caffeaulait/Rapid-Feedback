@@ -4,6 +4,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Projects from './Projects/Projects';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import ProjectDetail from './ProjectDetail/ProjectDetail';
+import ProjectEdit from './ProjectEdit/ProjectEdit';
 
 class Admin extends React.Component {
   state = {
@@ -25,6 +27,11 @@ class Admin extends React.Component {
           onChange={this.selectDate}
         ></DatePicker> */}
         <Switch>
+          <Route
+            path={url + '/projects/:id/edit'}
+            component={ProjectEdit}
+          ></Route>
+          <Route path={url + '/projects/:id'} component={ProjectDetail}></Route>
           <Route path={url + '/projects'} component={Projects}></Route>
           <Redirect from={url} to={url + '/projects'}></Redirect>
         </Switch>

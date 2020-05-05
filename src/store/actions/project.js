@@ -1,6 +1,5 @@
 import * as actions from './actions';
 import * as api from '../api';
-import thunk from 'redux-thunk';
 
 export const fetchSuccess = (projects) => {
   return {
@@ -42,17 +41,18 @@ const fake = [
 
 export const onFetchProjects = () => {
   return (dispatch, getState) => {
-    setTimeout(() => {
-      dispatch(fetchSuccess(fake));
-    }, 2000);
-    // api
-    //   .getProjects(id)
-    //   .then((response) => {
-    //     console.log(response);
-    //     dispatch(fetchSuccess(response.data.projects));
-    //   })
-    //   .catch((error) => {
-    //     dispatch(fetchFail(error));
-    //   });
+    // setTimeout(() => {
+    //   dispatch(fetchSuccess(fake));
+    // }, 1000);
+    console.log(getState());
+    api
+      .getProjects(getState().auth.uid)
+      .then((response) => {
+        console.log(response);
+        dispatch(fetchSuccess(response.data.projects));
+      })
+      .catch((error) => {
+        dispatch(fetchFail(error));
+      });
   };
 };

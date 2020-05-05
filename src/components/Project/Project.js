@@ -3,7 +3,7 @@ import styles from './Project.module.css';
 
 const Project = (props) => {
   return (
-    <div className={styles.projBox}>
+    <div className={styles.projBox} onClick={props.clicked}>
       <p>{props.project.proj_name}</p>
       <p>
         Posted by: {props.project.subject_ame} {props.project.subject_code}

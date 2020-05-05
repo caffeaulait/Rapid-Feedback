@@ -10,12 +10,13 @@ class Projects extends React.Component {
   }
 
   projectSelectedHandler = (id) => {
-    this.props.history.push(this.props.map.path + '/' + id);
+    this.props.history.push(this.props.match.path + '/' + id);
   };
 
   render() {
     let projects = <p style={{ textAlign: 'center' }}>No projects Avaiable</p>;
-    if (!this.state) {
+
+    if (this.props.projects) {
       projects = this.props.projects.map((project) => {
         return (
           <Project
@@ -26,9 +27,12 @@ class Projects extends React.Component {
         );
       });
     }
+
     return (
       <div>
         <div>My projects:</div>
+        <button className='btn btn-danger'>Back</button>
+        <button className='btn btn-primary'>Create</button>
         {projects}
       </div>
     );
