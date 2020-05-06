@@ -39,3 +39,8 @@ div.box p {
   font-size: 1.5em;
   font-weight: bold;
 }
+
+.boxTop {
+  display: flex;
+  justify-content: space-between;
+}

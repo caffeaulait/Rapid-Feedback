@@ -61,10 +61,18 @@ class ProjectDetail extends React.Component {
             </button>
           </div>
           <div className={styles.box}>
-            <h2>
-              Posted by: {this.state.project.subject_code}{' '}
-              {this.state.project.subject_name}
-            </h2>
+            <div className={styles.boxTop}>
+              <h2>
+                Posted by: {this.state.project.subject_code}{' '}
+                {this.state.project.subject_name}
+              </h2>
+              <button
+                className='btn btn-outline-primary'
+                onClick={this.seeGroups}
+              >
+                See Groups >
+              </button>
+            </div>
             {/* <h3>Due: 31 Mar 2020</h3> */}
             <h3>
               Due: {day} {month} {year}
@@ -86,12 +94,6 @@ class ProjectDetail extends React.Component {
                 onClick={this.setCriteria}
               >
                 Set Criteria
-              </button>
-              <button
-                className='btn btn-outline-primary'
-                onClick={this.seeGroups}
-              >
-                See Groups >
               </button>
             </div>
           </div>
