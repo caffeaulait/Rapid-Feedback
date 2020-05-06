@@ -37,7 +37,7 @@ const deleteFail = (state, action) => {
 };
 
 const createSuccess = (state, action) => {
-  const newProject = state.project;
+  const newProject = action.project;
   return {
     ...state,
     projects: state.projects.concat(newProject),

@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/project';
 import styles from './ProjectDetail.module.css';
+import * as format from '../../../util/date';
 
 class ProjectDetail extends React.Component {
   state = {
@@ -47,6 +48,10 @@ class ProjectDetail extends React.Component {
     }
     let fullProj = <p>Fail to load project details</p>;
     if (this.state.project) {
+      const date = this.state.project.date;
+      const year = date.getFullYear();
+      const month = format.months[date.getMonth()];
+      const day = date.getDate();
       fullProj = (
         <div className={styles.outer}>
           <div className={styles.top}>
@@ -60,7 +65,10 @@ class ProjectDetail extends React.Component {
               Posted by: {this.state.project.subject_code}{' '}
               {this.state.project.subject_name}
             </h2>
-            <h3>Due: 31 Mar 2020</h3>
+            {/* <h3>Due: 31 Mar 2020</h3> */}
+            <h3>
+              Due: {day} {month} {year}
+            </h3>
             <p>{this.state.project.proj_description}</p>
 
             <div className={styles.btnGroup}>

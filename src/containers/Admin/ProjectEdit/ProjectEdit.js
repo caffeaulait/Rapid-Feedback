@@ -22,7 +22,7 @@ class ProjectEdit extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.props.location.search);
+    // console.log(this.props.location.search);
     const params = queryString.parse(this.props.location.search);
     const id = params.id;
     if (id != null) {
@@ -60,26 +60,29 @@ class ProjectEdit extends React.Component {
     // console.log(this.state);
     if (!this.state.id) {
       this.props.createProject(
-        this.state.subjectCode,
-        this.state.subjectName,
-        this.state.projectName,
-        this.state.durationMin,
-        this.state.durationSec,
-        this.state.description,
-        this.state.isGroup
+        // this.state.subjectCode,
+        // this.state.subjectName,
+        // this.state.projectName,
+        // this.state.durationMin,
+        // this.state.durationSec,
+        // this.state.description,
+        // this.state.isGroup
+        { ...this.state }
       );
     } else {
       this.props.updateProject(
-        this.state.id,
-        this.state.subjectCode,
-        this.state.subjectName,
-        this.state.projectName,
-        this.state.durationMin,
-        this.state.durationSec,
-        this.state.description,
-        this.state.isGroup
+        // this.state.id,
+        // this.state.subjectCode,
+        // this.state.subjectName,
+        // this.state.projectName,
+        // this.state.durationMin,
+        // this.state.durationSec,
+        // this.state.description,
+        // this.state.isGroup
+        { ...this.state }
       );
     }
+    this.props.history.push('/admin/projects');
   };
 
   selectDate = (newDate) => {
@@ -194,8 +197,8 @@ class ProjectEdit extends React.Component {
                   <input
                     type='radio'
                     name='isGroup'
-                    defaultChecked
                     value='group'
+                    checked={this.state.isGroup}
                     onChange={(event) => this.inputChange(event)}
                   />{' '}
                   <span>Group</span>
@@ -204,6 +207,7 @@ class ProjectEdit extends React.Component {
                     type='radio'
                     name='isGroup'
                     value='individual'
+                    checked={!this.state.isGroup}
                     onChange={(event) => this.inputChange(event)}
                   />{' '}
                   <span>Individual</span>
@@ -246,11 +250,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createProject: () => {
-      dispatch(actions.onCreateProject());
+    createProject: (data) => {
+      dispatch(actions.onCreateProject(data));
     },
-    updateProject: (id) => {
-      dispatch(actions.onUpdateProject(id));
+    updateProject: (data) => {
+      dispatch(actions.onUpdateProject(data));
     },
   };
 };
