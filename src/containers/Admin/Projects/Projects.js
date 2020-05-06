@@ -6,14 +6,29 @@ import styles from './Projects.module.css';
 
 class Projects extends React.Component {
   componentDidMount() {
-    this.props.fetchProjects();
+    if (this.props.projects.length === 0) {
+      console.log('fetching projects');
+      this.props.fetchProjects();
+    }
   }
 
-  projectSelectedHandler = (id) => {
-    this.props.history.push(this.props.match.path + '/' + id);
+  goBack = () => {
+    this.props.history.goBack();
+  };
+
+  goToCreate = () => {
+    this.props.history.push(this.props.match.path + '/edit');
+  };
+
+  projectSelectedHandler = (pid) => {
+    this.props.history.push(this.props.match.path + '/' + pid);
   };
 
   render() {
+    if (!this.props.isAuthenticated) {
+      this.props.history.replace('/login');
+    }
+
     let projects = <p style={{ textAlign: 'center' }}>No projects Avaiable</p>;
 
     if (this.props.projects) {
@@ -29,10 +44,22 @@ class Projects extends React.Component {
     }
 
     return (
-      <div>
-        <div>My projects:</div>
-        <button className='btn btn-danger'>Back</button>
-        <button className='btn btn-primary'>Create</button>
+      <div className={styles.outer}>
+        <h1>My projects:</h1>
+        <div className={styles.btnGroup}>
+          <button
+            className={'btn btn-danger ' + styles.back}
+            onClick={this.goBack}
+          >
+            Back
+          </button>
+          <button
+            className={'btn btn-primary ' + styles.create}
+            onClick={this.goToCreate}
+          >
+            Create
+          </button>
+        </div>
         {projects}
       </div>
     );

@@ -12,7 +12,7 @@ import { NavLink } from 'react-router-dom';
 
 class Home extends React.Component {
   componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   onChangeAvatar = () => {
@@ -32,9 +32,9 @@ class Home extends React.Component {
   };
 
   render() {
-    // if (!this.props.isAuthenticated) {
-    //   this.props.history.push('/login');
-    // }
+    if (!this.props.isAuthenticated) {
+      this.props.history.replace('/login');
+    }
 
     return (
       <Fragment>
@@ -56,7 +56,7 @@ class Home extends React.Component {
               <a alt='avatar' href='#' onClick={this.onChangeAvatar}>
                 <img src={Avatar} alt='avatar' className={styles.avatar}></img>
               </a>
-              <p>Welcome, Mr.{this.props.lastName}</p>
+              <p>Welcome, Mr/Mrs.{this.props.lastName}</p>
             </div>
             <div>
               <p>select one module to proceed</p>

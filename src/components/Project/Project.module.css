@@ -1,3 +1,25 @@
 .projBox {
   border: 2px solid gray;
+  margin: 1vw 0;
+  padding: 1vw;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.top p {
+  font-size: 1.2em;
+}
+
+.bottom {
+  display: flex;
+  margin-top: 5vh;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bottom span {
+  font-size: 1.3em;
 }

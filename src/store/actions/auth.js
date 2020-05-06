@@ -1,9 +1,5 @@
 import * as actions from './actions';
-import * as api from '../api';
-
-export const authStart = () => {
-  return { type: actions.AUTH_START };
-};
+import * as request from '../api';
 
 export const authSuccess = (token, uid, lastName, isCoordinator) => {
   return {
@@ -31,7 +27,6 @@ export const onSignUp = (
   isAdmin
 ) => {
   return (dispatch) => {
-    dispatch(authStart);
     const data = {
       uni_id: staffId,
       first_name: firstName,
@@ -40,8 +35,7 @@ export const onSignUp = (
       password,
       is_coordinator: isAdmin ? 1 : 0,
     };
-    // console.log(data);
-    api
+    request
       .signUp(data)
       .then((response) => {
         console.log(response);
@@ -51,7 +45,7 @@ export const onSignUp = (
           authSuccess(
             response.data.token,
             response.data.id,
-            response.daat.last_name,
+            response.data.last_name,
             response.data.is_coordinator
           )
         );
@@ -64,12 +58,11 @@ export const onSignUp = (
 
 export const onLogin = (email, password) => {
   return (dispatch) => {
-    dispatch(authStart);
     const data = {
       username: email,
       password,
     };
-    api
+    request
       .login(data)
       .then((response) => {
         console.log(response);

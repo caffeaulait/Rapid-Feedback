@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-const proxy = 'https://cors-anywhere.herokuapp.com/';
-// const proxy = '';
+// const proxy = 'https://cors-anywhere.herokuapp.com/';
+const proxy = '';
 
 const address =
   'http://ec2-13-211-29-46.ap-southeast-2.compute.amazonaws.com:8022/v1';
-// const adderss = 'localhost:'
 
 const instance = axios.create({
   timeout: 10000,
@@ -14,6 +13,7 @@ const instance = axios.create({
   headers: {
     'Content-Type': 'application/json;charset=utf-8',
   },
+  withCredentials: true,
 });
 
 //add token to the request headers
@@ -33,4 +33,16 @@ export const signUp = (data) => {
 
 export const getProjects = (id) => {
   return instance.get(`/projects/${id}`);
+};
+
+export const createProject = (data) => {
+  return instance.post('/projects', data);
+};
+
+export const updateProject = (data) => {
+  return instance.put(`/projects/${data.id}`, data);
+};
+
+export const deleteProject = (id) => {
+  return instance.delete(`/projects/${id}`);
 };
