@@ -12,4 +12,4 @@ Query parameter parser: query-string
 
 ---
 
-Deployement: https://rapid-feedback.herokuapp.com/
+Deployement: http://rapid-feedback.herokuapp.com/

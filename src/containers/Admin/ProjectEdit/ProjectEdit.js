@@ -59,28 +59,9 @@ class ProjectEdit extends React.Component {
     event.preventDefault();
     // console.log(this.state);
     if (!this.state.id) {
-      this.props.createProject(
-        // this.state.subjectCode,
-        // this.state.subjectName,
-        // this.state.projectName,
-        // this.state.durationMin,
-        // this.state.durationSec,
-        // this.state.description,
-        // this.state.isGroup
-        { ...this.state }
-      );
+      this.props.createProject({ ...this.state, uid: this.props.uid });
     } else {
-      this.props.updateProject(
-        // this.state.id,
-        // this.state.subjectCode,
-        // this.state.subjectName,
-        // this.state.projectName,
-        // this.state.durationMin,
-        // this.state.durationSec,
-        // this.state.description,
-        // this.state.isGroup
-        { ...this.state }
-      );
+      this.props.updateProject({ ...this.state, uid: this.props.uid });
     }
     this.props.history.push('/admin/projects');
   };
@@ -245,6 +226,7 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
     projects: state.proj.projects,
+    uid: state.auth.uid,
   };
 };
 

@@ -103,6 +103,7 @@ export const onCreateProject = (stateData) => {
     is_group: stateData.isGroup ? 1 : 0,
     proj_description: stateData.description,
     date: new Date(),
+    marker_id: stateData.uid,
   };
   console.log('creating project..');
   return (dispatch, getState) => {
@@ -144,6 +145,7 @@ export const onUpdateProject = (
     is_group: stateData.isGroup ? 1 : 0,
     proj_description: stateData.description,
     date: stateData.date,
+    marker_id: stateData.uid,
   };
   console.log('updateing project..');
   console.log(data);

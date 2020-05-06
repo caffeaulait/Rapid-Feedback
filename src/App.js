@@ -17,9 +17,11 @@ class App extends React.Component {
         <Route path='/signup' component={SignUp}></Route>
         <Route path='/logout' component={Logout}></Route>
         <Route path='/home' component={Home}></Route>
+
         <Route path='/admin' component={Admin}></Route>
         <Route path='/report' component={Report}></Route>
         <Route path='/assess' component={Assess}></Route>
+
         <Redirect from='/' to='/login'></Redirect>
       </Switch>
     );
@@ -40,8 +42,8 @@ routes:
 4. /admin                           N/A
       /projects                     list all projects
           /new                      add new project
+          /edit                     edit project detail
           /:id                      project overview
-              /edit                 edit project detail
               /groups               manage project groups
               /groups/add           add new groups 
               /students             manage project students
