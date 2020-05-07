@@ -118,7 +118,7 @@ export const onCreateProject = (stateData) => {
       .createProject(data, marker_id)
       .then((response) => {
         console.log(response);
-        dispatch(createSuccess(response.data.project));
+        dispatch(createSuccess(response.data));
       })
       .catch((err) => {
         dispatch(createFail);
@@ -159,7 +159,7 @@ export const onUpdateProject = (
       .updateProject(data)
       .then((response) => {
         console.log(response);
-        dispatch(updateSuccess(response.data.project));
+        dispatch(updateSuccess(response.data));
       })
       .catch((err) => {
         dispatch(updateFail(err));

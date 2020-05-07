@@ -31,7 +31,8 @@ class Projects extends React.Component {
 
     let projects = <p style={{ textAlign: 'center' }}>No projects Avaiable</p>;
 
-    if (this.props.projects) {
+    if (this.props.projects.length !== 0) {
+      console.log(this.props.projects);
       projects = this.props.projects.map((project) => {
         return (
           <Project
