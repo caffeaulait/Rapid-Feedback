@@ -78,18 +78,18 @@ export const onFetchProjects = () => {
 export const onDeleteProject = (id) => {
   //   console.log('deletion dispatched!');
   return (dispatch) => {
-    setTimeout(() => {
-      dispatch(deleteSuccess(id));
-    }, 1000);
-    // request
-    //   .deleteProject(id)
-    //   .then((response) => {
-    //     console.log(response);
-    //     dispatch(deleteSuccess(id));
-    //   })
-    //   .catch((err) => {
-    //     dispatch(delelteFail(err));
-    //   });
+    // setTimeout(() => {
+    //   dispatch(deleteSuccess(id));
+    // }, 1000);
+    request
+      .deleteProject(id)
+      .then((response) => {
+        console.log(response);
+        dispatch(deleteSuccess(id));
+      })
+      .catch((err) => {
+        dispatch(delelteFail(err));
+      });
   };
 };
 
