@@ -59,19 +59,19 @@ export const updateFail = (error) => {
 
 export const onFetchProjects = () => {
   return (dispatch, getState) => {
-    setTimeout(() => {
-      dispatch(fetchSuccess(fakeData));
-    }, 1000);
-    console.log(getState());
-    // request
-    //   .getProjects(getState().auth.uid)
-    //   .then((response) => {
-    //     console.log(response);
-    //     dispatch(fetchSuccess(response.data.projList));
-    //   })
-    //   .catch((error) => {
-    //     dispatch(fetchFail(error));
-    //   });
+    // setTimeout(() => {
+    //   dispatch(fetchSuccess(fakeData));
+    // }, 1000);
+    // console.log(getState());
+    request
+      .getProjects(getState().auth.uid)
+      .then((response) => {
+        console.log(response);
+        dispatch(fetchSuccess(response.data.projList));
+      })
+      .catch((error) => {
+        dispatch(fetchFail(error));
+      });
   };
 };
 
@@ -102,25 +102,27 @@ export const onCreateProject = (stateData) => {
     duration_sec: parseInt(stateData.durationSec),
     is_group: stateData.isGroup ? 1 : 0,
     proj_description: stateData.description,
-    date: new Date(),
-    marker_id: stateData.uid,
+    // date: new Date(),
+    // marker_id: stateData.uid,
   };
   console.log('creating project..');
+  //   console.log(stateData);
   return (dispatch, getState) => {
-    const newId = getState().proj.projects.length;
+    // const newId = getState().proj.projects.length;
     // console.log({ ...data, id: newId });
-    setTimeout(() => {
-      dispatch(createSuccess({ ...data, id: newId }));
-    }, 1000);
-    // request
-    //   .createProject(data)
-    //   .then((response) => {
-    //     console.log(response);
-    //     dispatch(createSuccess(response.data.project));
-    //   })
-    //   .catch((err) => {
-    //     dispatch(createFail);
-    //   });
+    // setTimeout(() => {
+    //   dispatch(createSuccess({ ...data, id: newId }));
+    // }, 1000);
+    const marker_id = stateData.uid;
+    request
+      .createProject(data, marker_id)
+      .then((response) => {
+        console.log(response);
+        dispatch(createSuccess(response.data.project));
+      })
+      .catch((err) => {
+        dispatch(createFail);
+      });
   };
 };
 
@@ -144,27 +146,28 @@ export const onUpdateProject = (
     duration_sec: parseInt(stateData.durationSec),
     is_group: stateData.isGroup ? 1 : 0,
     proj_description: stateData.description,
-    date: stateData.date,
-    marker_id: stateData.uid,
+    // date: stateData.date,
+    // marker_id: stateData.uid,
   };
   console.log('updateing project..');
   console.log(data);
   return (dispatch) => {
-    setTimeout(() => {
-      dispatch(updateSuccess(data));
-    }, 1000);
-    // request
-    //   .updateProject(data)
-    //   .then((response) => {
-    //     console.log(response);
-    //     dispatch(updateSuccess(response.data.project));
-    //   })
-    //   .catch((err) => {
-    //     dispatch(updateFail(err));
-    //   });
+    // setTimeout(() => {
+    //   dispatch(updateSuccess(data));
+    // }, 1000);
+    request
+      .updateProject(data)
+      .then((response) => {
+        console.log(response);
+        dispatch(updateSuccess(response.data.project));
+      })
+      .catch((err) => {
+        dispatch(updateFail(err));
+      });
   };
 };
 
+// eslint-disable-next-line no-unused-vars
 const fakeData = [
   {
     subject_code: 'COMP90082',
