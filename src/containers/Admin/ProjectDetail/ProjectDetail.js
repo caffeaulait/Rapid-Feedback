@@ -36,17 +36,38 @@ class ProjectDetail extends React.Component {
     }
   };
 
-  addMarker = () => {};
+  addMarker = () => {
+    this.props.history.push(`/admin/projects/${this.state.id}/markers`);
+  };
 
-  setCriteria = () => {};
+  setCriteria = () => {
+    this.props.history.push(`/admin/projects/${this.state.id}/criteria`);
+  };
 
-  seeGroups = () => {};
+  seeGroups = () => {
+    this.props.history.push(`/admin/projects/${this.state.id}/groups`);
+  };
+
+  seeStudents = () => {
+    this.props.history.push(`/admin/projects/${this.state.id}/students`);
+  };
 
   render() {
     if (!this.props.isAuthenticated) {
       this.props.history.replace('/login');
     }
     let fullProj = <p>Fail to load project details</p>;
+    const groupBtn = (
+      <button className='btn btn-outline-primary' onClick={this.seeGroups}>
+        See Groups >
+      </button>
+    );
+
+    const studentBtn = (
+      <button className='btn btn-outline-primary' onClick={this.seeStudents}>
+        See Students >
+      </button>
+    );
     if (this.state.project) {
       //   const date = this.state.project.date;
       //   const year = date.getFullYear();
@@ -66,12 +87,7 @@ class ProjectDetail extends React.Component {
                 Posted by: {this.state.project.subject_code}{' '}
                 {this.state.project.subject_name}
               </h2>
-              <button
-                className='btn btn-outline-primary'
-                onClick={this.seeGroups}
-              >
-                See Groups >
-              </button>
+              {this.state.project.is_group == 1 ? groupBtn : studentBtn}
             </div>
             <h3>Due: 31 Mar 2020</h3>
             {/* <h3>
