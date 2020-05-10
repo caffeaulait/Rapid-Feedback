@@ -8,14 +8,10 @@ import PropTypes from 'prop-types' ;
 class Markers extends React.Component {
 
   state = {
-    markers: [],
-    allMarkers: [{ Number: "2", Name: "John", Email: 'test@gmail.com', isSelected: false }],
     hasTerm: false,
     searchedMarker: [],
     isFound: false,
     isClick: false,
-    fetchMarkers: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.string.isRequired
   }
 
   componentDidMount() {
@@ -23,6 +19,9 @@ class Markers extends React.Component {
     if (this.props.allMarkers.length === 0) {
       console.log('fetching markers');
       this.props.fetchMarkers();
+    }
+    if(this.props.currentMarkers.length === 0){
+      this.props.fetchCurrentMarkers();
     }
   }
   // constructor(props) {
@@ -49,29 +48,33 @@ class Markers extends React.Component {
   }
 
   addMarker = (marker) => {
-    this.setState({ markers: [...this.state.markers, marker] })
-    let index = this.findMarkerIndex(marker);
-    let backUp = [...this.props.allMarkers];
-    backUp[index].isSelected = true;
-    this.setState({ allMarkers: backUp });
-    console.log("Addddddddd");
+    // this.setState({ markers: [...this.state.markers, marker] })
+    // let index = this.findMarkerIndex(marker);
+    // let backUp = [...this.props.allMarkers];
+    // backUp[index].isSelected = true;
+    // this.setState({ allMarkers: backUp });
+    // console.log("Addddddddd");
+    this.props.addCurrentMarker(marker);
   }
 
   deleteMarker = (marker) => {
-    let backUp = [...this.state.markers];
-    let array = this.state.markers.map(a => a.Number);
-    var index = array.indexOf(marker.Number)
-    if (index !== -1) {
-      backUp.splice(index, 1);
-      this.setState({ markers: backUp });
-    }
+    // let backUp = [...this.state.markers];
+    // let array = this.state.markers.map(a => a.Number);
+    // var index = array.indexOf(marker.Number)
+    // if (index !== -1) {
+    //   backUp.splice(index, 1);
+    //   this.setState({ markers: backUp });
+    // }
+
+    // this.props.deleteCurrentMarker(marker);
 
 
-    let index1 = this.findMarkerIndex(marker);
-    let backUp1 = [...this.props.allMarkers];
-    backUp1[index1].isSelected = false;
-    this.setState({ allMarkers: backUp1 });
-    console.log("Deleteeeeeeee");
+    // let index1 = this.findMarkerIndex(marker);
+    // let backUp1 = [...this.props.allMarkers];
+    // backUp1[index1].isSelected = false;
+    // this.setState({ allMarkers: backUp1 });
+    // console.log("Deleteeeeeeee");
+    this.props.deleteCurrentMarker(marker);
 
 
   }
@@ -97,7 +100,7 @@ class Markers extends React.Component {
     console.log(term);
     this.setState({ isClick: true });
     let slots = [];
-    slots = this.search(term, this.state.allMarkers);
+    slots = this.search(term, this.props.allMarkers);
     console.log(slots);
     if (slots.length > 0 ) {
       this.setState({ isFound: true });
@@ -132,7 +135,7 @@ class Markers extends React.Component {
           <button style={{ fontSize: '30px', padding: '10px 40px', color: 'white', background: '#003F8A', verticalAlign: 'top', borderRadius: '15px' }} onClick = {this.goBack}>Confirm</button>
         </div>
 
-        <CurrentMarkerView markers={this.state.markers} />
+        <CurrentMarkerView markers={this.props.currentMarkers} />
         <SearchBar allMarkers={this.props.allMarkers} addMarker={this.addMarker} deleteMarker={this.deleteMarker} onSubmit={this.onSearchSubmit}
           hasTerm={this.state.hasTerm} searchedMarker={this.state.searchedMarker} isFound={this.state.isFound} isClick={this.state.isClick} />
       </div>
@@ -144,6 +147,7 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
     allMarkers: state.marker.markers,
+    currentMarkers: state.marker.currentMarkers,
   };
 };
 
@@ -152,6 +156,17 @@ const mapDispatchToProps = (dispatch) => {
     fetchMarkers: () => {
       dispatch(actions.onFetchMarkers());
     },
+    fetchCurrentMarkers: () => {
+      dispatch(actions.onFetchCurrentMarkers());
+    },
+    addCurrentMarker: (marker) => {
+      dispatch(actions.addSuccess(marker));
+    },
+    deleteCurrentMarker: (marker) => {
+      dispatch(actions.deleteSuccess(marker));
+    },
+
+
   };
 };
 
