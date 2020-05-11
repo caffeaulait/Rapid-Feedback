@@ -4,6 +4,9 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Projects from './Projects/Projects';
 import ProjectDetail from './ProjectDetail/ProjectDetail';
 import ProjectEdit from './ProjectEdit/ProjectEdit';
+import Markers from './Markers/Markers';
+import Criteria from './Criteria/Criteria';
+import CriteriaConfirm from './CriteriaConfirm/CriteriaConfirm';
 import { connect } from 'react-redux';
 
 class Admin extends React.Component {
@@ -43,6 +46,18 @@ class Admin extends React.Component {
             path={url + '/projects/:pid/markers'}
             component={Markers}
           ></Route> */}
+          <Route
+            path={url + '/projects/:pid/criteriaConfirm'}
+            component={CriteriaConfirm}
+          ></Route>
+          <Route
+            path={url + '/projects/:pid/criteria'}
+            component={Criteria}
+          ></Route>
+          <Route
+            path={url + '/projects/:pid/markers'}
+            component={Markers}
+          ></Route> 
           <Route path={url + '/projects/edit'} component={ProjectEdit}></Route>
           <Route
             path={url + '/projects/:pid'}

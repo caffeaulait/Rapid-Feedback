@@ -1,0 +1,17 @@
+.titleAndSearch {
+    margin-left: 120 px;
+}
+
+.search-txt {
+    border-radius: 50px ;
+    padding:10px ;
+    border: 2px solid grey;
+    
+}
+
+img {
+    
+    left: 0;
+    vertical-align:bottom;
+    border: 10px solid transparent;
+}
