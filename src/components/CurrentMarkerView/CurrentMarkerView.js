@@ -4,7 +4,7 @@ import React from 'react';
 class CurrentMarkerView extends React.Component {
     render(){
         const selected = this.props.markers.map(marker => {
-            return <span style={{marginLeft:'60px'}}>{marker.Name}</span>
+            return <span key={marker.Number} style={{marginLeft:'60px'}}>{marker.Name}</span>
         })
         return (
             <div>

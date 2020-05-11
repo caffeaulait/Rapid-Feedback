@@ -14,7 +14,7 @@ class CriteriaList extends React.Component {
         const editItem = this.props.editItem;
         const criterias = this.props.criterias.map ( (criteria) => {
             console.log(id+criteria.id);
-            return <CriteriaItem criteria={criteria} deletCriteria = {() => deletCriteria(criteria)} editCriteria = {() => editCriteria(criteria)}
+            return <CriteriaItem key = {criteria.id} criteria={criteria} deletCriteria = {() => deletCriteria(criteria)} editCriteria = {() => editCriteria(criteria)}
             item={item} titleHandler={titleHandler} pointHandler = {pointHandler} handleSubmit = {handleSubmit} id={id+criteria.id}/>;
         })
 
