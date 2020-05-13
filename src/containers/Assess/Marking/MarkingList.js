@@ -13,16 +13,15 @@ class MarkingList extends React.Component {
 
 
     render() {
-        
-
-        const markingList = this.props.criteria ? this.props.criteria.map((c) => {
-            return <MarkingItem key = {c.id} criteria={c} result={this.props.result[this.findCriteriaIndex[c]]} />;
+        console.log(this.props.criteria)
+       
+        const markingList = this.props.criteria.length !== 0 ? this.props.criteria.map((c) => {
+            return <MarkingItem key = {c.id} criteria={c} result={this.props.result[this.findCriteriaIndex(c)]} updatePoint = {this.props.updatePoint}/>;
         }) : <p>loading....</p>
         return (
             <div>
 
                 {markingList}
-
 
             </div>
         )

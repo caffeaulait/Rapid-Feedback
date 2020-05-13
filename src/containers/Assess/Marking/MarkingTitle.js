@@ -27,11 +27,7 @@ class MarkingTitle extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="title"><span className="assTarget"><pre>{this.assTargetBuild()}</pre></span><ClockCount time={this.props.assTime} /><span className="score">{this.totalScore()}</span></div>
-                <MarkingList />Í
-            </div>
-
+            <div className="title"><span className="assTarget"><pre>{this.assTargetBuild()}</pre></span><ClockCount time={this.props.assTime} /><span className="score">{this.totalScore()}</span></div>
         )
     }
 }

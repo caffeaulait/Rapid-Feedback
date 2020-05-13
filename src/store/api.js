@@ -60,5 +60,5 @@ export const getCriterias = (id) => {
 }
 
 export const updateCriterias = (data) => {
-  return instance.put();
+  return instance.put(`/projects/${data.id}/setCriteria`, data);
 }
