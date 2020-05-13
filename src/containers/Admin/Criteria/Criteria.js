@@ -34,17 +34,10 @@ class Criteria extends React.Component {
 
     author: '',
 
-    criteriaLists: [{ id: "1", content: "voice, pace and confidence", points: "0" }
-      , { id: "2", content: "presentation structure", points: "0" }
-      , { id: "3", content: "quality of slides/visual aids", points: "0" }
-      , { id: "4", content: "knowledge of the material", points: "0" }
-      , { id: "5", content: "content", points: "0" }
-      , { id: "6", content: "concluding remarks", points: "0" }
-      , { id: "7", content: "other comments", points: "0" }
-    ],
+   
 
     id: 0,
-    item: { content: "", points: "" },
+    item: { id:"",content: "", points: "" },
     editItem: false
 
   }
@@ -60,6 +53,7 @@ class Criteria extends React.Component {
   //   id: 1,
   //   date: new Date(),
 
+
   componentDidMount() {
     const pid = this.props.match.params.pid;
     this.setState({ id: pid });
@@ -68,6 +62,10 @@ class Criteria extends React.Component {
     console.log(foundProj);
     this.setState({ project: foundProj });
     this.setState({author: author });
+    if (this.props.criteriaLists.length === 0) {
+      console.log('fetching criterias');
+      this.props.fetchCriteria();
+    }
   }
 
 
@@ -89,13 +87,19 @@ class Criteria extends React.Component {
     this.setState({ item: { content: this.state.item.content || '', points: e.target.value || "" } });
   }
 
+  nextID = (list) => {
+    console.log(Math.max.apply(Math, list));
+    return Math.max.apply(Math, list) + 1; 
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log(this.state.item);
     // this.setState({ criteriaLists: [...this.state.criteriaLists, this.state.item], editItem: false, item: { content: "", points: "" } })
     this.props.createCriteria(this.state.item);
     this.setState({editItem: false, item: { content: "", points: "" }})
     console.log("Add Successful")
-    console.log(this.state.criteriaLists)
+    console.log(this.props.criteriaLists)
   }
 
   findCriteriaIndex = (criteria) => {

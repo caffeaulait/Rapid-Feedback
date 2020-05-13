@@ -11,13 +11,12 @@ class CriteriaAdd extends React.Component {
 
 
             <div style={{ textAlign: "center" }}>
-                <button data-toggle="modal" data-target={"#" + id} className="mt-3 text-white" style={{ width: "100%", backgroundColor: "#003F8A", padding: "10px" }}>Add Criteria</button>
+                <button data-toggle="modal" data-target="#exampleModal"  className="mt-3 text-white" style={{ width: "100%", backgroundColor: "#003F8A", padding: "10px" }}>Add Criteria</button>
                 <Modal
                     titleHandler={titleHandler}
                     pointHandler={pointHandler}
                     handleSubmit={handleSubmit}
                     item={item}
-                    id={id}
                 />
             </div>
 

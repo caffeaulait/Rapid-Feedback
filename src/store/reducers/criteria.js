@@ -1,14 +1,7 @@
 import * as actions from '../actions/actions';
 
 const initialState = {
-    criterias: [{ id: "1", content: "voice, pace and confidence", points: "0" }
-        , { id: "2", content: "presentation structure", points: "0" }
-        , { id: "3", content: "quality of slides/visual aids", points: "0" }
-        , { id: "4", content: "knowledge of the material", points: "0" }
-        , { id: "5", content: "content", points: "0" }
-        , { id: "6", content: "concluding remarks", points: "0" }
-        , { id: "7", content: "other comments", points: "0" }
-    ],
+    criterias: [],
     criteriaError: null,
 };
 

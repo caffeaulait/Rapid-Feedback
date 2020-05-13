@@ -1,5 +1,6 @@
 import * as actions from './actions';
 import * as request from '../api';
+import {nextID} from '../../util/array';
 
 export const fetchSuccess = (criterias) => {
     return {
@@ -87,61 +88,69 @@ export const onFetchCriterias = () => {
 export const onDeleteCriteria = (id) => {
     console.log('deletion criteria!');
     return (dispatch) => {
-      setTimeout(() => {
-        dispatch(deleteSuccess(id));
-      }, 1000);
-    //   request
-    //     .deleteProject(id)
-    //     .then((response) => {
-    //       console.log(response);
-    //       dispatch(deleteSuccess(id));
-    //     })
-    //     .catch((err) => {
-    //       dispatch(delelteFail(err));
-    //     });
+        setTimeout(() => {
+            dispatch(deleteSuccess(id));
+        }, 1000);
+        //   request
+        //     .deleteProject(id)
+        //     .then((response) => {
+        //       console.log(response);
+        //       dispatch(deleteSuccess(id));
+        //     })
+        //     .catch((err) => {
+        //       dispatch(delelteFail(err));
+        //     });
     };
-  };
-  
-  export const onCreateCriteria = (stateData) => {
-    
+};
+
+
+
+
+export const onCreateCriteria = (stateData) => {
+
     console.log('creating criteria..');
     //   console.log(stateData);
     return (dispatch, getState) => {
-      const newId = getState().criteria.criterias.length;
-      console.log({ ...stateData, id: newId });
-      setTimeout(() => {
-        dispatch(createSuccess({ ...stateData, id: newId }));
-      }, 1000);
-    //   const marker_id = stateData.uid;
-    //   request
-    //     .createProject(data, marker_id)
-    //     .then((response) => {
-    //       console.log(response);
-    //       dispatch(createSuccess(response.data));
-    //     })
-    //     .catch((err) => {
-    //       dispatch(createFail);
-    //     });
+
+        let id = nextID(getState().criteria.criterias.map((item) => {
+            return Number(item.id);
+        }));
+        console.log(id);
+        const newId = id.toString();
+        console.log({ ...stateData, id: newId });
+        setTimeout(() => {
+            dispatch(createSuccess({ ...stateData, id: newId }));
+        }, 1000);
+        //   const marker_id = stateData.uid;
+        //   request
+        //     .createProject(data, marker_id)
+        //     .then((response) => {
+        //       console.log(response);
+        //       dispatch(createSuccess(response.data));
+        //     })
+        //     .catch((err) => {
+        //       dispatch(createFail);
+        //     });
     };
-  };
-  
-  export const onUpdateCriteria = (
-    
+};
+
+export const onUpdateCriteria = (
+
     stateData
-  ) => {
+) => {
     console.log('updateing criteria..');
     return (dispatch) => {
-      setTimeout(() => {
-        dispatch(updateSuccess(stateData));
-      }, 1000);
-    //   request
-    //     .updateProject(data)
-    //     .then((response) => {
-    //       console.log(response);
-    //       dispatch(updateSuccess(response.data));
-    //     })
-    //     .catch((err) => {
-    //       dispatch(updateFail(err));
-    //     });
+        setTimeout(() => {
+            dispatch(updateSuccess(stateData));
+        }, 1000);
+        //   request
+        //     .updateProject(data)
+        //     .then((response) => {
+        //       console.log(response);
+        //       dispatch(updateSuccess(response.data));
+        //     })
+        //     .catch((err) => {
+        //       dispatch(updateFail(err));
+        //     });
     };
-  };
+};

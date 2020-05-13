@@ -2,15 +2,20 @@ import React from 'react';
 import './SearchBar.css';
 import Search from '../../assets/images/search.png';
 import MarkerList from '../MarkerList/MarkerList';
+import SearchBox from '../SearchBox/SearchBox';
 
 class SearchBar extends React.Component {
 
 
     state = { term: '' };
 
-    onFormSubmit = () => {
-        this.props.onSubmit(this.state.term);
-
+    onFormSubmit = (term) => {
+        console.log("I'm here" + this.state.term);
+        // this.props.onSubmit(this.state.term);
+        this.props.onSubmit(term);
+    }
+    onChange = (term) => {
+        this.setState({ term: term })
     }
 
 
@@ -50,12 +55,13 @@ class SearchBar extends React.Component {
                             <th>Name</th>
                             <th>Email</th>
                             <th>
-                                <form onSubmit={this.onFormSubmit} className="form">
+                                {/* <form onSubmit={this.onFormSubmit} className="form">
                                     <div className="search-box">
                                         <input className="search-txt" type="text" value={this.state.term} placeholder='Search' onChange={e => this.setState({ term: e.target.value })}></input>
                                         <img src={Search} onClick={this.onFormSubmit}></img>
                                     </div>
-                                </form>
+                                </form> */}
+                                <SearchBox onSubmit={this.props.onSubmit} term={this.onChange}></SearchBox>
                             </th>
                         </tr>
 

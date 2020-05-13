@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from '../Modal/Modal';
+import Modal from '../ModalCopy/modalcopy';
 import './CriteriaItem.css';
 export default class CriteriaItem extends React.Component {
     render() {
@@ -10,7 +10,7 @@ export default class CriteriaItem extends React.Component {
                 <h6>{this.props.criteria.content}</h6>
                 <div className="todo-icon">
                     <span>Points: {this.props.criteria.points}</span>
-                    <span className="mx-2 text-success" data-toggle="modal" data-target={"#" + this.props.id} onClick={this.props.editCriteria}>
+                    <span className="mx-2 text-success" data-toggle="modal" data-target="#testModal" onClick={this.props.editCriteria}>
                         <i className="fas fa-pencil-alt"></i>
                     </span>
                     <Modal
@@ -19,7 +19,6 @@ export default class CriteriaItem extends React.Component {
                         handleSubmit={this.props.handleSubmit}
                         item={this.props.item}
                         editItem={this.props.editItem}
-                        id={this.props.id}
                     />
                     <span className="mx-2 text-danger" onClick={this.props.deletCriteria}>
                         <i className="fas fa-trash-alt"></i>
