@@ -47,14 +47,14 @@ class Grades extends React.Component {
         <div className={styles.left}>{tab}</div>
         <div className={styles.right}>
           <p> Below are marks for this student: </p>
-          <table>
+          <table className={styles.gradeTable}>
             <thead>
               <tr>
-                <th></th>
+                <th> </th>
                 <th>Grade</th>
                 <th>Marker</th>
                 <th>Date</th>
-                <th></th>
+                <th> </th>
               </tr>
             </thead>
             <tbody>{gradeRow}</tbody>

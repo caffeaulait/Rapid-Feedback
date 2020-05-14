@@ -16,7 +16,7 @@
   padding-left: 10vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  align-items: stretch;
 }
 
 .controlBtn {
@@ -31,5 +31,7 @@ div.btnGroup {
   margin-top: auto;
 }
 
-.gradeTable {
+table.gradeTable {
+  margin-top: 5vh;
+  table-layout: fixed;
 }
