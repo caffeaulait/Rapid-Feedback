@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Project.module.css';
-import * as format from '../../util/date';
+// import * as format from '../../util/date';
 
 const Project = (props) => {
   //   const date = props.project.date;

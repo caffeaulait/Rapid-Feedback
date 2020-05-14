@@ -41,7 +41,6 @@ routes:
 
 4. /admin                           N/A
       /projects                     list all projects
-          /new                      add new project
           /edit                     edit project detail
           /:id                      project overview
               /groups               manage project groups
@@ -50,7 +49,6 @@ routes:
               /students/add         add new students
               /marker               manage project marker
               /criteria             set project criteria
-              /criteriaWeight       set project criteria weights
               /criteriaConfirm      confirm project criteria
 
 5. /assess                          N/A

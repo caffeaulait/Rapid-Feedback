@@ -1,0 +1,35 @@
+.outer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 70vh;
+  margin: 5vh 5vw;
+}
+
+.left {
+  flex: 30%;
+}
+
+.right {
+  flex: 70%;
+  border-left: 1px solid grey;
+  padding-left: 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.controlBtn {
+  width: 8vw;
+  height: 4vw;
+}
+
+div.btnGroup {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.gradeTable {
+}
