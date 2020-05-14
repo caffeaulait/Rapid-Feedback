@@ -1,0 +1,35 @@
+.outer {
+  padding: 5%;
+  color: #003f8a;
+}
+
+div.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+h1 {
+  font-weight: bolder;
+}
+
+.cancel {
+  border-radius: 15px;
+}
+
+.formBox {
+  padding: 5%;
+  margin-top: 5%;
+  border: 2px solid gray;
+  font-weight: bolder;
+  font-size: large;
+}
+
+span {
+  font-size: medium;
+  color: grey;
+}
+
+.submit {
+  width: 10vw;
+  border-radius: 10px;
+}

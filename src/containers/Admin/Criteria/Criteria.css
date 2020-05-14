@@ -1,0 +1,16 @@
+.list-group-item:hover{ z-index: auto; }
+
+.Box {
+    display: flex;
+}
+
+.CriteriaCard {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    min-width: 60%;
+    margin-right: 5%;
+   
+    margin-top: 2% ;
+    background-color: #d8d8d8;
+    padding: 20px;
+    border: 2px solid #003F8A;
+}

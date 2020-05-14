@@ -1,17 +1,13 @@
-import axios from 'axios';
 import * as actions from './actions';
+import * as request from '../api';
 
-// const API_KEY = 'AIzaSyDkfsypS-20fgShtdrQzWKSZZRKa3GaCZo';
-
-export const authStart = () => {
-  return { type: actions.AUTH_START };
-};
-
-export const authSuccess = (token, uid) => {
+export const authSuccess = (token, uid, lastName, isCoordinator) => {
   return {
     type: actions.AUTH_SUCCESS,
     token,
     uid,
+    lastName,
+    isCoordinator,
   };
 };
 
@@ -31,7 +27,6 @@ export const onSignUp = (
   isAdmin
 ) => {
   return (dispatch) => {
-    dispatch(authStart);
     const data = {
       uni_id: staffId,
       first_name: firstName,
@@ -40,12 +35,20 @@ export const onSignUp = (
       password,
       is_coordinator: isAdmin ? 1 : 0,
     };
-    const url = '172.16.0.119:8099/v1/markers/register';
-    axios
-      .post(url, data)
+    request
+      .signUp(data)
       .then((response) => {
         console.log(response);
-        dispatch(authSuccess(response.token, response.id));
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('id', response.data.id);
+        dispatch(
+          authSuccess(
+            response.data.token,
+            response.data.id,
+            response.data.last_name,
+            response.data.is_coordinator
+          )
+        );
       })
       .catch((error) => {
         dispatch(authFail(error));
@@ -55,20 +58,35 @@ export const onSignUp = (
 
 export const onLogin = (email, password) => {
   return (dispatch) => {
-    dispatch(authStart);
     const data = {
-      uni_email: email,
+      username: email,
       password,
     };
-    const url = '172.16.0.119:8099/v1/markers/login';
-    axios
-      .post(url, data)
+    request
+      .login(data)
       .then((response) => {
         console.log(response);
-        dispatch(authSuccess(response.token, response.id));
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('id', response.data.id);
+        dispatch(
+          authSuccess(
+            response.data.token,
+            response.data.id,
+            response.data.last_name,
+            response.data.is_coordinator
+          )
+        );
       })
       .catch((error) => {
         dispatch(authFail(error));
       });
+  };
+};
+
+export const onLogout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('id');
+  return {
+    type: actions.AUTH_LOGOUT,
   };
 };

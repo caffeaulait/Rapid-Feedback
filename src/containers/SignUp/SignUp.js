@@ -12,7 +12,7 @@ class SignUp extends React.Component {
     password: '',
     confirm: '',
     email: '',
-    staffId: 0,
+    staffId: '',
     isAdmin: false,
   };
 
@@ -21,16 +21,18 @@ class SignUp extends React.Component {
     const value =
       type === 'isAdmin' ? event.target.checked : event.target.value;
     this.setState({ [type]: value });
-    console.log(value);
   };
 
   signUp = (event) => {
     event.preventDefault();
+    const id = parseInt(this.state.staffId);
     this.props.onAuthenticate(
+      id,
       this.state.email,
       this.state.password,
-      false,
-      this.state.isCoordinator
+      this.state.firstName,
+      this.state.lastName,
+      this.state.isAdmin
     );
   };
 
@@ -85,7 +87,7 @@ class SignUp extends React.Component {
               <div className='form-group'>
                 <label>Staff Number</label>
                 <input
-                  type='number'
+                  type='text'
                   name='staffId'
                   value={this.state.staffId}
                   className='form-control'

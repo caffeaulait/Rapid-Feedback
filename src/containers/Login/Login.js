@@ -18,7 +18,7 @@ class Login extends React.Component {
 
   login = (event) => {
     event.preventDefault();
-    this.props.onAuthenticate(this.state.email, this.state.password, true);
+    this.props.onAuthenticate(this.state.email, this.state.password);
   };
 
   goToSignUp = () => {
@@ -64,14 +64,14 @@ class Login extends React.Component {
               <button
                 type='submit'
                 className='btn btn-primary'
-                style={{ width: '140px' }}
+                style={{ width: '40%' }}
               >
                 Login
               </button>
               <button
                 onClick={this.goToSignUp}
                 className='btn btn-outline-dark'
-                style={{ float: 'right', width: '140px' }}
+                style={{ float: 'right', width: '40%' }}
               >
                 SignUp
               </button>

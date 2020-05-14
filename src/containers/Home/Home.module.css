@@ -1,0 +1,92 @@
+.main {
+  display: flex;
+  text-align: center;
+  height: 70vh;
+  margin-top: 10vh;
+  flex-wrap: nowrap;
+}
+
+.left {
+  flex: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-around;
+}
+
+.right {
+  flex: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.calendar {
+  width: 15%;
+  height: 5vh;
+}
+
+/* .info {
+  width:
+} */
+
+.avatar {
+  width: 10vh;
+  height: 10vh;
+}
+
+div.box {
+  width: 30vw;
+  align-self: center;
+}
+
+div.fst {
+  background-color: #003f8a;
+  height: 6vh;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+div.fst p {
+  width: 85%;
+}
+
+div.snd {
+  background-color: #adcdf0;
+  text-align: left;
+  color: #003f8a;
+}
+
+div.right > div:nth-child(1) {
+  background-color: #7cbdce;
+  width: 70%;
+}
+
+div.right > div:nth-child(2) {
+  background-color: #98d6c3;
+  width: 70%;
+}
+
+div.right > div:nth-child(3) {
+  background-color: #dae299;
+  width: 70%;
+}
+
+div.right div {
+  padding: 1vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.right img {
+  flex: 30%;
+}
+
+div.right p {
+  font-weight: bold;
+  font-size: 2em;
+  flex: 70%;
+}
