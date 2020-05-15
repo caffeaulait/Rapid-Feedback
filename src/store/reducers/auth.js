@@ -6,6 +6,7 @@ const initialState = {
   authError: null,
   lastName: '',
   isCoordinator: false,
+  authError: null,
 };
 
 const authSuccess = (state, action) => {
@@ -15,6 +16,7 @@ const authSuccess = (state, action) => {
     uid: action.uid,
     lastName: action.lastName,
     isCoordinator: action.isCoordinator,
+    authError: null,
   };
 };
 

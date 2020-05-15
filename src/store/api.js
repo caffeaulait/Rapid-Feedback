@@ -49,16 +49,16 @@ export const deleteProject = (id) => {
 
 export const getMarkers = (id) => {
   return instance.get();
-}
+};
 
 export const updateMarkers = (data) => {
   return instance.put();
-}
+};
 
 export const getCriterias = (id) => {
   return instance.get();
-}
+};
 
 export const updateCriterias = (data) => {
   return instance.put(`/projects/${data.id}/setCriteria`, data);
-}
+};

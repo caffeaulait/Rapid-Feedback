@@ -32,8 +32,34 @@ class Home extends React.Component {
   };
 
   render() {
+    let admin = null;
+    let assess = null;
+    let review = null;
     if (!this.props.isAuthenticated) {
       this.props.history.replace('/login');
+    }
+    if (this.props.isCoordinator) {
+      admin = (
+        <div onClick={this.goToAdmin}>
+          <img src={Admin} alt='admin'></img>
+          <p>Administration</p>
+        </div>
+      );
+    }
+
+    assess = (
+      <div onClick={this.goToAssess}>
+        <img src={Assess} alt='assess'></img>
+        <p>Real-time Assessment</p>
+      </div>
+    );
+    if (this.props.isCoordinator) {
+      review = (
+        <div onClick={this.gotToReport}>
+          <img src={Report} alt='report'></img>
+          <p>Report</p>
+        </div>
+      );
     }
 
     return (
@@ -65,20 +91,9 @@ class Home extends React.Component {
           </div>
 
           <div className={styles.right}>
-            <div onClick={this.goToAdmin}>
-              <img src={Admin} alt='admin'></img>
-              <p>Administration</p>
-            </div>
-
-            <div onClick={this.goToAssess}>
-              <img src={Assess} alt='assess'></img>
-              <p>Real-time Assessment</p>
-            </div>
-
-            <div onClick={this.gotToReport}>
-              <img src={Report} alt='report'></img>
-              <p>Report</p>
-            </div>
+            {admin}
+            {assess}
+            {review}
           </div>
         </div>
       </Fragment>
@@ -91,6 +106,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.auth.token !== null,
     error: state.auth.error,
     lastName: state.auth.lastName,
+    isCoordinator: state.auth.isCoordinator,
   };
 };
 

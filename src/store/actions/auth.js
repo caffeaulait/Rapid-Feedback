@@ -41,14 +41,15 @@ export const onSignUp = (
         console.log(response);
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('id', response.data.id);
-        dispatch(
-          authSuccess(
-            response.data.token,
-            response.data.id,
-            response.data.last_name,
-            response.data.is_coordinator
-          )
-        );
+        if (response.data)
+          dispatch(
+            authSuccess(
+              response.data.token,
+              response.data.id,
+              response.data.last_name,
+              response.data.is_coordinator
+            )
+          );
       })
       .catch((error) => {
         dispatch(authFail(error));
@@ -68,14 +69,16 @@ export const onLogin = (email, password) => {
         console.log(response);
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('id', response.data.id);
-        dispatch(
-          authSuccess(
-            response.data.token,
-            response.data.id,
-            response.data.last_name,
-            response.data.is_coordinator
-          )
-        );
+        if (response.data) {
+          dispatch(
+            authSuccess(
+              response.data.token,
+              response.data.id,
+              response.data.last_name,
+              response.data.is_coordinator
+            )
+          );
+        }
       })
       .catch((error) => {
         dispatch(authFail(error));
