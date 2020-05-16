@@ -4,9 +4,9 @@ const initialState = {
   token: null,
   uid: null,
   authError: null,
+  firstName: '',
   lastName: '',
   isCoordinator: false,
-  authError: null,
 };
 
 const authSuccess = (state, action) => {
@@ -14,6 +14,7 @@ const authSuccess = (state, action) => {
     ...state,
     token: action.token,
     uid: action.uid,
+    firstName: action.firstName,
     lastName: action.lastName,
     isCoordinator: action.isCoordinator,
     authError: null,

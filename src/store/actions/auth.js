@@ -1,11 +1,12 @@
 import * as actions from './actions';
 import * as request from '../api';
 
-export const authSuccess = (token, uid, lastName, isCoordinator) => {
+export const authSuccess = (token, uid, firstName, lastName, isCoordinator) => {
   return {
     type: actions.AUTH_SUCCESS,
     token,
     uid,
+    firstName,
     lastName,
     isCoordinator,
   };
@@ -46,6 +47,7 @@ export const onSignUp = (
             authSuccess(
               response.data.token,
               response.data.id,
+              response.data.first_name,
               response.data.last_name,
               response.data.is_coordinator
             )
@@ -74,6 +76,7 @@ export const onLogin = (email, password) => {
             authSuccess(
               response.data.token,
               response.data.id,
+              response.data.first_name,
               response.data.last_name,
               response.data.is_coordinator
             )
