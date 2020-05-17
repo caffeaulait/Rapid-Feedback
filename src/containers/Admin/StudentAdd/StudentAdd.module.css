@@ -1,0 +1,31 @@
+.sp{
+        display: inline-block;
+        width: 115px;
+        text-align: right;
+        margin-bottom: 5vh;
+        
+}
+.submit{
+    background:#003f8a;
+    height: 57px;
+    width: 171px;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 57px;
+    margin: 0 100px;
+}
+.cancel{
+    background:#e70b16;
+    height: 57px;
+    width: 171px;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 57px;
+    margin: 0 100px;
+}  
