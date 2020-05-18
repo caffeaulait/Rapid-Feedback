@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   proj: projectReducer,
   marker: markerReducer,
-  criteria: criteriaReducer
+  criteria: criteriaReducer,
   student: studentReducer,
   group: groupReducer
 })
