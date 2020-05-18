@@ -16,7 +16,7 @@ class MarkingList extends React.Component {
         console.log(this.props.criteria)
        
         const markingList = this.props.criteria.length !== 0 ? this.props.criteria.map((c) => {
-            return <MarkingItem key = {c.id} criteria={c} result={this.props.result[this.findCriteriaIndex(c)]} updatePoint = {this.props.updatePoint}/>;
+            return <MarkingItem key = {c.id} criteria={c} result={this.props.result[this.findCriteriaIndex(c)]} comments={this.props.comments} setId = {this.props.setId} addComments = {this.props.addComments} updateItem={this.props.updateItem} updatePoint = {this.props.updatePoint}/>;
         }) : <p>loading....</p>
         return (
             <div>
