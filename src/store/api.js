@@ -62,3 +62,36 @@ export const getCriterias = (id) => {
 export const updateCriterias = (data) => {
   return instance.put(`/projects/${data.id}/setCriteria`, data);
 }
+
+
+
+export const getStudents = (pid) => {
+  // /v1/students/{projectId}
+  return instance.get(`/students/${pid}`);
+};
+
+export const createStudent = (data) => {
+  // /v1/students
+  return instance.post(`/students`, data);
+};
+
+export const updateStudent = (data) => {
+  return instance.put();
+};
+
+export const deleteStudent = (pid, sid) => {
+  // /v1/students/{studentId}/{projectId}
+  return instance.delete(`/students/${sid}/${pid}`);
+};
+
+
+
+export const createGroup = (data) => {
+  // /v1/groups
+  return instance.post(`/groups`, data);
+};
+
+export const deleteGroup = (pid, gid) => {
+  // /v1/groups/{projectId}/{groupId}
+  return instance.delete(`/groups/${pid}/${gid}`);
+};
