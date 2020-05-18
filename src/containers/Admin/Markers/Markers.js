@@ -18,13 +18,13 @@ class Markers extends React.Component {
     const pid = this.props.match.params.pid;
     this.setState({ id: pid });
     console.log(this.props);
-    if(this.props.currentMarkers.length === 0){
-      this.props.fetchCurrentMarkers(pid);
-    }
-    if (this.props.allMarkers.length === 0) {
-      console.log('fetching markers');
-      this.props.fetchMarkers(pid);
-    }
+
+    this.props.fetchCurrentMarkers(pid);
+
+
+    console.log('fetching markers');
+    this.props.fetchMarkers(pid);
+
   }
   // constructor(props) {
   //   super(props);
@@ -119,7 +119,7 @@ class Markers extends React.Component {
 
   goBack = () => {
     console.log("click");
-    this.props.updateCurrentMarker(this.props.currentMarkers,this.state.id);
+    this.props.updateCurrentMarker(this.props.currentMarkers, this.state.id);
     this.props.history.goBack();
   };
 
@@ -198,8 +198,8 @@ const mapDispatchToProps = (dispatch) => {
     deleteCurrentMarker: (marker) => {
       dispatch(actions.deleteSuccess(marker));
     },
-    updateCurrentMarker: (markers,projectId) => {
-      dispatch(actions.onUpdateMarkers(markers,projectId))
+    updateCurrentMarker: (markers, projectId) => {
+      dispatch(actions.onUpdateMarkers(markers, projectId))
     }
 
 

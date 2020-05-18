@@ -128,11 +128,12 @@ export const onFetchMarkers = (pid) => {
                 isSelected: response1.data.markerIdList.includes(marker.id) ? true : false
               };
             })
+            let final = markerList.filter((marker) => marker.isSelected === false);
 
             console.log("........");
-            console.log(markerList);
+            console.log(final);
 
-            dispatch(fetchSuccess(markerList));
+            dispatch(fetchSuccess(final));
           })
           .catch((error) => {
             dispatch(fetchFail(error));
