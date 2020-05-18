@@ -7,10 +7,6 @@ import ProjectEdit from './ProjectEdit/ProjectEdit';
 import Markers from './Markers/Markers';
 import Criteria from './Criteria/Criteria';
 import CriteriaConfirm from './CriteriaConfirm/CriteriaConfirm';
-import Students from './Students/Students';
-import AddStudent from './StudentAdd/StudentAdd';
-import Groups from './Groups/Groups';
-import AddGroup from './GroupAdd/GroupAdd';
 import { connect } from 'react-redux';
 
 class Admin extends React.Component {
@@ -50,23 +46,6 @@ class Admin extends React.Component {
             path={url + '/projects/:pid/markers'}
             component={Markers}
           ></Route> */}
-          <Route
-            path={url + '/projects/:pid/students'}
-            exact
-            component={Students}
-          ></Route>
-          <Route
-            path={url + '/projects/:pid/students/add'}
-            component={AddStudent}
-          ></Route>
-          <Route 
-            path={url + '/projects/:pid/groups'} 
-            component={Groups}
-          ></Route>
-          <Route
-            path={url + '/projects/:pid/groups/add'}
-            component={AddGroup}
-          ></Route>
           <Route
             path={url + '/projects/:pid/criteriaConfirm'}
             component={CriteriaConfirm}
