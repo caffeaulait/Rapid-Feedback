@@ -84,7 +84,6 @@ class StudentAdd extends React.Component {
                 value={this.state.student.firstName || '' }
                 onChange={(event) => this.inputChange(event)}
                 style={{marginLeft:'10vh'}}/>
-            {/* </label> */}
             <br />
             <label className={styles.sp}>
               Last Name:
@@ -95,7 +94,6 @@ class StudentAdd extends React.Component {
                 value={this.state.student.lastName || '' }
                 onChange={(event) => this.inputChange(event)}
                 style={{marginLeft:'10vh'}}/>
-            {/* </label> */}
             <br />
             <label className={styles.sp}>
               Email:
@@ -106,21 +104,27 @@ class StudentAdd extends React.Component {
                 value={this.state.student.email || '' }
                 onChange={(event) => this.inputChange(event)}
                 style={{marginLeft:'10vh'}}/>
-            {/* </label> */}
             <br />
             <button className={styles.submit} type='submit'>
             submit
             </button>
+            <div style={{ marginTop:'5vh'}}>
+              <button className={styles.cancel} onClick={this.goBack}>
+                cancel
+              </button>
+              
+            </div>
+
           </form>
         </div>
         <br />
 
-        <div style={{display:'flex', marginLeft:'20vh', marginTop:'5vh'}}>
+        {/* <div style={{display:'flex', marginLeft:'20vh', marginTop:'5vh'}}>
           <button className={styles.cancel} onClick={this.goBack}>
             cancel
           </button>
           
-        </div>
+        </div> */}
 
       </div>
       

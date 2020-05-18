@@ -60,19 +60,19 @@ export const updateFail = (error) => {
 
 export const onFetchStudents = (pid) => {
   return (dispatch, getState) => {
-    // setTimeout(() => {
-    //   dispatch(fetchSuccess(fakeData));
-    // }, 1000);
-    // console.log(getState());
-    request
-      .getStudents(pid)
-      .then((response) => {
-        console.log(response);
-        dispatch(fetchSuccess(response.data));
-      })
-      .catch((error) => {
-        dispatch(fetchFail(error));
-      });
+    setTimeout(() => {
+      dispatch(fetchSuccess(fakeData));
+    }, 1000);
+    console.log(getState());
+    // request
+    //   .getStudents(pid)
+    //   .then((response) => {
+    //     console.log(response);
+    //     dispatch(fetchSuccess(response.data));
+    //   })
+    //   .catch((error) => {
+    //     dispatch(fetchFail(error));
+    //   });
   };
 };
 

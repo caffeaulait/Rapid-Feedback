@@ -5,6 +5,7 @@ import StudentCard from '../../../components/StudentCard/StudentCard';
 import styles from './Students.module.css';
 
 
+
 class Students extends React.Component {
   // constructor(props) {
   //   super(props);
@@ -60,7 +61,8 @@ class Students extends React.Component {
     const StudentTool = (props) => {
       return (
         <div className="studentToolContaner">
-          <h1 className="studentList">Student List</h1>
+          <h1 style={{fontSize:'40px', color:'#003f8a', fontWeight:'bold'}}>Student List</h1>
+          <br/>
           <button className={styles.back} onClick={this.goBack}>
             Back
                </button>
@@ -94,11 +96,11 @@ class Students extends React.Component {
           </button>
         </div> */}
 
-        <div style={{ marginLeft: '4vh', display: 'flex', fontSize: '30px', fontWeight: '900', height: '50px', borderBottom: '2px solid #cccccc' }}>
-          <p style={{ marginLeft: '3vh' }}>Number</p>
-          <p style={{ margin: '0 25vh' }}>Name</p>
+        <div style={{ marginTop: '5vh', display: 'flex', fontSize: '30px', fontWeight: '900', height: '50px', borderBottom: '2px solid #cccccc' }}>
+          <p>Number</p>
+          <p style={{ margin: '0 20vh' }}>Name</p>
           <p>Email</p>
-        </div>
+        </div>        
         <div>
           {students}
         </div>
