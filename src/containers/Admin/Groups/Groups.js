@@ -11,13 +11,28 @@ function RenderTabs(tabs,tab,changeTabs){
     if(!item.isshow){
       return null;
     }
+    if(idx === 0){
+      var tabname = "student"
+    }else{
+      var tabname1 = "group"
+    }
     return(
-        <li 
+      <div style={{display: 'flex', width:'50vh'}}>
+        <p 
+        style={{fontSize:'30px'}}
         key={item.index} 
         className = { tab === idx ? 'active' :'' }  
         onClick={()=>{changeTabs(idx)}}>
-        {item.name}{idx}
-        </li>
+        {tabname}
+        </p>
+        <p 
+        style={{fontSize:'30px'}}
+        key={item.index} 
+        className = { tab === idx ? 'active' :'' }  
+        onClick={()=>{changeTabs(idx)}}>
+        {tabname1}
+        </p>
+      </div>
     )
   })
 }
