@@ -62,8 +62,8 @@ export const updateMarkers = (id,data) => {
 
 export const getCriterias = (id) => {
   return instance.get();
-}
+};
 
 export const updateCriterias = (data) => {
   return instance.put(`/projects/${data.id}/setCriteria`, data);
-}
+};

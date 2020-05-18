@@ -157,7 +157,7 @@ class SignUp extends React.Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
-    error: state.auth.error,
+    error: state.auth.authError,
   };
 };
 
