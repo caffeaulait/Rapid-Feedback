@@ -24,7 +24,7 @@ class MarkerList extends React.Component {
             }
         )
         return (
-            <tbody>
+            <tbody className="MarkersTable">
                 {markers} 
             </tbody>
         );

@@ -73,70 +73,146 @@ export const updateFail = (error) => {
   };
 };
 
-export const onFetchMarkers = () => {
+export const onFetchMarkers = (pid) => {
   return (dispatch, getState) => {
-    setTimeout(() => {
-      dispatch(fetchSuccess([{ Number: "1", Name: "Doe", Email: 'test@gmail.com', isSelected: true },
-      { Number: "2", Name: "John", Email: 'test@gmail.com', isSelected: false },
-      { Number: "3", Name: "Alice", Email: 'test@gmail.com', isSelected: false }]));
-    }, 1000);
-    console.log(getState());
+    // setTimeout(() => {
+    //   dispatch(fetchSuccess([{ Number: "1", Name: "Doe", Email: 'test@gmail.com', isSelected: true },
+    //   { Number: "2", Name: "John", Email: 'test@gmail.com', isSelected: false },
+    //   { Number: "3", Name: "Alice", Email: 'test@gmail.com', isSelected: false }]));
+    // }, 1000);
+    // console.log(getState());
+    // let currentMarker = getState().marker.currentMarkers.map((marker) => {
+    //   return marker.id;
+    // });
 
 
-    //   request
-    //     .getMarkers(getState().auth.uid)
-    //     .then((response) => {
-    //       console.log(response);
-    //       dispatch(fetchSuccess([{ Number: "1", Name: "Doe", Email: 'test@gmail.com', isSelected: false },
-    //       { Number: "2", Name: "John", Email: 'test@gmail.com', isSelected: false },
-    //       { Number: "3", Name: "Alice", Email: 'test@gmail.com', isSelected: false }]));
+
+    // request
+    //   .getAllMarkers()
+    //   .then((response) => {
+    //     console.log(response);
+    //     let markerList = response.data.map((marker) => {
+    //       return {
+    //         id: marker.id,
+    //         Number: marker.uni_id,
+    //         Email: marker.uni_email,
+    //         Name: marker.first_name + " " + marker.last_name,
+    //         isSelected: currentMarker.includes(marker.id) ? true : false
+    //       };
     //     })
-    //     .catch((error) => {
-    //       dispatch(fetchFail(error));
-    //     });
+    //     console.log("........");
+    //     console.log(markerList);
+
+    //     dispatch(fetchSuccess(markerList));
+    //   })
+    //   .catch((error) => {
+    //     dispatch(fetchFail(error));
+    //   });
+
+      request
+      .getMarkers(pid)
+      .then((response1) => {
+        console.log("current......");
+        console.log(response1);
+        request
+          .getAllMarkers()
+          .then((response2) => {
+            console.log("alll......");
+            console.log(response2);
+            let markerList = response2.data.map((marker) => {
+              return {
+                id: marker.id,
+                Number: marker.uni_id,
+                Email: marker.uni_email,
+                Name: marker.first_name + " " + marker.last_name,
+                isSelected: response1.data.markerIdList.includes(marker.id) ? true : false
+              };
+            })
+            let final = markerList.filter((marker) => marker.isSelected === false);
+
+            console.log("........");
+            console.log(final);
+
+            dispatch(fetchSuccess(final));
+          })
+          .catch((error) => {
+            dispatch(fetchFail(error));
+          });
+      }).catch((error) => {
+        dispatch(fetchCurrentFail(error));
+      })
+
   };
 };
 
 
-export const onFetchCurrentMarkers = () => {
+export const onFetchCurrentMarkers = (pid) => {
   return (dispatch) => {
-    setTimeout(() => {
-      dispatch(fetchCurrentSuccess([{ Number: "1", Name: "Doe", Email: 'test@gmail.com', isSelected: false }]));
-    }, 1000);
+    // setTimeout(() => {
+    //   dispatch(fetchCurrentSuccess([]));
+    // }, 1000);
+
+    request
+      .getMarkers(pid)
+      .then((response1) => {
+        console.log(response1);
+        request
+          .getAllMarkers()
+          .then((response2) => {
+            console.log(response2);
+            let markerList = response2.data.map((marker) => {
+              return {
+                id: marker.id,
+                Number: marker.uni_id,
+                Email: marker.uni_email,
+                Name: marker.first_name + " " + marker.last_name,
+                isSelected: response1.data.markerIdList.includes(marker.id) ? true : false
+              };
+            })
+
+            let final = markerList.filter((marker) => marker.isSelected === true);
+            console.log("........");
+            console.log(markerList);
+
+            dispatch(fetchCurrentSuccess(final));
+          })
+          .catch((error) => {
+            dispatch(fetchFail(error));
+          });
+      }).catch((error) => {
+        dispatch(fetchCurrentFail(error));
+      })
+
   }
 }
 
 export const onUpdateMarkers = (
 
-  stateData
+  stateData, pid
 ) => {
-  const data = {
-    id: parseInt(stateData.id),
-    subject_code: stateData.subjectCode,
-    subject_name: stateData.subjectName,
-    proj_name: stateData.projectName,
-    duration_min: parseInt(stateData.durationMin),
-    duration_sec: parseInt(stateData.durationSec),
-    is_group: stateData.isGroup ? 1 : 0,
-    proj_description: stateData.description,
-    // date: stateData.date,
-    // marker_id: stateData.uid,
-  };
+  const data = stateData.map((marker) => {
+    return Number(marker.id);
+  });
   console.log('updateing project..');
   console.log(data);
   return (dispatch) => {
     // setTimeout(() => {
     //   dispatch(updateSuccess(data));
     // }, 1000);
-    request
-      .updateProject(data)
-      .then((response) => {
-        console.log(response);
-        dispatch(updateSuccess(response.data));
-      })
-      .catch((err) => {
-        dispatch(updateFail(err));
-      });
+    data.map((markerId) => {
+      console.log(typeof markerId);
+      request
+        .updateMarkers(pid, markerId)
+        .then((response) => {
+          console.log(response);
+          // dispatch(updateSuccess(response.data));
+        })
+        .catch((err) => {
+          console.log(err);
+          dispatch(updateFail(err));
+        });
+    })
+
   };
 };
 

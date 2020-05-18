@@ -17,6 +17,13 @@ class Marking extends React.Component {
         { id: "3", point: 0, comment: "" },
         { id: "4", point: 5, comment: "" },
         { id: "5", point: 0, comment: "" }],
+        comments: [{id: "1", content: "good", type:"green"},
+        {id: "2", content: "need improve", type:"red"},
+        {id: "3", content: "so so", type:"yellow"},
+        {id: "4", content: "great", type:"green"},
+        {id: "5", content: "suggest", type:"red"},
+        {id: "6", content: "normal", type:"yellow"}
+                    ]
 
     }
 
@@ -42,8 +49,7 @@ class Marking extends React.Component {
                 <MarkingTitle assTarget={this.state.assTarget} assTime={this.state.assTime} result={this.state.result} criteria={this.state.criteria}></MarkingTitle>
                 <MarkingList result={this.state.result} criteria={this.state.criteria} updatePoint={this.handleUpdatePoint} />
                 <div style={{ display:"table",width:"100%", bottom: "0", textAlign: "middle", marginTop:"2%" }}>
-                    <div style={{ display:"table-cell",width:"45%",textAlign: "center"}}> <button style={{ position:"relative", top:"50%",left:"50",fontSize: '20px', padding: '15px 25px', color: 'white', background: '#003F8A', borderRadius: '15px', width: "20%", verticalAlign: 'buttom'}} onClick={this.goBack} >Back</button></div>
-                   
+                    <div style={{ display:"table-cell",width:"45%",textAlign: "center"}}> <button style={{ position:"relative", top:"50%",left:"50",fontSize: '20px', padding: '15px 25px', color: 'white', background: '#003F8A', borderRadius: '15px', width: "20%", verticalAlign: 'buttom'}} onClick={this.goBack} >Back</button></div>         
                     <div style={{ display:"table-cell",width:"45%",textAlign: "center"}}><button style={{ position:"relative", top:"50%",left:"50",fontSize: '20px', padding: '15px 25px', color: 'white', background: '#003F8A', borderRadius: '15px', width: "20%", verticalAlign: 'buttom' }} onClick={this.goBackToProject}>Confirm</button></div>
                 </div>
             </div>

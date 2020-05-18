@@ -10,7 +10,8 @@ export default class SearchBox extends React.Component {
 
 
 
-    onFormSubmit = () => {
+    onFormSubmit = (e) => {
+        e.preventDefault();
         this.props.onSubmit(this.state.term);
         this.props.term(this.state.term)
     }
@@ -20,7 +21,7 @@ export default class SearchBox extends React.Component {
             <form onSubmit={this.onFormSubmit} className="form">
                 <div className="search-box">
                     <input className="search-txt" type="text" value={this.state.term} placeholder='Search' onChange={e => {this.setState({ term: e.target.value })}}></input>
-                    <img src={Search} onClick={this.onFormSubmit}></img>
+                    <img className="serachImg" src={Search} onClick={this.onFormSubmit}></img>
                 </div>
             </form>
         );

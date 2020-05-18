@@ -47,18 +47,23 @@ export const deleteProject = (id) => {
   return instance.delete(`/projects/${id}`);
 };
 
-export const getMarkers = (id) => {
-  return instance.get();
+export const getAllMarkers = () => {
+  return instance.get(`/markers/all`);
 }
 
-export const updateMarkers = (data) => {
-  return instance.put();
+export const getMarkers = (id) => {
+  return instance.get(`/projects/${id}/getMarker`);
+}
+
+export const updateMarkers = (id,data) => {
+  console.log(instance);
+  return instance.post(`/projects/${id}/addMarker`,data);
 }
 
 export const getCriterias = (id) => {
   return instance.get();
-}
+};
 
 export const updateCriterias = (data) => {
   return instance.put(`/projects/${data.id}/setCriteria`, data);
-}
+};

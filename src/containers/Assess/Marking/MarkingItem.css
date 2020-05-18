@@ -31,6 +31,7 @@
 .commentsArea {
     height:100%;
     width:85%;
+    background-color: rgb(202, 198, 198);
 }
 
 .addButton {

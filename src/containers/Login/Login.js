@@ -26,6 +26,13 @@ class Login extends React.Component {
   };
   render() {
     let redirect = null;
+    let err = null;
+    if (this.props.error)
+      err = (
+        <p style={{ color: 'red' }}>
+          <small>Incorrect Username or Password!</small>
+        </p>
+      );
     if (this.props.isAuthenticated) {
       redirect = <Redirect to='/home' />;
     }
@@ -61,6 +68,7 @@ class Login extends React.Component {
                   onChange={(event) => this.inputChange(event)}
                 />
               </div>
+              {err}
               <button
                 type='submit'
                 className='btn btn-primary'
@@ -86,7 +94,7 @@ class Login extends React.Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
-    error: state.auth.error,
+    error: state.auth.authError,
   };
 };
 
