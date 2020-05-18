@@ -10,19 +10,19 @@ class ProjectInforCard extends React.Component {
                     <h1 className="courseInfo">{this.props.project.subject_code+" "+this.props.project.subject_name}</h1>
                 </div>
                 <div className="line">
-                    <label>Project Name:</label>
+                    <label className="pLabel">Project Name:</label>
                     <div className="info" > {this.props.project.proj_name}</div>
                 </div>
                 <div className="line">
-                    <label>Assessment Target:</label>
+                    <label className="pLabel">Assessment Target:</label>
                     <div className="info" > {this.props.project.is_group === 1 ? "Group" : "Individual"}</div>
                 </div>
                 <div className="line">
-                    <label>Assessment Duration:</label>
+                    <label className="pLabel">Assessment Duration:</label>
                     <div className="info" > {this.props.project.duration_min+" mins "+this.props.project.duration_min+" secs "}</div>
                 </div>
                 <div className="line">
-                    <label>Created By:</label>
+                    <label className="pLabel">Created By:</label>
                     <div className="info" > {this.props.author}</div>
                 </div>
             </div>
