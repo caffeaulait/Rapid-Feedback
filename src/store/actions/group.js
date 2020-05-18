@@ -43,19 +43,19 @@ export const addFail = (error) => {
 }
 
 
-export const deleteSuccess = (member) => {
-  return {
-    type: actions.DELETE_CURRENT_MEMEBR_SUCCESS,
-    member,
-  }
-}
+// export const deleteSuccess = (member) => {
+//   return {
+//     type: actions.DELETE_CURRENT_MEMEBR_SUCCESS,
+//     member,
+//   }
+// }
 
-export const deleteFail = (error) => {
-  return {
-    type: actions.DELETE_CURRENT_MEMEBR_FAIL,
-    error,
-  }
-}
+// export const deleteFail = (error) => {
+//   return {
+//     type: actions.DELETE_CURRENT_MEMEBR_FAIL,
+//     error,
+//   }
+// }
 
 export const createSuccess = (group) => {
   return {

@@ -60,19 +60,19 @@ export const updateFail = (error) => {
 
 export const onFetchStudents = (pid) => {
   return (dispatch, getState) => {
-    setTimeout(() => {
-      dispatch(fetchSuccess(fakeData));
-    }, 1000);
-    console.log(getState());
-    // request
-    //   .getStudents(pid)
-    //   .then((response) => {
-    //     console.log(response);
-    //     dispatch(fetchSuccess(response.data));
-    //   })
-    //   .catch((error) => {
-    //     dispatch(fetchFail(error));
-    //   });
+    // setTimeout(() => {
+    //   dispatch(fetchSuccess(fakeData));
+    // }, 1000);
+    // console.log(getState());
+    request
+      .getStudents(pid)
+      .then((response) => {
+        console.log(response);
+        dispatch(fetchSuccess(response.data));
+      })
+      .catch((error) => {
+        dispatch(fetchFail(error));
+      });
   };
 };
 
@@ -155,6 +155,7 @@ const fakeData = [
     first_name: "mia",
     last_name: "smith",
     uni_email: "mias@gmail.com",
+    group_id: 0,
     id: 0,
   },
   {
@@ -162,6 +163,7 @@ const fakeData = [
     first_name: "jerry",
     last_name: "stan",
     uni_email: "jerrys@gmail.com",
+    group_id: 0,
     id: 1,
   },
   {
@@ -169,6 +171,31 @@ const fakeData = [
     first_name: "chris",
     last_name: "stuwart",
     uni_email: "chris@gmail.com",
+    group_id: 0,
     id: 2,
+  },
+  {
+    uni_student_number: 123321,
+    first_name: "mia1",
+    last_name: "smith1",
+    uni_email: "mias@gmail.com",
+    group_id: 1,
+    id: 4,
+  },
+  {
+    uni_student_number: 456654,
+    first_name: "jerry1",
+    last_name: "stan1",
+    uni_email: "jerrys@gmail.com",
+    group_id: 1,
+    id: 5,
+  },
+  {
+    uni_student_number: 789987,
+    first_name: "chris1",
+    last_name: "stuwart1",
+    uni_email: "chris@gmail.com",
+    group_id: 1,
+    id: 6,
   },
 ];

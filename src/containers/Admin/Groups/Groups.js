@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../../store/actions/student';
+import * as actions1 from '../../../store/actions/group';
+import * as actions2 from '../../../store/actions/student';
 import StudentCard from '../../../components/StudentCard/StudentCard';
 import GroupCard from '../../../components/GroupCard/GroupCard';
 import styles from './Groups.module.css';
@@ -74,6 +75,10 @@ class Groups extends React.Component {
     this.props.history.push(`/admin/projects/${this.state.projectid}/students/add`);
   };
 
+  goToAddGroup = () => {
+    this.props.history.push(`/admin/projects/${this.state.projectid}/groups/add`);
+  };
+
   delStudent = (pid, sid) => {
 
     this.props.deleteStudent(pid, sid);
@@ -81,7 +86,7 @@ class Groups extends React.Component {
 
   delGroup = (pid, gid) => {
 
-    this.props.deleteStudent(pid, gid);
+    this.props.deleteGroup(pid, gid);
   };
   
 
@@ -130,37 +135,6 @@ class Groups extends React.Component {
       /> 
       )  
     }); 
-    // var map = {},
-    //   groups = [];
-    // for (var i = 0; i < arr.length; i++) {
-    //   var ai = arr[i];
-    //   if (map[ai.group_id]) {
-    //     groups.push({
-    //       id: ai.group_id,
-    //       data: [ai]
-    //     });
-    //     map[ai.group_id] = ai;
-    //   } else {
-    //     for (var j = 0; j < groups.length; j++) {
-    //       var dj = groups[j];
-    //       if (dj.id == ai.group_id) {
-    //         dj.data.push(ai);
-    //         break;
-    //       }
-    //     }
-    //   }
-    // }
-    // if (groups) {
-    //   groups = groups.map((group) => {
-    //     return (
-    //       <GroupCard
-    //         groupid = {group.id}
-    //         student = {group.data}
-    //         delete={() => this.delGroup(this.state.projectid, group.id)}
-    //       />
-    //     );
-    //   });
-    // }
 
 
     const StudentTool = (props) => {
@@ -212,7 +186,25 @@ class Groups extends React.Component {
           )
           break;
         case 1:
-          return <div>{groups}</div>
+          return (
+            <div style={{ margin: '5vh 20vh' }}>
+              <div className="groupToolContaner">
+              <h1 style={{fontSize:'40px', color:'#003f8a', fontWeight:'bold'}}>Group List</h1>
+              <button className={styles.back} onClick={this.goBack}>
+                Back
+                  </button>
+              <button className={styles.add} onClick={this.goToAddGroup}>
+                Add
+                  </button>
+            </div>
+            <div style={{ marginTop: '5vh', marginLeft:'7vh', marginBottom: '-2vh', display: 'flex', fontSize: '30px', fontWeight: '900', height: '50px'}}>
+              <p style={{ marginRight: '10vh' }}>Group</p>
+              <p style={{ margin: '0 20vh' }}>Number</p>
+              <p style={{ marginLeft: '10vh' }}>Name</p>
+            </div>  
+            <div>{groups}</div>
+            </div>
+          )
           break;
         default:
           break;
@@ -269,10 +261,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchStudents: (pid) => {
-      dispatch(actions.onFetchStudents(pid));
+      dispatch(actions2.onFetchStudents(pid));
     },
     deleteStudent: (pid, sid) => {
-      dispatch(actions.onDeleteStudent(pid, sid));
+      dispatch(actions2.onDeleteStudent(pid, sid));
+    },
+    deleteGroup: (pid, gid) => {
+      dispatch(actions1.onDeleteGroup(pid, gid));
     },
   };
 };

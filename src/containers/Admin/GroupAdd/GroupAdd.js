@@ -3,8 +3,9 @@ import SearchBar from '../../../components/SearchBar/SearchBar';
 import CurrentMarkerView from '../../../components/CurrentMarkerView/CurrentMarkerView';
 import * as actions from '../../../store/actions/markers';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-class GroupAdd extends React.Component {
+class Markers extends React.Component {
   state = {
     hasTerm: false,
     searchedMarker: [],
@@ -138,7 +139,7 @@ class GroupAdd extends React.Component {
               marginRight: '-30%',
             }}
           >
-            Add Marker
+            Add New Group
           </h1>
           <button
             style={{
@@ -174,15 +175,15 @@ class GroupAdd extends React.Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
-    allMarkers: state.student.students,
+    allMarkers: state.marker.markers,
     currentMarkers: state.marker.currentMarkers,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchStudents: (pid) => {
-        dispatch(actions.onFetchStudents(pid));
+    fetchMarkers: () => {
+      dispatch(actions.onFetchMarkers());
     },
     fetchCurrentMarkers: () => {
       dispatch(actions.onFetchCurrentMarkers());
@@ -196,4 +197,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupAdd);
+export default connect(mapStateToProps, mapDispatchToProps)(Markers);
