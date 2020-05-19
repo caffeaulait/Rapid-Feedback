@@ -11,6 +11,8 @@ import authReducer from './store/reducers/auth';
 import projectReducer from './store/reducers/project';
 import markerReducer from './store/reducers/marker';
 import criteriaReducer from './store/reducers/criteria';
+import studentReducer from './store/reducers/student';
+import groupReducer from './store/reducers/group';
 
 //enable redux devtools
 const enhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -19,7 +21,9 @@ const rootReducer = combineReducers({
   auth: authReducer,
   proj: projectReducer,
   marker: markerReducer,
-  criteria: criteriaReducer
+  criteria: criteriaReducer,
+  student: studentReducer,
+  group: groupReducer
 })
 
 const store = createStore(rootReducer, enhancers(applyMiddleware(thunk)));
