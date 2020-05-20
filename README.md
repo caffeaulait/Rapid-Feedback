@@ -12,6 +12,8 @@ Query parameter parser: query-string
 
 Testing: enzyme, react-test-renderer, enzyme-adapter-react-16, jest
 
+ReadFile: xlsx, papaparse
+
 ---
 
 Deployement: http://rapid-feedback.herokuapp.com/
