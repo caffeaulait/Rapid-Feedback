@@ -59,8 +59,8 @@ class Admin extends React.Component {
             path={url + '/projects/:pid/students/add'}
             component={AddStudent}
           ></Route>
-          <Route 
-            path={url + '/projects/:pid/groups'} 
+          <Route
+            path={url + '/projects/:pid/groups'}
             component={Groups}
           ></Route>
           <Route
@@ -78,7 +78,7 @@ class Admin extends React.Component {
           <Route
             path={url + '/projects/:pid/markers'}
             component={Markers}
-          ></Route> 
+          ></Route>
           <Route path={url + '/projects/edit'} component={ProjectEdit}></Route>
           <Route
             path={url + '/projects/:pid'}

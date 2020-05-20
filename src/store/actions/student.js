@@ -33,7 +33,7 @@ export const deleteSuccess = (pid, sid) => {
   return {
     type: actions.DELETE_STUDENT_SUCCESS,
     pid,
-    sid
+    sid,
   };
 };
 
@@ -54,6 +54,20 @@ export const updateSuccess = (student) => {
 export const updateFail = (error) => {
   return {
     type: actions.UPDATE_STUDENT_FAIL,
+    error,
+  };
+};
+
+export const importSuccess = (students) => {
+  return {
+    type: actions.IMPORT_STUDENTS_SUCCESS,
+    students,
+  };
+};
+
+export const importFail = (error) => {
+  return {
+    type: actions.IMPORT_STUDENTS_FAIL,
     error,
   };
 };
@@ -101,7 +115,7 @@ export const onCreateStudent = (stateData, pid) => {
     first_name: stateData.firstName,
     last_name: stateData.lastName,
     uni_email: stateData.email,
-    project_id: pid
+    project_id: pid,
   };
   console.log('creating student..');
   //   console.log(stateData);
@@ -149,52 +163,78 @@ export const onUpdateStudent = (stateData) => {
   };
 };
 
+export const onImportStudents = (pid, students) => {
+  const data = {
+    project_id: parseInt(pid),
+    studentList: students.map((student) => {
+      return {
+        uni_student_number: parseInt(student.number),
+        first_name: student.firstName,
+        last_name: student.lastName,
+        uni_email: student.email,
+      };
+    }),
+  };
+  console.log(data);
+  return (dispatch) => {
+    request
+      .importStudents(data)
+      .then((response) => {
+        console.log(response);
+        dispatch(importSuccess(response.data.studentList));
+      })
+      .catch((err) => {
+        dispatch(importFail(err));
+      });
+  };
+};
+
 const fakeData = [
   {
     uni_student_number: 123321,
-    first_name: "mia",
-    last_name: "smith",
-    uni_email: "mias@gmail.com",
+    first_name: 'mia',
+    last_name: 'smith',
+    uni_email: 'mias@gmail.com',
     group_id: 0,
     id: 0,
   },
   {
     uni_student_number: 456654,
-    first_name: "jerry",
-    last_name: "stan",
-    uni_email: "jerrys@gmail.com",
+    first_name: 'jerry',
+    last_name: 'stan',
+    uni_email: 'jerrys@gmail.com',
     group_id: 0,
     id: 1,
   },
   {
     uni_student_number: 789987,
-    first_name: "chris",
-    last_name: "stuwart",
-    uni_email: "chris@gmail.com",
+    first_name: 'chris',
+    last_name: 'stuwart',
+    uni_email: 'chris@gmail.com',
     group_id: 0,
     id: 2,
   },
   {
     uni_student_number: 123321,
-    first_name: "mia1",
-    last_name: "smith1",
-    uni_email: "mias@gmail.com",
+    first_name: 'mia1',
+    last_name: 'smith1',
+    uni_email: 'mias@gmail.com',
     group_id: 1,
     id: 4,
   },
   {
     uni_student_number: 456654,
-    first_name: "jerry1",
-    last_name: "stan1",
-    uni_email: "jerrys@gmail.com",
+    first_name: 'jerry1',
+    last_name: 'stan1',
+    uni_email: 'jerrys@gmail.com',
     group_id: 1,
     id: 5,
   },
   {
     uni_student_number: 789987,
-    first_name: "chris1",
-    last_name: "stuwart1",
-    uni_email: "chris@gmail.com",
+    first_name: 'chris1',
+    last_name: 'stuwart1',
+    uni_email: 'chris@gmail.com',
     group_id: 1,
     id: 6,
   },
