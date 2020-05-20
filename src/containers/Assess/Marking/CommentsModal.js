@@ -6,12 +6,12 @@ import {nextID} from "../../../util/array";
 
 class Modal extends Component {
     state = {
-        comments: [{id: "1", content: "good", type:"green"},
-        {id: "2", content: "need improve", type:"red"},
-        {id: "3", content: "so so", type:"yellow"},
-        {id: "4", content: "great", type:"green"},
-        {id: "5", content: "suggest", type:"red"},
-        {id: "6", content: "normal", type:"yellow"}],
+        comments: [{id: "1", content: "good", type:"Well"},
+        {id: "2", content: "need improve", type:"Need Improve"},
+        {id: "3", content: "so so", type:"Normal"},
+        {id: "4", content: "great", type:"Well"},
+        {id: "5", content: "beautiful", type:"Normal"},
+        {id: "6", content: "normal", type:"Normal"}],
         item:''
     }
 
@@ -19,13 +19,13 @@ class Modal extends Component {
         this.setState({item:e.target.value});
     }
 
-    addNewComments = (comments) => {
+    addNewComments = (comments,type) => {
         let id = nextID(this.state.comments.map((item) => {
             return Number(item.id);
         }));
         const newId = id.toString();
 
-        let target = {id:newId,content:comments,type:"red"};
+        let target = {id:newId,content:comments,type:type};
         this.setState({comments:[...this.state.comments,target]});
 
     }
@@ -40,7 +40,7 @@ class Modal extends Component {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Create New Criteria</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Comments Library</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

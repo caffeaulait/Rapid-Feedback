@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import List from 'react-list-select'
+import List from 'react-list-select';
+import "./CommentsList.css";
 
 export default class CommentsList extends React.Component {
 
@@ -9,9 +10,27 @@ export default class CommentsList extends React.Component {
 
 
     render() {
+        function comp(context, type) {
+            return (
+                <div className="comments">
+                    <div className="context">{context}</div>
+                    <div className="type">{type}</div>
+                </div>
+            )
+        }
+        
+        let comps = [
+            comp('Mike', 'mike@server.com'),
+            comp('John', 'john@server.com'),
+            comp('Bob', 'bob@server.com'),
+            comp('Max', 'max@server.com'),
+        ]
+        
+
+
         let list = <List
             items={this.props.comments.map((comment) => {
-                return comment.content;
+                return comp(comment.content,comment.type);
             })}
             multiple={false}
             onChange={(selected) => {
