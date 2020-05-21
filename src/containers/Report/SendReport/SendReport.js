@@ -6,6 +6,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import GroupTab from '../../../components/GroupTab/GroupTab';
 
 class SendReport extends React.Component {
   state = {
@@ -39,13 +40,23 @@ class SendReport extends React.Component {
   };
 
   render() {
+    const isGroup = true;
     let tab = null;
-    tab = (
-      <StudenTab
-        onUpload={this.onUpload}
-        hasVoice={this.state.hasVoice}
-      ></StudenTab>
-    );
+    if (isGroup) {
+      tab = (
+        <GroupTab
+          onUpload={this.onUpload}
+          hasVoice={this.state.hasVoice}
+        ></GroupTab>
+      );
+    } else {
+      tab = (
+        <StudenTab
+          onUpload={this.onUpload}
+          hasVoice={this.state.hasVoice}
+        ></StudenTab>
+      );
+    }
     return (
       <div className={styles.outer}>
         <div className={styles.left}>{tab}</div>

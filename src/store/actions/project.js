@@ -98,12 +98,12 @@ export const onCreateProject = (stateData) => {
     subject_code: stateData.subjectCode,
     subject_name: stateData.subjectName,
     proj_name: stateData.projectName,
-    duration_min: parseInt(stateData.durationMin),
-    duration_sec: parseInt(stateData.durationSec),
+    duration: parseInt(stateData.durationMin),
+    // duration_sec: parseInt(stateData.durationSec),
     is_group: stateData.isGroup ? 1 : 0,
     proj_description: stateData.description,
     // date: new Date(),
-    // marker_id: stateData.uid,
+    marker_id: stateData.uid,
   };
   console.log('creating project..');
   //   console.log(stateData);
@@ -113,9 +113,9 @@ export const onCreateProject = (stateData) => {
     // setTimeout(() => {
     //   dispatch(createSuccess({ ...data, id: newId }));
     // }, 1000);
-    const marker_id = stateData.uid;
+    // const marker_id = stateData.uid;
     request
-      .createProject(data, marker_id)
+      .createProject(data)
       .then((response) => {
         console.log(response);
         dispatch(createSuccess(response.data));
@@ -142,8 +142,8 @@ export const onUpdateProject = (
     subject_code: stateData.subjectCode,
     subject_name: stateData.subjectName,
     proj_name: stateData.projectName,
-    duration_min: parseInt(stateData.durationMin),
-    duration_sec: parseInt(stateData.durationSec),
+    duration: parseInt(stateData.durationMin),
+    // duration_sec: parseInt(stateData.durationSec),
     is_group: stateData.isGroup ? 1 : 0,
     proj_description: stateData.description,
     // date: stateData.date,
@@ -174,7 +174,7 @@ const fakeData = [
     subject_name: 'Software Project',
     proj_name: 'Assignment1',
     duration_min: 50,
-    duration_sec: 10,
+    // duration_sec: 10,
     is_group: 1,
     proj_description:
       'This is the capstone project for students.This is the capstone project for students.This is the capstone project for students.This is the capstone project for students.This is the capstone project for students.This is the capstone project for students.',
@@ -186,7 +186,7 @@ const fakeData = [
     subject_name: 'Knowledge Technology',
     proj_name: 'Assignment2',
     duration_min: 30,
-    duration_sec: 30,
+    // duration_sec: 30,
     is_group: 1,
     proj_description:
       'a comparison of different advanced machine learning techinque.a comparison of different advanced machine learning techinque.a comparison of different advanced machine learning techinque.a comparison of different advanced machine learning techinque.a comparison of different advanced machine learning techinque',
@@ -198,7 +198,7 @@ const fakeData = [
     subject_name: 'Modelling Complex Software Systems',
     proj_name: 'Assignment2',
     duration_min: 50,
-    duration_sec: 30,
+    // duration_sec: 30,
     is_group: 1,
     proj_description:
       'The objectives of this project are to provide you with the opportunity to develop your skills in implementing a computational model of a complex system, using it to conduct experiments, reporting on the design of the model and the results of these experiments, and working in a group context.',

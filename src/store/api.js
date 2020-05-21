@@ -37,8 +37,8 @@ export const getProjects = (id) => {
   return instance.get(`/projects/${id}`);
 };
 
-export const createProject = (data, id) => {
-  return instance.post(`/projects/${id}`, data);
+export const createProject = (data) => {
+  return instance.post(`/projects/`, data);
 };
 
 export const updateProject = (data) => {
