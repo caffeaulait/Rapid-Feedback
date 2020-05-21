@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header';
 import { Switch, Route } from 'react-router-dom';
 import Grades from './Grades/Grades';
 import SendReport from './SendReport/SendReport';
+import Review from './Review/Review';
 
 class Report extends React.Component {
   render() {
@@ -17,6 +18,10 @@ class Report extends React.Component {
             component={Grades}
           ></Route>
           <Route path={url} component={SendReport}></Route>
+          <Route
+            path={url + '/projects/:pid/:id/review'}
+            component={Review}
+          ></Route>
         </Switch>
       </>
     );
