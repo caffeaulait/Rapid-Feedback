@@ -1,0 +1,12 @@
+.review{
+    margin-left: 22vh;
+    background:#91b1d8;
+    height: 40px;
+    width: 100px;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 40px;
+}

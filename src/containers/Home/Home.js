@@ -28,7 +28,7 @@ class Home extends React.Component {
   };
 
   gotToReport = () => {
-    this.props.history.push('/report');
+    this.props.history.push('/report/projects');
   };
 
   render() {
