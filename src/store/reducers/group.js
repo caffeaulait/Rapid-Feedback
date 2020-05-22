@@ -2,9 +2,9 @@
 import * as actions from '../actions/actions';
 
 const initialState = {
-    members: [],
-    currentMembers: [],
-    memberError: null,
+  members: [],
+  currentMembers: [],
+  memberError: null,
 };
 
 const fetchSuccess = (state, action) => {
@@ -23,18 +23,17 @@ const fetchFail = (state, action) => {
 
 const fetchCurrentSuccess = (state, action) => {
   return {
-      ...state,
-      currentMembers: action.currentMembers,
-  }
-}
-
+    ...state,
+    currentMembers: action.currentMembers,
+  };
+};
 
 const fetchCurrentFail = (state, action) => {
   return {
-      ...state,
-      memberError: action.error,
-  }
-}
+    ...state,
+    memberError: action.error,
+  };
+};
 
 const deleteSuccess = (state, action) => {
   const newGroups = state.groups.filter((el) => el.id != action.id);
@@ -66,8 +65,6 @@ const createFail = (state, action) => {
     stuError: action.error,
   };
 };
-
-
 
 const groupReducer = (state = initialState, action) => {
   switch (action.type) {

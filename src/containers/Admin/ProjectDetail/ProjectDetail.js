@@ -16,7 +16,7 @@ class ProjectDetail extends React.Component {
     const pid = this.props.match.params.pid;
     this.setState({ id: pid });
     const foundProj = this.props.projects.find((el) => el.id == pid);
-    console.log(foundProj);
+    // console.log(foundProj);
     this.setState({ project: foundProj });
   }
 

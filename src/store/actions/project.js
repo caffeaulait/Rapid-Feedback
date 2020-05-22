@@ -102,11 +102,11 @@ export const onCreateProject = (stateData) => {
     // duration_sec: parseInt(stateData.durationSec),
     is_group: stateData.isGroup ? 1 : 0,
     proj_description: stateData.description,
-    // date: new Date(),
-    marker_id: stateData.uid,
+    due_date: stateData.date.toJSON(),
+    markerId: stateData.uid,
   };
   console.log('creating project..');
-  //   console.log(stateData);
+  console.log(data);
   return (dispatch, getState) => {
     // const newId = getState().proj.projects.length;
     // console.log({ ...data, id: newId });
@@ -146,8 +146,7 @@ export const onUpdateProject = (
     // duration_sec: parseInt(stateData.durationSec),
     is_group: stateData.isGroup ? 1 : 0,
     proj_description: stateData.description,
-    // date: stateData.date,
-    // marker_id: stateData.uid,
+    due_date: stateData.date.toJSON(),
   };
   console.log('updateing project..');
   console.log(data);
@@ -179,7 +178,7 @@ const fakeData = [
     proj_description:
       'This is the capstone project for students.This is the capstone project for students.This is the capstone project for students.This is the capstone project for students.This is the capstone project for students.This is the capstone project for students.',
     id: 0,
-    date: new Date(),
+    due_date: new Date(),
   },
   {
     subject_code: 'COMP90049',
@@ -191,7 +190,7 @@ const fakeData = [
     proj_description:
       'a comparison of different advanced machine learning techinque.a comparison of different advanced machine learning techinque.a comparison of different advanced machine learning techinque.a comparison of different advanced machine learning techinque.a comparison of different advanced machine learning techinque',
     id: 1,
-    date: new Date(),
+    due_date: new Date(),
   },
   {
     subject_code: 'SWEN90004',
@@ -203,6 +202,6 @@ const fakeData = [
     proj_description:
       'The objectives of this project are to provide you with the opportunity to develop your skills in implementing a computational model of a complex system, using it to conduct experiments, reporting on the design of the model and the results of these experiments, and working in a group context.',
     id: 2,
-    date: new Date(),
+    due_date: new Date(),
   },
 ];

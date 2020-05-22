@@ -33,10 +33,11 @@ class ProjectEdit extends React.Component {
           subjectCode: project.subject_code,
           subjectName: project.subject_name,
           projectName: project.proj_name,
-          durationMin: project.duration_min,
+          durationMin: project.duration,
           // durationSec: project.duration_sec,
           description: project.proj_description,
           isGroup: project.is_group == 1,
+          date: new Date(project.due_date),
           id,
         });
       }
