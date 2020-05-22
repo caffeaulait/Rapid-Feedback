@@ -14,7 +14,7 @@ class ProjectEdit extends React.Component {
     subjectName: '',
     projectName: '',
     durationMin: '',
-    durationSec: '',
+    // durationSec: '',
     description: '',
     isGroup: true,
     id: null,
@@ -33,10 +33,11 @@ class ProjectEdit extends React.Component {
           subjectCode: project.subject_code,
           subjectName: project.subject_name,
           projectName: project.proj_name,
-          durationMin: project.duration_min,
-          durationSec: project.duration_sec,
+          durationMin: project.duration,
+          // durationSec: project.duration_sec,
           description: project.proj_description,
           isGroup: project.is_group == 1,
+          date: new Date(project.due_date),
           id,
         });
       }
@@ -68,7 +69,7 @@ class ProjectEdit extends React.Component {
 
   selectDate = (newDate) => {
     this.setState({ date: newDate });
-    console.log(this.state.date);
+    console.log(newDate);
   };
 
   render() {
@@ -149,14 +150,14 @@ class ProjectEdit extends React.Component {
                   onChange={(event) => this.inputChange(event)}
                 />
                 &nbsp; <span>Minutes</span> &emsp;
-                <input
+                {/* <input
                   type='text'
                   className='form-control col-sm-1'
                   name='durationSec'
                   value={this.state.durationSec}
                   onChange={(event) => this.inputChange(event)}
                 />
-                &nbsp; <span>Seconds</span>
+                &nbsp; <span>Seconds</span> */}
               </div>
 
               <div className='form-group form-row'>

@@ -6,6 +6,8 @@ const proxy = '';
 const address =
   'http://ec2-13-211-29-46.ap-southeast-2.compute.amazonaws.com:8022/v1';
 
+export default address;
+
 const instance = axios.create({
   timeout: 10000,
   baseURL: proxy + address,
@@ -35,8 +37,8 @@ export const getProjects = (id) => {
   return instance.get(`/projects/${id}`);
 };
 
-export const createProject = (data, id) => {
-  return instance.post(`/projects/${id}`, data);
+export const createProject = (data) => {
+  return instance.post(`/projects/`, data);
 };
 
 export const updateProject = (data) => {
@@ -47,21 +49,26 @@ export const deleteProject = (id) => {
   return instance.delete(`/projects/${id}`);
 };
 
-export const getMarkers = (id) => {
-  return instance.get();
-}
+export const getAllMarkers = () => {
+  return instance.get(`/markers/all`);
+};
 
-export const updateMarkers = (data) => {
-  return instance.put();
-}
+export const getMarkers = (id) => {
+  return instance.get(`/projects/${id}/getMarker`);
+};
+
+export const updateMarkers = (id, data) => {
+  console.log(instance);
+  return instance.post(`/projects/${id}/addMarker`, data);
+};
 
 export const getCriterias = (id) => {
   return instance.get();
-}
+};
 
 export const updateCriterias = (data) => {
   return instance.put(`/projects/${data.id}/setCriteria`, data);
-}
+};
 
 export const getStudents = (pid) => {
   // /v1/students/{projectId}
@@ -82,8 +89,6 @@ export const deleteStudent = (pid, sid) => {
   return instance.delete(`/students/${sid}/${pid}`);
 };
 
-
-
 export const createGroup = (data) => {
   // /v1/groups
   return instance.post(`/groups`, data);
@@ -92,4 +97,8 @@ export const createGroup = (data) => {
 export const deleteGroup = (pid, gid) => {
   // /v1/groups/{projectId}/{groupId}
   return instance.delete(`/groups/${pid}/${gid}`);
+};
+
+export const importStudents = (data) => {
+  return instance.post('/students/batch', data);
 };

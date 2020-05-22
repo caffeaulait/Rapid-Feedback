@@ -9,6 +9,7 @@ class Projects extends React.Component {
     if (this.props.projects.length === 0) {
       console.log('fetching projects');
       this.props.fetchProjects();
+      console.log(this.props.match.path);
     }
   }
 
@@ -43,6 +44,17 @@ class Projects extends React.Component {
         );
       });
     }
+    let createBtn = null;
+    if (this.props.match.path !== '/assess') {
+      createBtn = (
+        <button
+          className={'btn btn-primary ' + styles.create}
+          onClick={this.goToCreate}
+        >
+          Create
+        </button>
+      );
+    }
 
     return (
       <div className={styles.outer}>
@@ -54,12 +66,7 @@ class Projects extends React.Component {
           >
             Back
           </button>
-          <button
-            className={'btn btn-primary ' + styles.create}
-            onClick={this.goToCreate}
-          >
-            Create
-          </button>
+          {createBtn}
         </div>
         {projects}
       </div>

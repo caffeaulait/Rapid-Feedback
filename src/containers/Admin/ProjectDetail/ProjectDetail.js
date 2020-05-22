@@ -16,7 +16,7 @@ class ProjectDetail extends React.Component {
     const pid = this.props.match.params.pid;
     this.setState({ id: pid });
     const foundProj = this.props.projects.find((el) => el.id == pid);
-    console.log(foundProj);
+    // console.log(foundProj);
     this.setState({ project: foundProj });
   }
 
@@ -69,10 +69,10 @@ class ProjectDetail extends React.Component {
       </button>
     );
     if (this.state.project) {
-      //   const date = this.state.project.date;
-      //   const year = date.getFullYear();
-      //   const month = format.months[date.getMonth()];
-      //   const day = date.getDate();
+      const date = new Date(this.state.project.due_date);
+      const year = date.getFullYear();
+      const month = format.months[date.getMonth()];
+      const day = date.getDate();
       fullProj = (
         <div className={styles.outer}>
           <div className={styles.top}>
@@ -89,10 +89,10 @@ class ProjectDetail extends React.Component {
               </h2>
               {this.state.project.is_group == 1 ? groupBtn : studentBtn}
             </div>
-            <h3>Due: 31 Mar 2020</h3>
-            {/* <h3>
+            {/* <h3>Due: 31 Mar 2020</h3> */}
+            <h3>
               Due: {day} {month} {year}
-            </h3> */}
+            </h3>
             <p>{this.state.project.proj_description}</p>
 
             <div className={styles.btnGroup}>

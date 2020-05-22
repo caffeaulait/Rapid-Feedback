@@ -1,6 +1,6 @@
 .infoCard {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 30%;
+    width: 40%;
     margin-right: 5%;
     margin-left: 5%;
     margin-top: 2% ;
@@ -14,7 +14,7 @@
     padding-bottom: 20px;
 }
 
-label {
+.plabel {
     font-weight: bold;
 }
 

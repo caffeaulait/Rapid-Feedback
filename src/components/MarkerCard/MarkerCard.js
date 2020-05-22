@@ -18,11 +18,11 @@ class MarkerCard extends React.Component {
 
     render() {
         return (
-            <tr style={{ borderBottom: '40px solid transparent',fontSize:'20px'}}>
+            <tr className="markerrow" style={{ borderBottom: '40px solid transparent',fontSize:'20px'}}>
                 <td>{this.props.marker.Number}</td>
                 <td>{this.props.marker.Name}</td>
                 <td>{this.props.marker.Email}</td>
-                <td><button ref={this.ButtonRef} onClick={this.ChangeCurrentMarker} style={{ fontSize: '20px', padding: '8px 30px', color: 'white', background: '#003F8A', verticalAlign: 'top', borderRadius: '15px' }}>{this.props.marker.isSelected ? "Delete" : "Add"}</button></td>
+                <td><button className="markerbutton" ref={this.ButtonRef} onClick={this.ChangeCurrentMarker} style={{ fontSize: '20px', padding: '8px 30px', color: 'white', background: '#003F8A', verticalAlign: 'top', borderRadius: '15px' }}>{this.props.marker.isSelected ? "Delete" : "Add"}</button></td>
             </tr>
         );
     }

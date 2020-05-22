@@ -1,9 +1,42 @@
-.card{
-    margin-right: 25vh;
-    margin-left: 10vh;
-    margin-top: 10vh;
+.outer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 70vh;
+  margin: 5vh 5vw;
 }
-ul li{
-    margin-bottom: 5vh;
-    text-align: center;
+
+.left {
+  flex: 30%;
+}
+
+.right {
+  flex: 70%;
+  border-left: 1px solid grey;
+  padding-left: 2vw;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.controlBtn {
+  width: 8vw;
+  height: 4vw;
+}
+
+div.btnGroup {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 2%;
+}
+
+table.gradeTable {
+  margin-top: 2vh;
+  table-layout: fixed;
+}
+
+.assDetail {
+  font-weight: bold;
+  font-size: 1.3em;
 }

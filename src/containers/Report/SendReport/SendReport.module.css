@@ -1,0 +1,69 @@
+.outer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 70vh;
+  margin: 5vh 5vw;
+}
+
+.left {
+  flex: 30%;
+}
+
+.right {
+  flex: 70%;
+  border-left: 1px solid grey;
+  padding-left: 10vw;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.radios {
+  margin-top: 2vh;
+  color: black;
+}
+
+.remind {
+  font-size: 0.8em;
+  color: gray;
+}
+
+.textBox {
+  margin-top: 10vh;
+  border: 0.5px solid #003f8a;
+  width: fit-content;
+  padding: 2%;
+  font-size: 1.5em;
+}
+
+span.grade {
+  text-decoration: underline;
+  margin: auto 1vw;
+  font-size: 1em;
+  color: black;
+}
+
+span {
+  color: black;
+}
+
+.btnGroup {
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.backBtn {
+  width: 6vw;
+  min-width: fit-content;
+  height: 6vh;
+  margin-left: 5vw;
+}
+
+.confirmBtn {
+  width: 6vw;
+  min-width: fit-content;
+  height: 6vh;
+  margin-left: 5vw;
+}

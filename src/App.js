@@ -19,7 +19,7 @@ class App extends React.Component {
         <Route path='/home' component={Home}></Route>
 
         <Route path='/admin' component={Admin}></Route>
-        <Route path='/report/projects' component={Report}></Route>
+        <Route path='/report' component={Report}></Route>
         <Route path='/assess' component={Assess}></Route>
 
         <Redirect from='/' to='/login'></Redirect>

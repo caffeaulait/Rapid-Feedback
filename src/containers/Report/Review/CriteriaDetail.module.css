@@ -1,0 +1,33 @@
+.title {
+    width: 90%;
+    float: left;
+    position: relative;
+}
+
+.left {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.right {
+    position:absolute; 
+    top:0; 
+    right:0; 
+}
+
+.nInput {
+    width: 60%;
+}
+
+.box {
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    padding:2%;
+    margin-top: 2%;
+}
+
+.comments>textarea {
+    width: 90%;
+}

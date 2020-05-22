@@ -11,17 +11,20 @@ class Markers extends React.Component {
     searchedMarker: [],
     isFound: false,
     isClick: false,
-  };
+    id: null
+  }
 
   componentDidMount() {
+    const pid = this.props.match.params.pid;
+    this.setState({ id: pid });
     console.log(this.props);
-    if (this.props.allMarkers.length === 0) {
-      console.log('fetching markers');
-      this.props.fetchMarkers();
-    }
-    if (this.props.currentMarkers.length === 0) {
-      this.props.fetchCurrentMarkers();
-    }
+
+    this.props.fetchCurrentMarkers(pid);
+
+
+    console.log('fetching markers');
+    this.props.fetchMarkers(pid);
+
   }
   // constructor(props) {
   //   super(props);
@@ -115,7 +118,8 @@ class Markers extends React.Component {
   };
 
   goBack = () => {
-    console.log('click');
+    console.log("click");
+    this.props.updateCurrentMarker(this.props.currentMarkers, this.state.id);
     this.props.history.goBack();
   };
 
@@ -182,11 +186,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchMarkers: () => {
-      dispatch(actions.onFetchMarkers());
+    fetchMarkers: (pid) => {
+      dispatch(actions.onFetchMarkers(pid));
     },
-    fetchCurrentMarkers: () => {
-      dispatch(actions.onFetchCurrentMarkers());
+    fetchCurrentMarkers: (pid) => {
+      dispatch(actions.onFetchCurrentMarkers(pid));
     },
     addCurrentMarker: (marker) => {
       dispatch(actions.addSuccess(marker));
@@ -194,6 +198,11 @@ const mapDispatchToProps = (dispatch) => {
     deleteCurrentMarker: (marker) => {
       dispatch(actions.deleteSuccess(marker));
     },
+    updateCurrentMarker: (markers, projectId) => {
+      dispatch(actions.onUpdateMarkers(markers, projectId))
+    }
+
+
   };
 };
 

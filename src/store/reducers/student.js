@@ -52,6 +52,21 @@ const createFail = (state, action) => {
   };
 };
 
+const importSuccess = (state, action) => {
+  const newStudents = action.students;
+  return {
+    ...state,
+    students: state.students.concat(newStudents),
+  };
+};
+
+const importFail = (state, action) => {
+  return {
+    ...state,
+    stuError: action.error,
+  };
+};
+
 const updateSucess = (state, action) => {
   const copy = [...state.students];
   const index = copy.findIndex((el) => el.id == action.student.id);
@@ -87,6 +102,10 @@ const studentReducer = (state = initialState, action) => {
       return createFail(state, action);
     case actions.UPDATE_STUDENT_FAIL:
       return updateFail(state, action);
+    case actions.IMPORT_STUDENTS_SUCCESS:
+      return importSuccess(state, action);
+    case actions.IMPORT_STUDENTS_FAIL:
+      return importFail(state, action);
     default:
       return state;
   }

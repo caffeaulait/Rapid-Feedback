@@ -25,31 +25,6 @@ class Admin extends React.Component {
       <>
         <Header></Header>
         <Switch>
-          {/* <Route
-            path={url + '/projects/:pid/groups/add'}
-            component={AddGroup}
-          ></Route>
-          <Route
-            path={url + '/projects/:pid/students/add'}
-            component={AddStudent}
-          ></Route>
-          <Route path={url + '/projects/:pid/groups'} component={Groups}></Route>
-          <Route
-            path={url + '/projects/:pid/students'}
-            component={Students}
-          ></Route>
-          <Route
-            path={url + '/projects/:pid/criteriaConfirm'}
-            component={CriteriaConfirm}
-          ></Route>
-          <Route
-            path={url + '/projects/:pid/criteria'}
-            component={Criteria}
-          ></Route>
-          <Route
-            path={url + '/projects/:pid/markers'}
-            component={Markers}
-          ></Route> */}
           <Route
             path={url + '/projects/:pid/students'}
             exact
@@ -59,8 +34,8 @@ class Admin extends React.Component {
             path={url + '/projects/:pid/students/add'}
             component={AddStudent}
           ></Route>
-          <Route 
-            path={url + '/projects/:pid/groups'} 
+          <Route
+            path={url + '/projects/:pid/groups'}
             component={Groups}
           ></Route>
           <Route
@@ -78,7 +53,7 @@ class Admin extends React.Component {
           <Route
             path={url + '/projects/:pid/markers'}
             component={Markers}
-          ></Route> 
+          ></Route>
           <Route path={url + '/projects/edit'} component={ProjectEdit}></Route>
           <Route
             path={url + '/projects/:pid'}

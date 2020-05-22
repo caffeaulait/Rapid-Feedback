@@ -1,128 +1,98 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import * as actions1 from '../../../store/actions/project';
-import * as actions2 from '../../../store/actions/student';
-import ReviewStu from '../../../components/ReviewStu/ReviewStu';
-import ReviewProjectCard from '../../../components/ReviewProjectCard/ReviewProjectCard';
 import styles from './Review.module.css';
+import ProjectTab from './ProjectTab';
+import CriteriaDetail from './CriteriaDetail';
 
+export default class Review extends React.Component {
 
-
-
-class Review extends React.Component {
-
-  state = {
-    projectid: null,
-  };
-
-
-  componentDidMount() {
-    if (this.props.projects.length === 0) {
-      console.log('fetching projects');
-      this.props.fetchProjects();
+    state = {
+        studentInfo: {
+            studentName: "Claire Huang",
+            studentId: "99999",
+            subject: "COMP90082 Software Project",
+            projectName: "xxx Application",
+        },
+        markerInfo: {
+            name: "Course Coordinator"
+        },
+        criteria: [{ id: "1", criteria: "Voice, peace and confidence", point: 10 },
+        { id: "2", criteria: "Knowledge of Material", point: 10 },
+        { id: "3", criteria: "Content", point: 10 },
+        { id: "4", criteria: "Concluding remarks", point: 10 },
+        { id: "5", criteria: "PPT", point: 10 }],
+        result: [{ id: "1", point: 0, comment: '1' },
+        { id: "2", point: 5, comment: '2' },
+        { id: "3", point: 0, comment: '3' },
+        { id: "4", point: 5, comment: '4' },
+        { id: "5", point: 0, comment: '5' }],
+        assessDate: "",
     }
-    
-    const proid = this.props.match.params.pid;
-    this.setState({ projectid: proid });
-    if (this.props.students) {
-      if (this.props.students.length === 0) {
-        console.log('fetching students');
-        this.props.fetchStudents(proid);
-      }
+
+    componentDidMount() {
+
+        let d = new Date();
+
+        let date = d.getDate();
+        let month = d.getMonth() + 1;
+        let year = d.getFullYear();
+
+        var dateStr = date + "/" + month + "/" + year;
+        this.setState({ assessDate: dateStr });
+
+
     }
-  }
+
+    handleUpdatePoint = (value, id) => {
+
+        let copy = this.state.result.filter((item) => {
+            return item.id != id;
+        });
+        let target = this.state.result.filter((item) => {
+            return item.id == id;
+        });
+        copy = [...copy, { id: id, point: Number(value), comment: target[0].comment }];
+        this.setState({ result: copy })
+
+    }
+
+    handleUpdateComments = (value, id) => {
+        let copy = this.state.result.filter((item) => {
+            return item.id != id;
+        });
+        let target = this.state.result.filter((item) => {
+            return item.id == id;
+        });
+        copy = [...copy, { id: id, point: target[0].point, comment: value }];
+        this.setState({ result: copy })
+    }
 
 
 
-  projectSelectedHandler = (pid) => {
-    this.props.history.push(this.props.match.path + '/' + pid);
-  };
-  
-  render() {
 
 
-    let projects = <p style={{ textAlign: 'center' }}>No projects Avaiable</p>;
 
-    if (this.props.projects.length !== 0) {
-      console.log(this.props.projects);
-      projects = this.props.projects.map((project) => {
+    render() {
         return (
-          <ReviewProjectCard
-            key={project.id}
-            project={project}
-            review={() => this.projectSelectedHandler(project.id)}
-          />
-        );
-      });
-    }
+            <div className={styles.outer}>
+                <div className={styles.left}><ProjectTab criteria={this.state.criteria} result={this.state.result} markerInfo={this.state.markerInfo} studentInfo={this.state.studentInfo} assessDate={this.state.assessDate} /></div>
+                <div className={styles.right}>
+                    <p className={styles.assDetail}> Assessment Details: </p>
+                    <table className={styles.gradeTable}>
+                        <thead>
+                        </thead>
+                        <tbody><CriteriaDetail criteria={this.state.criteria} result={this.state.result} updatePoint={this.handleUpdatePoint} updateComments={this.handleUpdateComments} /></tbody>
+                    </table>
 
-    let students = <p style={{ textAlign: 'center' }}>Please add new student</p>;
-
-    console.log(this.props.students);
-    if (this.props.students) {
-      students = this.props.students.map((student, key) => {
-        return (
-          <ReviewStu
-            key={key}
-            student={student}
-          />
-        );
-      });
-    }
-    
-
-    return (
-
-      <div style={{display: 'flex'}}>
-
-            <div>
-                {projects}
+                    <div className={styles.btnGroup}>
+                        <button className={'btn btn-danger ' + styles.controlBtn}>
+                            Back
+                </button>
+                        <button className={'btn btn-primary ' + styles.controlBtn}>
+                            Continue
+                </button>
+                    </div>
+                </div>
             </div>
-          
-        {/* <div className = {styles.card}>
-            <h1 style={{marginBottom:'5vh'}}>Current Project:</h1>
-            <h2 style={{marginBottom:'10vh', color:'black'}}>Comp90082 Assignment1</h2>
-            <ul>
-                <li style={{fontWeight: "bold", borderBottom: '2px solid #cccccc'}}>Comp90082 Assignment1</li>
-                <li onClick={this.goToGroup}>COMP90015 Assignment2</li>
-                <li>INFO90023 Assignment1</li>
-                <li>SWEN90081 Assignment3</li>
-                <li>COMP90051 Assignment1</li>
-            </ul>
-        </div> */}
-        <div>
-            <div style={{ marginTop: '5vh', display: 'flex', fontSize: '30px', fontWeight: '900', height: '50px', borderBottom: '2px solid #cccccc' }}>
-                <p>Number</p>
-                <p style={{ margin: '0 20vh' }}>Name</p>
-                <p>Status</p>
-            </div>        
-            <div>
-                {students}
-            </div>
-        </div>
-
-      </div>
-    );
-  }
+        )
+    }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.auth.token !== null,
-    students: state.student.students,
-    projects: state.proj.projects,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchStudents: (pid) => {
-      dispatch(actions2.onFetchStudents(pid));
-    },
-    fetchProjects: () => {
-        dispatch(actions1.onFetchProjects());
-      },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Review);
