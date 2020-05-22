@@ -17,7 +17,7 @@ class CriteriaDetail extends React.Component {
                         </span>
                     </div><br></br><br></br>
                     <div className={styles.comments}>
-                        <textarea value={res.comment} onChange={(e) => this.props.updatePoint(e.target.value,criteria.id)}></textarea>
+                        <textarea value={res.comment} onChange={(e) => this.props.updateComments(e.target.value,criteria.id)}></textarea>
                     </div>
                 </div>
             )

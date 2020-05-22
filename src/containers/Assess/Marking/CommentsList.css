@@ -2,6 +2,7 @@
 	display: inline-block;
 	position: relative;
 	outline: none;
+	padding-left: 2px;
 }
 
 .react-list-select--item {

@@ -28,7 +28,7 @@ div.btnGroup {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-top: auto;
+  margin-top: 2%;
 }
 
 table.gradeTable {
