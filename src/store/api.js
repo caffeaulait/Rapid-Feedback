@@ -6,6 +6,8 @@ const proxy = '';
 const address =
   'http://ec2-13-211-29-46.ap-southeast-2.compute.amazonaws.com:8022/v1';
 
+export default address;
+
 const instance = axios.create({
   timeout: 10000,
   baseURL: proxy + address,
@@ -35,8 +37,8 @@ export const getProjects = (id) => {
   return instance.get(`/projects/${id}`);
 };
 
-export const createProject = (data, id) => {
-  return instance.post(`/projects/${id}`, data);
+export const createProject = (data) => {
+  return instance.post(`/projects/`, data);
 };
 
 export const updateProject = (data) => {

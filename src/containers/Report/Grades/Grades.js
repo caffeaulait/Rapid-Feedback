@@ -4,7 +4,9 @@ import StudenTab from '../../../components/StudentTab/StudentTab';
 import Grade from '../../../components/Grade/Grade';
 
 class Grades extends React.Component {
-  state = {};
+  state = {
+    hasVoice: false,
+  };
 
   toViewAssessment = () => {};
 
@@ -30,7 +32,7 @@ class Grades extends React.Component {
       },
     ];
 
-    let tab = <StudenTab></StudenTab>;
+    let tab = <StudenTab hasVoice={this.state.hasVoice}></StudenTab>;
 
     const gradeRow = grades.map((el) => (
       <Grade

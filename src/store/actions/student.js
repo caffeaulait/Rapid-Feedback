@@ -181,7 +181,14 @@ export const onImportStudents = (pid, students) => {
       .importStudents(data)
       .then((response) => {
         console.log(response);
-        dispatch(importSuccess(response.data.studentList));
+        const result = response.data;
+        result.forEach((student) => {
+          student.id = student.student_id;
+          delete student['student_id'];
+          return student;
+        });
+        console.log(result);
+        dispatch(importSuccess(result));
       })
       .catch((err) => {
         dispatch(importFail(err));

@@ -6,7 +6,8 @@ import StudentCard from '../../../components/StudentCard/StudentCard';
 import styles from './Students.module.css';
 import XLSX from 'xlsx';
 import Papa from 'papaparse';
-import Template from '../../../components/Modal/Template';
+import address from '../../../store/api';
+// import Template from '../../../components/Modal/Template';
 
 class Students extends React.Component {
   // constructor(props) {
@@ -68,6 +69,7 @@ class Students extends React.Component {
   };
 
   readCSV = (file) => {
+    var that = this;
     Papa.parse(file, {
       complete: function (results) {
         const data = results.data;
@@ -79,7 +81,7 @@ class Students extends React.Component {
             email: student[3],
           };
         });
-        this.props.importStudents(this.state.projectid, students);
+        that.props.importStudents(that.state.projectid, students);
       },
     });
   };
@@ -111,6 +113,8 @@ class Students extends React.Component {
     // if (!this.props.isAuthenticated) {
     //   this.props.history.replace('/login');
     // }
+
+    const link = `${address}/students/template`;
 
     let students = (
       <p style={{ textAlign: 'center' }}>Please add new student</p>
@@ -164,19 +168,15 @@ class Students extends React.Component {
               }}
               accept='.csv, .xlsx'
             />
-            {/* <a href='link/to/your/download/file' download>  
-            <small>Download template</small>
-          </a> */}
-
-            <a onClick={this.handleShow} href='#'>
+            <a href={link} download='template.xlsx'>
               <small styles={{ textDecoration: 'underline' }}>
                 See file templates
               </small>
             </a>
-            <Template
+            {/* <Template
               show={this.state.show}
               handleClose={this.handleClose}
-            ></Template>
+            ></Template> */}
             <div style={{ clear: 'both' }}></div>
           </div>
         </div>
