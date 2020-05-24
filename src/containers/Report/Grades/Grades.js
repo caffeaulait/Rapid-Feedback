@@ -8,6 +8,13 @@ class Grades extends React.Component {
     hasVoice: false,
   };
 
+  componentDidMount() {
+    const projectId = this.props.match.params.pid;
+    const studentId = this.props.match.params.sid;
+    const groupId = this.props.match.params.gid;
+    console.log(projectId, studentId, groupId);
+  }
+
   toViewAssessment = () => {};
 
   render() {
