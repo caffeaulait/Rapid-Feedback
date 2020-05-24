@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Marking from './Marking/Marking';
 import Projects from '../Admin/Projects/Projects';
 import ProjDetail from './ProjDetail/ProjDetail';
+import Select from './Select/Select';
 
 class Assess extends React.Component {
   state = {};
@@ -29,7 +30,7 @@ class Assess extends React.Component {
           ></Route>
 
           {/* 3, choose a student/group for assessment */}
-          <Route path={url + '/projects/:pid/select'}></Route>
+          <Route path={url + '/projects/:pid/select'} component={Select}></Route>
 
           {/* 2,  see a project detail*/}
           <Route path={url + '/projects/:pid'} component={ProjDetail}></Route>
