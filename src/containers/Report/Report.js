@@ -4,6 +4,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Grades from './Grades/Grades';
 import SendReport from './SendReport/SendReport';
 import Review from './Review/Review';
+import ReviewProject from './ReviewProject/ReviewProject';
+import ReviewList from './ReviewProject/ReviewList';
 
 class Report extends React.Component {
   render() {
@@ -44,9 +46,15 @@ class Report extends React.Component {
           ></Route>
 
           {/* 2. see students/groups, choose one for review*/}
-          <Route path={url + '/projects/:pid'}></Route>
+          <Route 
+            path={url + '/projects/:pid'}
+            component={ReviewList}
+          ></Route>
           {/* 1. see project lists, choose project */}
-          <Route path={url + '/projects'}></Route>
+          <Route 
+            path={url + '/projects'}
+            component={ReviewProject}
+          ></Route>
 
           <Redirect from={url} to={url + '/projects'}></Redirect>
         </Switch>

@@ -59,19 +59,19 @@ export const updateFail = (error) => {
 
 export const onFetchProjects = () => {
   return (dispatch, getState) => {
-    // setTimeout(() => {
-    //   dispatch(fetchSuccess(fakeData));
-    // }, 1000);
-    // console.log(getState());
-    request
-      .getProjects(getState().auth.uid)
-      .then((response) => {
-        console.log(response);
-        dispatch(fetchSuccess(response.data.projList));
-      })
-      .catch((error) => {
-        dispatch(fetchFail(error));
-      });
+    setTimeout(() => {
+      dispatch(fetchSuccess(fakeData));
+    }, 1000);
+    console.log(getState());
+    // request
+    //   .getProjects(getState().auth.uid)
+    //   .then((response) => {
+    //     console.log(response);
+    //     dispatch(fetchSuccess(response.data.projList));
+    //   })
+    //   .catch((error) => {
+    //     dispatch(fetchFail(error));
+    //   });
   };
 };
 
@@ -174,7 +174,7 @@ const fakeData = [
     proj_name: 'Assignment1',
     duration_min: 50,
     // duration_sec: 10,
-    is_group: 1,
+    is_group: 0,
     proj_description:
       'This is the capstone project for students.This is the capstone project for students.This is the capstone project for students.This is the capstone project for students.This is the capstone project for students.This is the capstone project for students.',
     id: 0,

@@ -120,7 +120,7 @@ class Students extends React.Component {
       <p style={{ textAlign: 'center' }}>Please add new student</p>
     );
 
-    // console.log(this.props.students);
+    console.log(this.props.students);
     if (this.props.students) {
       students = this.props.students.map((student, key) => {
         return (

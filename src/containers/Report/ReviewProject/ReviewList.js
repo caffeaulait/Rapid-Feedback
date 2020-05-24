@@ -1,27 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions1 from '../../../store/actions/project';
-import * as actions2 from '../../../store/actions/student';
+import * as actions1 from '../../../store/actions/student';
+import * as actions2 from '../../../store/actions/project';
 import ReviewStu from '../../../components/ReviewStu/ReviewStu';
 import ReviewProjectCard from '../../../components/ReviewProjectCard/ReviewProjectCard';
 import styles from './Review.module.css';
 
 
-
-
-class Review extends React.Component {
+class ReviewList extends React.Component {
 
   state = {
     projectid: null,
+    isgroup: 0,
   };
 
 
-  componentDidMount() {
+  componentDidMount() {  
+
     if (this.props.projects.length === 0) {
-      console.log('fetching projects');
-      this.props.fetchProjects();
-    }
-    
+        console.log('fetching projects');
+        this.props.fetchProjects();
+      }
+
+
     const proid = this.props.match.params.pid;
     this.setState({ projectid: proid });
     if (this.props.students) {
@@ -30,32 +31,34 @@ class Review extends React.Component {
         this.props.fetchStudents(proid);
       }
     }
+    
+    // if (this.props.projects.length !== 0) {
+    //     console.log(this.props.projects);
+    //     projects = this.props.projects.map((project) => {
+    //       return (
+    //         <ReviewProjectCard
+    //           key={project.id}
+    //           project={project}
+    //           review={() => this.projectSelectedHandler(project.id)}
+    //         />
+    //       );
+    //     });
+    //   }
   }
 
-
-
-  projectSelectedHandler = (pid) => {
-    this.props.history.push(this.props.match.path + '/' + pid);
-  };
   
+
+  reviewStudent = (sid) => {
+      if (this.state.isgroup === 0){
+        this.props.history.push(`/report/projects/${this.state.projectid}/students/` + sid);
+      }else{
+        this.props.history.push(`/report/projects/${this.state.projectid}/groups/` + sid);
+      }
+  };
+
   render() {
 
-
-    let projects = <p style={{ textAlign: 'center' }}>No projects Avaiable</p>;
-
-    if (this.props.projects.length !== 0) {
-      console.log(this.props.projects);
-      projects = this.props.projects.map((project) => {
-        return (
-          <ReviewProjectCard
-            key={project.id}
-            project={project}
-            review={() => this.projectSelectedHandler(project.id)}
-          />
-        );
-      });
-    }
-
+    
     let students = <p style={{ textAlign: 'center' }}>Please add new student</p>;
 
     console.log(this.props.students);
@@ -65,6 +68,7 @@ class Review extends React.Component {
           <ReviewStu
             key={key}
             student={student}
+            review={() => this.reviewStudent(student.id)}
           />
         );
       });
@@ -73,11 +77,8 @@ class Review extends React.Component {
 
     return (
 
-      <div style={{display: 'flex'}}>
+      <div>
 
-            <div>
-                {projects}
-            </div>
           
         {/* <div className = {styles.card}>
             <h1 style={{marginBottom:'5vh'}}>Current Project:</h1>
@@ -117,12 +118,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchStudents: (pid) => {
-      dispatch(actions2.onFetchStudents(pid));
+      dispatch(actions1.onFetchStudents(pid));
     },
     fetchProjects: () => {
-        dispatch(actions1.onFetchProjects());
+        dispatch(actions2.onFetchProjects());
       },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Review);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewList);
