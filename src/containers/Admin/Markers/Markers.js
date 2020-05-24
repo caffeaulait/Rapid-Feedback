@@ -119,7 +119,7 @@ class Markers extends React.Component {
 
   goBack = () => {
     console.log("click");
-    this.props.updateCurrentMarker(this.props.currentMarkers, this.state.id);
+    this.props.updateCurrentMarker(this.props.currentMarkers, this.state.id, this.props.previousMarkers);
     this.props.history.goBack();
   };
 
@@ -181,6 +181,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.auth.token !== null,
     allMarkers: state.marker.markers,
     currentMarkers: state.marker.currentMarkers,
+    previousMarkers: state.marker.previousMarkers
   };
 };
 
@@ -198,8 +199,8 @@ const mapDispatchToProps = (dispatch) => {
     deleteCurrentMarker: (marker) => {
       dispatch(actions.deleteSuccess(marker));
     },
-    updateCurrentMarker: (markers, projectId) => {
-      dispatch(actions.onUpdateMarkers(markers, projectId))
+    updateCurrentMarker: (markers, projectId, previousMarkers) => {
+      dispatch(actions.onUpdateMarkers(markers, projectId, previousMarkers))
     }
 
 

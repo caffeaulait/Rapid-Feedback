@@ -1,5 +1,5 @@
 .title {
-    width: 90%;
+    width: 100%;
     float: left;
     position: relative;
 }
@@ -20,14 +20,18 @@
     width: 60%;
 }
 
+.row {
+    padding: 1%;
+}
+
 .box {
     background-color: white;
     border: 1px solid black;
     color: black;
     padding:2%;
-    margin-top: 2%;
+   
 }
 
 .comments>textarea {
-    width: 90%;
+    width: 100%;
 }

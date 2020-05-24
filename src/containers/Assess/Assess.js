@@ -35,7 +35,7 @@ class Assess extends React.Component {
           <Route path={url + '/projects/:pid'} component={ProjDetail}></Route>
 
           {/* 1, list all projects */}
-          <Route path={url + '/projects'} component={Projects}></Route>
+          <Route path={url + '/projects'} component={Marking}></Route>
 
           <Redirect from={url} to={url + '/projects'}></Redirect>
         </Switch>

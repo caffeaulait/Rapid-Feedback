@@ -3,6 +3,7 @@ import * as actions from '../actions/actions';
 const initialState = {
   markers: [],
   currentMarkers: [],
+  previousMarkers: [],
   markerError: null,
 };
 
@@ -31,6 +32,8 @@ const fetchCurrentSuccess = (state, action) => {
   return {
     ...state,
     currentMarkers: action.currentMarkers,
+    previousMarkers: action.previousMarkers
+
   };
 };
 

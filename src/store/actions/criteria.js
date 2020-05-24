@@ -1,6 +1,6 @@
 import * as actions from './actions';
 import * as request from '../api';
-import {nextID} from '../../util/array';
+import { nextID } from '../../util/array';
 
 export const fetchSuccess = (criterias) => {
     return {
@@ -58,30 +58,34 @@ export const updateFail = (error) => {
     };
 };
 
-export const onFetchCriterias = () => {
+export const onFetchCriterias = (pid) => {
     return (dispatch, getState) => {
-        setTimeout(() => {
-            dispatch(fetchSuccess([{ id: "1", content: "voice, pace and confidence", points: "0" }
-                , { id: "2", content: "presentation structure", points: "0" }
-                , { id: "3", content: "quality of slides/visual aids", points: "0" }
-                , { id: "4", content: "knowledge of the material", points: "0" }
-                , { id: "5", content: "content", points: "0" }
-            ]));
-        }, 1000);
-        console.log(getState());
+        // setTimeout(() => {
+        //     dispatch(fetchSuccess([{ id: "1", content: "voice, pace and confidence", points: "0" }
+        //         , { id: "2", content: "presentation structure", points: "0" }
+        //         , { id: "3", content: "quality of slides/visual aids", points: "0" }
+        //         , { id: "4", content: "knowledge of the material", points: "0" }
+        //         , { id: "5", content: "content", points: "0" }
+        //     ]));
+        // }, 1000);
+        // console.log(getState());
 
-
-        //   request
-        //     .getMarkers(getState().auth.uid)
-        //     .then((response) => {
-        //       console.log(response);
-        //       dispatch(fetchSuccess([{ Number: "1", Name: "Doe", Email: 'test@gmail.com', isSelected: false },
-        //       { Number: "2", Name: "John", Email: 'test@gmail.com', isSelected: false },
-        //       { Number: "3", Name: "Alice", Email: 'test@gmail.com', isSelected: false }]));
-        //     })
-        //     .catch((error) => {
-        //       dispatch(fetchFail(error));
-        //     });
+        console.log("make response")
+        request
+            .getCriterias(pid)
+            .then((response) => {
+                console.log("response.....")
+                console.log(response);
+                dispatch(fetchSuccess([{ id: "1", content: "voice, pace and confidence", points: "0" }
+                    , { id: "2", content: "presentation structure", points: "0" }
+                    , { id: "3", content: "quality of slides/visual aids", points: "0" }
+                    , { id: "4", content: "knowledge of the material", points: "0" }
+                    , { id: "5", content: "content", points: "0" }
+                ]));
+            })
+            .catch((error) => {
+                dispatch(fetchFail(error));
+            });
     };
 };
 

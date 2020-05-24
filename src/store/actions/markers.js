@@ -19,6 +19,7 @@ export const fetchCurrentSuccess = (markers) => {
   return {
     type: actions.GET_CURRENT_MARKER_LIST_SUCCESS,
     currentMarkers: markers,
+    previousMarkers: markers
   }
 }
 
@@ -109,7 +110,7 @@ export const onFetchMarkers = (pid) => {
     //     dispatch(fetchFail(error));
     //   });
 
-      request
+    request
       .getMarkers(pid)
       .then((response1) => {
         console.log("current......");
@@ -188,30 +189,40 @@ export const onFetchCurrentMarkers = (pid) => {
 
 export const onUpdateMarkers = (
 
-  stateData, pid
+  stateData, pid,oldData
 ) => {
   const data = stateData.map((marker) => {
     return Number(marker.id);
   });
+  const preData = oldData.map((marker) => {
+    return Number(marker.id);
+  })
+  console.log("predata...")
+  console.log(preData)
+  let nData = data.filter(n => !preData.includes(n))
+  const dataPack = {
+    markerIdList: nData,
+    projectId: Number(pid)
+  }
   console.log('updateing project..');
-  console.log(data);
+  console.log(dataPack);
   return (dispatch) => {
     // setTimeout(() => {
     //   dispatch(updateSuccess(data));
     // }, 1000);
-    data.map((markerId) => {
-      console.log(typeof markerId);
-      request
-        .updateMarkers(pid, markerId)
-        .then((response) => {
-          console.log(response);
-          // dispatch(updateSuccess(response.data));
-        })
-        .catch((err) => {
-          console.log(err);
-          dispatch(updateFail(err));
-        });
-    })
+
+    
+    request
+      .updateMarkers(dataPack)
+      .then((response) => {
+        console.log(response);
+        // dispatch(updateSuccess(response.data));
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(updateFail(err));
+      });
+
 
   };
 };

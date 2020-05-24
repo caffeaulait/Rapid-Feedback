@@ -19,7 +19,7 @@ class ProjectInforCard extends React.Component {
                 </div>
                 <div className="line">
                     <label className="pLabel">Assessment Duration:</label>
-                    <div className="info" > {this.props.project.duration_min+" mins "+this.props.project.duration_min+" secs "}</div>
+                    <div className="info" > {this.props.project.duration+" mins "}</div>
                 </div>
                 <div className="line">
                     <label className="pLabel">Created By:</label>

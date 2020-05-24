@@ -64,7 +64,7 @@ class Criteria extends React.Component {
     this.setState({author: author });
     if (this.props.criteriaLists.length === 0) {
       console.log('fetching criterias');
-      this.props.fetchCriteria();
+      this.props.fetchCriteria(pid);
     }
   }
 
@@ -84,13 +84,18 @@ class Criteria extends React.Component {
   }
 
   pointHandler = (e) => {
-    this.setState({ item: { content: this.state.item.content || '', points: e.target.value || "" } });
+    if(!isNaN(e.target.value)){
+      this.setState({ item: { content: this.state.item.content || '', points: e.target.value || "" } });
+    }else{
+      e.target.value = "";
+    }
+    
   }
 
-  nextID = (list) => {
-    console.log(Math.max.apply(Math, list));
-    return Math.max.apply(Math, list) + 1; 
-  }
+  // nextID = (list) => {
+  //   console.log(Math.max.apply(Math, list));
+  //   return Math.max.apply(Math, list) + 1; 
+  // }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -181,8 +186,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchCriteria: () => {
-      dispatch(actions.onFetchCriterias());
+    fetchCriteria: (pid) => {
+      dispatch(actions.onFetchCriterias(pid));
     },
     createCriteria: (data) => {
       dispatch(actions.onCreateCriteria(data));

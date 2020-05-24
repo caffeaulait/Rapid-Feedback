@@ -57,16 +57,18 @@ export const getMarkers = (id) => {
   return instance.get(`/projects/${id}/getMarker`);
 };
 
-export const updateMarkers = (id, data) => {
+export const updateMarkers = (data) => {
   console.log(instance);
-  return instance.post(`/projects/${id}/addMarker`, data);
+  return instance.post(`/projects/addMarker`, data);
 };
 
 export const getCriterias = (id) => {
-  return instance.get();
+  // localhost:8099/v1/projects/7/getCriteria
+  return instance.get(`/projects/${id}/getCriteria`);
 };
 
 export const updateCriterias = (data) => {
+  //localhost:8099/v1/projects/7/setCriteria
   return instance.put(`/projects/${data.id}/setCriteria`, data);
 };
 
@@ -102,3 +104,15 @@ export const deleteGroup = (pid, gid) => {
 export const importStudents = (data) => {
   return instance.post('/students/batch', data);
 };
+
+export const getResults = (pid,targetId,markerId) => {
+  return instance.get();
+};
+
+export const getAllResults = (pid,targetId) => {
+  return instance.get()
+}
+
+export const updateResults = (data) => {
+  return instance.post();
+}

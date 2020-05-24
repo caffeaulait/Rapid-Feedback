@@ -8,10 +8,12 @@
 
 .left {
   flex: 30%;
+  height: min-content;
 }
 
 .right {
   flex: 70%;
+  height: fit-content;
   border-left: 1px solid grey;
   padding-left: 2vw;
   display: flex;
@@ -34,6 +36,8 @@ div.btnGroup {
 table.gradeTable {
   margin-top: 2vh;
   table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0 1em;
 }
 
 .assDetail {

@@ -46,7 +46,7 @@ class Report extends React.Component {
           {/* 2. see students/groups, choose one for review*/}
           <Route path={url + '/projects/:pid'}></Route>
           {/* 1. see project lists, choose project */}
-          <Route path={url + '/projects'}></Route>
+          <Route path={url + '/projects' } component={Review}></Route>
 
           <Redirect from={url} to={url + '/projects'}></Redirect>
         </Switch>
