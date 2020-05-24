@@ -23,6 +23,8 @@ class SendReport extends React.Component {
 
   onDelete = () => {};
 
+  onSend = () => {};
+
   record = () => {
     const player = document.getElementById('player');
 
@@ -104,8 +106,11 @@ class SendReport extends React.Component {
             <button className={'btn btn-primary ' + styles.backBtn}>
               Back
             </button>
-            <button className={'btn btn-danger ' + styles.confirmBtn}>
-              Confirm
+            <button
+              className={'btn btn-danger ' + styles.sendBtn}
+              onClick={this.onSend}
+            >
+              Send
             </button>
           </div>
         </div>
