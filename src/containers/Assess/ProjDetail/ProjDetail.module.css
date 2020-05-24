@@ -1,0 +1,47 @@
+.top {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .btnGroup {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+  
+  div.btnGroup button {
+    width: 12vw;
+    height: 6vh;
+    margin-top: 10vh;
+  }
+  
+  .outer {
+    margin: 5vh 5vw;
+  }
+  
+  .box {
+    margin-top: 5vh;
+    border: 1px solid gray;
+    padding: 3% 5%;
+  }
+  
+  h2 {
+    color: #003f8a;
+    font-weight: bolder;
+  }
+  
+  h3 {
+    margin-top: 2vh;
+    color: gray;
+  }
+  
+  div.box p {
+    margin-top: 5vh;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .boxTop {
+    display: flex;
+    justify-content: space-between;
+  }

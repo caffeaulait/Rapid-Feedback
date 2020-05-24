@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/project';
-import ReviewStu from '../../../components/ReviewStu/ReviewStu';
 import ReviewProjectCard from '../../../components/ReviewProjectCard/ReviewProjectCard';
 import styles from './Review.module.css';
 
@@ -32,6 +31,9 @@ class ReviewProject extends React.Component {
   }
 
 
+  goBack = () => {
+    this.props.history.goBack();
+  };
 
   projectSelectedHandler = (pid) => {
     this.props.history.push(this.props.match.path + '/' + pid);
@@ -72,11 +74,21 @@ class ReviewProject extends React.Component {
 
     return (
 
-      <div style={{display: 'flex'}}>
+      <div>
 
-            <div>
+        <div className={styles.outer}>
+                <h1>My projects:</h1>
+                <div className={styles.btnGroup}>
+                  <button
+                    className={'btn btn-danger ' + styles.back}
+                    onClick={this.goBack}
+                  >
+                    Back
+                  </button>
+                </div>
                 {projects}
-            </div>
+              </div>
+
           
         {/* <div className = {styles.card}>
             <h1 style={{marginBottom:'5vh'}}>Current Project:</h1>

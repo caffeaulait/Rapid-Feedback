@@ -7,3 +7,23 @@ ul li{
     margin-bottom: 5vh;
     text-align: center;
 }
+
+  .btnGroup {
+    margin: 3vh auto;
+  }
+  
+  .back {
+    border-radius: 10px;
+    width: 10vw;
+  }
+  
+  .create {
+    border-radius: 10px;
+    width: 10vw;
+    margin-left: 5vw;
+  }
+  
+  .outer {
+    padding: 3% 10%;
+  }
+  

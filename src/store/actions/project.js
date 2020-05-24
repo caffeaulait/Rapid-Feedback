@@ -59,19 +59,19 @@ export const updateFail = (error) => {
 
 export const onFetchProjects = () => {
   return (dispatch, getState) => {
-    setTimeout(() => {
-      dispatch(fetchSuccess(fakeData));
-    }, 1000);
-    console.log(getState());
-    // request
-    //   .getProjects(getState().auth.uid)
-    //   .then((response) => {
-    //     console.log(response);
-    //     dispatch(fetchSuccess(response.data.projList));
-    //   })
-    //   .catch((error) => {
-    //     dispatch(fetchFail(error));
-    //   });
+    // setTimeout(() => {
+    //   dispatch(fetchSuccess(fakeData));
+    // }, 1000);
+    // console.log(getState());
+    request
+      .getProjects(getState().auth.uid)
+      .then((response) => {
+        console.log(response);
+        dispatch(fetchSuccess(response.data.projList));
+      })
+      .catch((error) => {
+        dispatch(fetchFail(error));
+      });
   };
 };
 
