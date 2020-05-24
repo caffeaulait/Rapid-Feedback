@@ -45,7 +45,7 @@ class Projects extends React.Component {
       });
     }
     let createBtn = null;
-    if (this.props.match.path !== '/assess') {
+    if (this.props.match.path !== '/assess/projects') {
       createBtn = (
         <button
           className={'btn btn-primary ' + styles.create}
