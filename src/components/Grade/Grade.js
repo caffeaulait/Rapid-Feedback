@@ -1,5 +1,6 @@
 import React from 'react';
-// import styles from './Grade.module.css';
+// eslint-disable-next-line no-unused-vars
+import styles from './Grade.module.css';
 
 const Grade = (props) => {
   return (
@@ -8,14 +9,14 @@ const Grade = (props) => {
       <td>{props.grade}</td>
       <td>{props.marker}</td>
       <td>{props.date}</td>
-      {/* <td>
-        <button
+      <td>
+        {/* <button
           onClick={props.goToView}
           className={'btn btn-outline-success ' + styles.viewBtn}
         >
           View
-        </button>
-      </td> */}
+        </button> */}
+      </td>
     </tr>
   );
 };
