@@ -2,17 +2,34 @@ import React from 'react';
 import styles from './Grades.module.css';
 import StudenTab from '../../../components/StudentTab/StudentTab';
 import Grade from '../../../components/Grade/Grade';
+import { connect } from 'react-redux';
+import * as result from '../../../store/actions/result';
 
 class Grades extends React.Component {
   state = {
     hasVoice: false,
+    student: null,
+    grades: [],
   };
+
+  // const data = {
+  //   uni_student_number: parseInt(stateData.stuNo),
+  //   first_name: stateData.firstName,
+  //   last_name: stateData.lastName,
+  //   uni_email: stateData.email,
+  //   project_id: pid,
+  // };
 
   componentDidMount() {
     const projectId = this.props.match.params.pid;
     const studentId = this.props.match.params.sid;
     const groupId = this.props.match.params.gid;
-    console.log(projectId, studentId, groupId);
+    // eslint-disable-next-line eqeqeq
+    const student = this.props.students.find((el) => el.id == studentId);
+    if (student) {
+      this.props.fetchGrades(projectId, studentId);
+    }
+    this.setState({ student: student });
   }
 
   toViewAssessment = () => {};
@@ -83,4 +100,20 @@ class Grades extends React.Component {
   }
 }
 
-export default Grades;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+    students: state.student.students,
+    // projectid:state.projectid
+    // projects: state.proj.projects,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchGrades: (pid, tid) => {
+      dispatch(result.onFetchAllResult(pid, tid));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Grades);
