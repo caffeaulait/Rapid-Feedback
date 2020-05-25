@@ -19,7 +19,7 @@ class Projects extends React.Component {
   }
 
   searchHandler = (value, event) => {
-    this.setState({ query: value });
+    this.setState({ query: value.toLowerCase() });
   };
 
   goBack = () => {
@@ -46,9 +46,9 @@ class Projects extends React.Component {
       if (this.state.query !== '') {
         projs = this.props.projects.filter(
           (el) =>
-            el.subject_code.startsWith(this.state.query) ||
-            el.subject_name.startsWith(this.state.query) ||
-            el.proj_name.startsWith(this.state.query)
+            el.subject_code.toLowerCase().startsWith(this.state.query) ||
+            el.subject_name.toLowerCase().startsWith(this.state.query) ||
+            el.proj_name.toLowerCase().startsWith(this.state.query)
         );
       }
       // console.log(this.props.projects);
