@@ -30,13 +30,16 @@ class Assess extends React.Component {
           ></Route>
 
           {/* 3, choose a student/group for assessment */}
-          <Route path={url + '/projects/:pid/select'} component={Select}></Route>
+          <Route
+            path={url + '/projects/:pid/select'}
+            component={Select}
+          ></Route>
 
           {/* 2,  see a project detail*/}
           <Route path={url + '/projects/:pid'} component={ProjDetail}></Route>
 
           {/* 1, list all projects */}
-          <Route path={url + '/projects'} component={Marking}></Route>
+          <Route path={url + '/projects'} component={Projects}></Route>
 
           <Redirect from={url} to={url + '/projects'}></Redirect>
         </Switch>

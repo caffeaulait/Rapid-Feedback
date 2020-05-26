@@ -39,6 +39,9 @@ const deleteFail = (state, action) => {
 
 const createSuccess = (state, action) => {
   const newStudent = action.student;
+  newStudent.id = newStudent.student_id;
+  delete newStudent['student_id'];
+  newStudent.group_id = 0;
   return {
     ...state,
     students: state.students.concat(newStudent),
@@ -83,19 +86,6 @@ const updateFail = (state, action) => {
     stuError: action.error,
   };
 };
-const addCurrentSuccess = (state, action) => {
-  return {
-    ...state,
-    students: action.students,
-  };
-};
-
-const deleteCurrentSuccess = (state, action) => {
-  return {
-    ...state,
-    students: action.students,
-  };
-};
 
 const studentReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -119,10 +109,6 @@ const studentReducer = (state = initialState, action) => {
       return importSuccess(state, action);
     case actions.IMPORT_STUDENTS_FAIL:
       return importFail(state, action);
-    case actions.ADD_CURRENTSTUDENT_SUCCESS:
-      return addCurrentSuccess(state, action);
-    case actions.DELETE_CURRENTSTUDENT_SUCCESS:
-      return deleteCurrentSuccess(state, action);
     default:
       return state;
   }

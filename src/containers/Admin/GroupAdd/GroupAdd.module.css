@@ -1,0 +1,13 @@
+.btnGroup {
+  float: right;
+}
+
+.btnGroup button {
+  width: 8vw;
+  height: 6vh;
+  margin-left: 3vw;
+}
+
+.gradeTable {
+  margin-top: 5vh;
+}

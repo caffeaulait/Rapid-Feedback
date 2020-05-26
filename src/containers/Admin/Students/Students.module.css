@@ -1,39 +1,17 @@
-.add {
-  background: #003f8a;
-  height: 57px;
-  width: 171px;
-  border-radius: 10px;
-  color: #ffffff;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 57px;
-  margin: 0 100px;
+.btnGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5vh;
 }
-.import {
-  background: #003f8a;
-  height: 57px;
-  width: 171px;
-  border-radius: 10px;
-  color: #ffffff;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 57px;
+
+.btnGroup button {
+  width: 10vw;
+  height: 6vh;
 }
-.back {
-  margin-left: 100px;
-  background: #91b1d8;
-  height: 57px;
-  width: 171px;
-  border-radius: 10px;
-  color: #ffffff;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 57px;
-}
-.delete {
+
+/* .delete {
   margin-left: 25vh;
   background: #003f8a;
   height: 57px;
@@ -44,11 +22,7 @@
   font-weight: bold;
   text-align: center;
   line-height: 57px;
-}
-
-.imp {
-  float: right;
-}
+} */
 
 ul,
 li {
@@ -108,15 +82,3 @@ table.gradeTable {
   margin-top: 5vh;
   table-layout: fixed;
 }
-tr th{
-  font-weight: bold;
-}
-tr {
-  border-bottom: 1px solid grey;
-  overflow: hidden;
-  height: 8vh;
-  white-space: nowrap;
-}
-tr td {
-  width: 25%;
-}  

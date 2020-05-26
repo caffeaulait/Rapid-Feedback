@@ -3,10 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/student';
 import SelectStuCard from './SelectStuCard';
-import SelectGroCard from'./SelectGroCard';
+import SelectGroCard from './SelectGroCard';
 import styles from './Select.module.css';
 
-  
 class Select extends React.Component {
   // constructor(props) {
   //   super(props);
@@ -35,19 +34,19 @@ class Select extends React.Component {
   };
 
   goStuAssess = (sid) => {
-    this.props.history.push(`/assess/projects/${this.state.projectid}/students/` + sid);
+    this.props.history.push(
+      `/assess/projects/${this.state.projectid}/students/` + sid
+    );
   };
 
   goGroAssess = (gid) => {
-    this.props.history.push(`/assess/projects/${this.state.projectid}/groups/` + gid);
+    this.props.history.push(
+      `/assess/projects/${this.state.projectid}/groups/` + gid
+    );
   };
 
   render() {
-
-
-    let students = (
-      <p style={{ textAlign: 'center' }}>Student</p>
-    );
+    let students = <p style={{ textAlign: 'center' }}>Student</p>;
 
     console.log(this.props.students);
     if (this.props.students) {
@@ -69,71 +68,81 @@ class Select extends React.Component {
     for (var i = 0; i < arr.length; i++) {
       var temp = arr[i];
       let groupId = temp.group_id;
-      if(typeof(mapGroup[groupId]) == "undefined"){
+      if (typeof mapGroup[groupId] == 'undefined') {
         var groupArr = [];
         groupArr.push(temp);
         mapGroup[groupId] = groupArr;
-      }else{
+      } else {
         mapGroup[groupId].push(temp);
       }
-    };
-    let groups = Object.keys(mapGroup).map((key, index) =>{
-      if(index !== 0){
-      return(
-        <SelectGroCard
-        key={index}
-        groupid = {key}
-        students = {mapGroup[key]}
-        assess={() => this.goGroAssess(key)}
-        assessed={() => this.goGroAssess(key)}
-      /> 
-      );} 
-    }); 
+    }
+    let groups = Object.keys(mapGroup).map((key, index) => {
+      if (index !== 0) {
+        return (
+          <SelectGroCard
+            key={index}
+            groupid={key}
+            students={mapGroup[key]}
+            assess={() => this.goGroAssess(key)}
+            assessed={() => this.goGroAssess(key)}
+          />
+        );
+      }
+    });
 
     const StudentTool = (
-    //   return (
-        <div>
-            <div style={{display:'flex', marginBottom:'5vh'}}>
-            <h1
-                style={{ fontSize: '40px', color: '#003f8a', fontWeight: 'bold', marginRight: '20vh'}}
-            >
-                Student List
-            </h1>
-            <button className={styles.back} onClick={this.goBack}>
-                Back
-            </button>
-            </div>
-            <table className={styles.gradeTable}>
-            <thead>
-              <tr>
-                <th>Number</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th> </th>
-              </tr>
-            </thead>
-            <tbody>{students}</tbody>
-          </table>
-
+      //   return (
+      <div>
+        <div style={{ display: 'flex', marginBottom: '5vh' }}>
+          <h1
+            style={{
+              fontSize: '40px',
+              color: '#003f8a',
+              fontWeight: 'bold',
+              marginRight: '20vh',
+            }}
+          >
+            Student List
+          </h1>
+          <button className={styles.back} onClick={this.goBack}>
+            Back
+          </button>
         </div>
-      );
+        <table className={styles.gradeTable}>
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody>{students}</tbody>
+        </table>
+      </div>
+    );
     // };
 
     const GroupTool = (
-        // return (
-          <div>
-              <div style={{display:'flex', marginBottom:'5vh'}}>
-              <h1
-                  style={{ fontSize: '40px', color: '#003f8a', fontWeight: 'bold', marginRight: '20vh'}}
-              >
-                  Group List
-              </h1>
-              <button className={styles.back} onClick={this.goBack}>
-                  Back
-              </button>
-              </div>
-              {/* <TableContainer component={Paper}>
+      // return (
+      <div>
+        <div style={{ display: 'flex', marginBottom: '5vh' }}>
+          <h1
+            style={{
+              fontSize: '40px',
+              color: '#003f8a',
+              fontWeight: 'bold',
+              marginRight: '20vh',
+            }}
+          >
+            Group List
+          </h1>
+          <button className={styles.back} onClick={this.goBack}>
+            Back
+          </button>
+        </div>
+        {/* <TableContainer component={Paper}>
                   <Table aria-label="customized table">
                       <TableHead>
                       <TableRow>
@@ -146,34 +155,32 @@ class Select extends React.Component {
                   </Table>
               </TableContainer>
               <div>{groups}</div> */}
-              <table className={styles.gradeTable}>
-                    <thead>
-                    <tr>
-                        <th>Group</th>
-                        <th>Number</th>
-                        <th>Name</th>
-                        <th>Status</th>
-                        <th> </th>
-                    </tr>
-                    </thead>
-                    <tbody>{groups}</tbody>
-                </table>
-          </div>
-        );
+        <table className={styles.gradeTable}>
+          <thead>
+            <tr>
+              <th>Group</th>
+              <th>Number</th>
+              <th>Name</th>
+              <th>Status</th>
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody>{groups}</tbody>
+        </table>
+      </div>
+    );
     //   };
-  
-      let list = <p>Failed</p>;
-      if (this.state.project) {
-        list = (
-            <div>
-                  {this.state.project.is_group == 1 ? GroupTool : StudentTool}
-            </div>
-          );
-      }
+
+    let list = <p>Failed</p>;
+    if (this.state.project) {
+      list = (
+        <div>{this.state.project.is_group == 1 ? GroupTool : StudentTool}</div>
+      );
+    }
 
     return (
       <div style={{ margin: '5vh 20vh' }}>
-          {/* {StudentTool} */}
+        {/* {StudentTool} */}
         {/* {GroupTool} */}
         {list}
       </div>

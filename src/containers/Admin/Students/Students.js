@@ -7,6 +7,7 @@ import styles from './Students.module.css';
 import XLSX from 'xlsx';
 import Papa from 'papaparse';
 import address from '../../../store/api';
+import { withRouter } from 'react-router-dom';
 // import Template from '../../../components/Modal/Template';
 
 class Students extends React.Component {
@@ -16,12 +17,18 @@ class Students extends React.Component {
     projectid: null,
     fileName: 'No files currently selected for upload',
     show: false,
+    isGroup: false,
   };
 
   // }
   componentDidMount() {
+    // console.log(this.props.match.params);
+    let isGroup = false;
+    if (this.props.isGroup === 'true') {
+      isGroup = true;
+    }
     const proid = this.props.match.params.pid;
-    this.setState({ projectid: proid });
+    this.setState({ projectid: proid, isGroup: isGroup });
     if (this.props.students) {
       if (this.props.students.length === 0) {
         console.log('fetching students');
@@ -110,9 +117,9 @@ class Students extends React.Component {
   };
 
   render() {
-    // if (!this.props.isAuthenticated) {
-    //   this.props.history.replace('/login');
-    // }
+    if (!this.props.isAuthenticated) {
+      this.props.history.replace('/login');
+    }
 
     const link = `${address}/students/template`;
 
@@ -128,33 +135,44 @@ class Students extends React.Component {
             key={key}
             student={student}
             delete={() => this.delStudent(this.state.projectid, student.id)}
+            isGroup={this.state.isGroup}
           />
         );
       });
     }
 
-    const StudentTool = (
+    let group = null;
+    if (this.state.isGroup) {
+      group = <th>Group No.</th>;
+    }
 
-        <div className='studentToolContaner'>
-          <h1 style={{ fontSize: '40px', color: '#003f8a', fontWeight: 'bold' }}>
-            Student List
-          </h1>
-          <br />
-          <button className={styles.back} onClick={this.goBack}>
+    const StudentTool = (
+      <div className='studentToolContaner'>
+        <h1 style={{ fontSize: '40px', color: '#003f8a', fontWeight: 'bold' }}>
+          Student List
+        </h1>
+        <div className={styles.btnGroup}>
+          <button
+            className={'btn btn-danger ' + styles.back}
+            onClick={this.goBack}
+          >
             Back
           </button>
-          <button className={styles.add} onClick={this.goToAdd}>
+          <button
+            className={'btn btn-primary ' + styles.add}
+            onClick={this.goToAdd}
+          >
             Add
           </button>
           <button
-            className={styles.import}
+            className={'btn btn-info ' + styles.import}
             onClick={() => {
               this.fileInput.click();
             }}
           >
             Import
           </button>
-          <div style={{ float: 'right' }}>
+          <div>
             <p>
               <small>{this.state.fileName}</small>
             </p>
@@ -176,29 +194,26 @@ class Students extends React.Component {
               show={this.state.show}
               handleClose={this.handleClose}
             ></Template> */}
-            <div style={{ clear: 'both' }}></div>
+            {/* <div style={{ clear: 'both' }}></div> */}
           </div>
-
-          <table className={styles.gradeTable}>
-            <thead>
-              <tr>
-                <th>Number</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th> </th>
-              </tr>
-            </thead>
-            <tbody>{students}</tbody>
-          </table>
         </div>
-      );
-    
 
-    return (
-      <div style={{ margin: '5vh 20vh' }}>
-        {StudentTool}
+        <table className={styles.gradeTable}>
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>Name</th>
+              <th>Email</th>
+              {group}
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody>{students}</tbody>
+        </table>
       </div>
     );
+
+    return <div style={{ margin: '2vh 8vh' }}>{StudentTool}</div>;
   }
 }
 
@@ -223,4 +238,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Students);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Students)
+);

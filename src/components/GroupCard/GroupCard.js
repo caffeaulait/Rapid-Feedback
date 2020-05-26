@@ -1,55 +1,50 @@
 import React from 'react';
 import styles from './GroupCard.module.css';
-import Table from 'react-bootstrap/Table'
+import Table from 'react-bootstrap/Table';
 
 const GroupCard = (props) => {
-
   let studentGroup = props.students.map(function (student, index) {
     return (
-      <div style={{ marginTop: '3vh'}} key={index}>
-        <Table responsive>
-          <tbody>
-            <tr>
-              <td>{student.uni_student_number}</td>
-              <td>{student.first_name + " " + student.last_name}</td>
-            </tr>
-          </tbody>
-        </Table>
-        {/* <ul className={styles.ull}>
-          <li style={{ marginRight: '31vh' }}>{student.uni_student_number}</li>
-          <li style={{ marginRight: '26vh' }}>{student.first_name + " " + student.last_name}</li>
-        </ul> */}
-      </div>
-
+      <tr style={{ marginTop: '3vh' }} key={student.id}>
+        <td>{student.uni_student_number}</td>
+        <td>{student.first_name + ' ' + student.last_name}</td>
+        {/* <td>{student.uni_email}</td> */}
+      </tr>
     );
-  })
+  });
 
   return (
-    <div >
-      <div style={{ display: 'flex', border: '2px solid #003f8a', marginTop: '5vh'}}>
-        <div style={{ marginTop: '10vh', marginBottom: '10vh', marginLeft: '5vh', marginRight: '20vh'}}>
-          <h1>{"Group "+ props.groupid}</h1>
+    <div className={styles.outer}>
+      <div className={styles.container}>
+        <div className={styles.left}>
+          <h2>{'Group ' + props.groupid}</h2>
           <br />
-          <li><button onClick={props.delete} className={styles.delete}>Delete</button></li>
+          <li>
+            <button onClick={props.delete} className={styles.delete}>
+              Delete
+            </button>
+          </li>
         </div>
 
-      
-          <Table responsive> 
-            <tbody>
+        <div className={styles.right}>
+          <Table responsive>
+            <thead>
               <tr>
-                {studentGroup}
+                <td>
+                  <b>Student ID</b>
+                </td>
+                <td>
+                  <b>Name</b>
+                </td>
+                {/* <td><b>Email</b></td> */}
               </tr>
-            </tbody>
+            </thead>
+            <tbody>{studentGroup}</tbody>
           </Table>
-          {/* <p style={{margin:'0 25vh'}}>Number</p>
-          <p>Name</p> */}
-        {/* <div> {studentGroup}</div> */}
-       
+        </div>
       </div>
     </div>
-
-
   );
-}
+};
 
 export default GroupCard;

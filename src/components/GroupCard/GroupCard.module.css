@@ -1,27 +1,32 @@
-.delete{
-    background:#91b1d8;
-    height: 40px;
-    width: 100px;
-    border-radius: 10px;
-    color: #ffffff;
-    font-size: 13px;
-    font-weight: bold;
-    text-align: center;
-    line-height: 40px;
+.delete {
+  background: #91b1d8;
+  height: 6vh;
+  width: 10vw;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 40px;
 }
 
-ul,li{
-    list-style: none;
+.container {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid #003f8a;
+  margin-top: 5vh;
 }
 
-.ull{
-    display: flex;
-    width: 1100px;
-    height: 50px;
-    /* border-bottom: 1px solid #cccccc; */
+.left {
+  flex: 30%;
+  margin: 5vh 5vh;
 }
 
+.right {
+  flex: 70%;
+  margin: 2vh 5vh;
+}
 
-.ull li{
-    line-height: 50px;
+.outer {
+  width: 90%;
 }

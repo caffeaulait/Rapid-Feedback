@@ -10,8 +10,8 @@ import CriteriaConfirm from './CriteriaConfirm/CriteriaConfirm';
 import Students from './Students/Students';
 import AddStudent from './StudentAdd/StudentAdd';
 import Groups from './Groups/Groups';
-import AddGroup from './GroupAdd/GroupAdd';
 import { connect } from 'react-redux';
+import GroupAdd from './GroupAdd/GroupAdd';
 
 class Admin extends React.Component {
   state = {};
@@ -41,7 +41,7 @@ class Admin extends React.Component {
           ></Route>
           <Route
             path={url + '/projects/:pid/groups/add'}
-            component={AddGroup}
+            component={GroupAdd}
           ></Route>
           <Route
             path={url + '/projects/:pid/criteriaConfirm'}

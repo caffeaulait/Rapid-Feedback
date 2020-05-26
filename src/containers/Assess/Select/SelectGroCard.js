@@ -1,34 +1,34 @@
 import React from 'react';
 import styles from './SelectGroCard.module.css';
-import Table from 'react-bootstrap/Table'
+import Table from 'react-bootstrap/Table';
 
 const SelectGroCard = (props) => {
-
   let studentNumber = props.students.map(function (student, index) {
     return (
       <tr>
-              <td>{student.uni_student_number}</td>
-          
-              </tr>
+        <td>{student.uni_student_number}</td>
+      </tr>
     );
-  })
+  });
   let studentName = props.students.map(function (student, index) {
     return (
       <tr>
-                <td>{student.first_name + " " + student.last_name}</td>
-          
-                </tr>
+        <td>{student.first_name + ' ' + student.last_name}</td>
+      </tr>
     );
-  })
+  });
 
-  let assess = props.students.slice(0,1).map(function (student, index) {
+  let assess = props.students.slice(0, 1).map(function (student, index) {
     return (
-        <td>
-        {student.is_assessed === 0 ? <button onClick={props.assess}>Assess</button> : <button onClick={props.assessed}>Assessed</button>}
-        </td>
-        
+      <td>
+        {student.is_assessed === 0 ? (
+          <button onClick={props.assess}>Assess</button>
+        ) : (
+          <button onClick={props.assessed}>Assessed</button>
+        )}
+      </td>
     );
-  })
+  });
 
   return (
     // <div >
@@ -36,7 +36,7 @@ const SelectGroCard = (props) => {
     //     <div style={{ marginTop: '10vh', marginBottom: '10vh', marginLeft: '5vh', marginRight: '20vh'}}>
     //       <h1>{"Group "+ props.groupid}</h1>
     //     </div>
-    //     <Table responsive> 
+    //     <Table responsive>
     //         <tbody>
     //             <tr>
     //             {studentGroup}
@@ -49,14 +49,12 @@ const SelectGroCard = (props) => {
     //   </div>
     // </div>
     <tr>
-      <td>{"Group "+ props.groupid}</td>
+      <td>{'Group ' + props.groupid}</td>
       <td>{studentNumber}</td>
       <td>{studentName}</td>
       <td>{assess}</td>
     </tr>
-
-
   );
-}
+};
 
 export default SelectGroCard;
