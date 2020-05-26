@@ -25,15 +25,21 @@ class SignUp extends React.Component {
 
   signUp = (event) => {
     event.preventDefault();
-    const id = parseInt(this.state.staffId);
-    this.props.onAuthenticate(
-      id,
-      this.state.email,
-      this.state.password,
-      this.state.firstName,
-      this.state.lastName,
-      this.state.isAdmin
-    );
+    // if (this.form.checkValidity() === false) event.stopPropagation();
+    // else {
+    this.form.classList.add('was-validated');
+    if (this.form.checkValidity() === true) {
+      const id = parseInt(this.state.staffId);
+      this.props.onAuthenticate(
+        id,
+        this.state.email,
+        this.state.password,
+        this.state.firstName,
+        this.state.lastName,
+        this.state.isAdmin
+      );
+    }
+    // }
   };
 
   render() {
@@ -41,6 +47,16 @@ class SignUp extends React.Component {
     if (this.props.isAuthenticated) {
       redirect = <Redirect to='/home' />;
     }
+    // eslint-disable-next-line no-unused-vars
+    const inValid =
+      this.state.password === '' ||
+      this.state.confirm === '' ||
+      this.state.password !== this.state.confirm ||
+      this.state.staffId === '' ||
+      this.state.firstName === '' ||
+      this.state.lastName === '' ||
+      this.state.email === '';
+
     return (
       <>
         {redirect}
@@ -60,7 +76,12 @@ class SignUp extends React.Component {
 
         <div className={styles.main}>
           <div className={styles.login_form}>
-            <form onSubmit={this.signUp}>
+            <form
+              noValidate
+              className='needs-validation'
+              onSubmit={this.signUp}
+              ref={(element) => (this.form = element)}
+            >
               <div className='form-group'>
                 <div style={{ float: 'left', width: '45%' }}>
                   <label>FirstName</label>
@@ -70,7 +91,12 @@ class SignUp extends React.Component {
                     name='firstName'
                     value={this.state.firstName}
                     onChange={(event) => this.inputChange(event)}
+                    placeholder='first name'
+                    required
                   />
+                  <div className='invalid-feedback'>
+                    Please provide first name!
+                  </div>
                 </div>
                 <div style={{ float: 'right', width: '45%' }}>
                   <label>LastName</label>
@@ -80,7 +106,12 @@ class SignUp extends React.Component {
                     name='lastName'
                     value={this.state.lastName}
                     onChange={(event) => this.inputChange(event)}
+                    placeholder='lastname'
+                    required
                   />
+                  <div className='invalid-feedback'>
+                    Please provide last name!
+                  </div>
                 </div>
               </div>
               <div style={{ clear: 'both' }}></div>
@@ -92,7 +123,13 @@ class SignUp extends React.Component {
                   value={this.state.staffId}
                   className='form-control'
                   onChange={(event) => this.inputChange(event)}
+                  placeholder='staff number'
+                  pattern='^\d+$'
+                  required
                 />
+                <div className='invalid-feedback'>
+                  Please provide valid staff number!
+                </div>
               </div>
               <div className='form-group'>
                 <label>E-mail</label>
@@ -102,7 +139,12 @@ class SignUp extends React.Component {
                   className='form-control'
                   value={this.state.email}
                   onChange={(event) => this.inputChange(event)}
+                  placeholder='email'
+                  required
                 />
+                <div className='invalid-feedback'>
+                  Please provide a valid email!
+                </div>
               </div>
               <div className='form-group'>
                 <label>Password</label>
@@ -112,7 +154,14 @@ class SignUp extends React.Component {
                   className='form-control'
                   value={this.state.password}
                   onChange={(event) => this.inputChange(event)}
+                  minLength='6'
+                  maxLength='15'
+                  placeholder='password'
+                  required
                 />
+                <div className='invalid-feedback'>
+                  A valid password must have at least 6 characters!
+                </div>
               </div>
               <div className='form-group'>
                 <label>Confirm</label>
@@ -122,7 +171,22 @@ class SignUp extends React.Component {
                   name='confirm'
                   value={this.state.confirm}
                   onChange={(event) => this.inputChange(event)}
+                  minLength='6'
+                  maxLength='15'
+                  placeholder='password'
+                  required
                 />
+                <div
+                  className='invalid-feedback'
+                  style={{
+                    display:
+                      this.state.password === this.state.confirm
+                        ? 'none'
+                        : 'block',
+                  }}
+                >
+                  Please repeat the same password!
+                </div>
               </div>
 
               <div className='form-group'>

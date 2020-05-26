@@ -82,6 +82,10 @@ export const createStudent = (data) => {
   return instance.post(`/students`, data);
 };
 
+export const addStudentGroup = (data)=>{
+  return instance.post( `/groups`,data);
+}
+
 export const updateStudent = (data) => {
   return instance.put();
 };
@@ -105,13 +109,13 @@ export const importStudents = (data) => {
   return instance.post('/students/batch', data);
 };
 
-export const getResults = (pid,targetId,markerId) => {
+export const getResults = (pid, targetId, markerId) => {
   return instance.get();
 };
 
-export const getAllResults = (pid,targetId) => {
-  return instance.get()
-}
+export const getAllResults = (pid, targetId) => {
+  return instance.get();
+};
 
 export const updateResults = (data) => {
   return instance.post();
@@ -124,3 +128,8 @@ export const getComments = (mid) => {
 export const addComment = (mid) => {
   return instance.post();
 }
+};
+
+export const sendReport = (data) => {
+  return instance.post();
+};

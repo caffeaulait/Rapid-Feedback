@@ -116,3 +116,8 @@ ul,li{
     color: 003f8a;
     font-weight: bold;
 }
+
+.tabchangebox{padding: 0px .2rem;}
+.tabchangebox ul{display:flex;border-bottom: 1px solid #eee;flex-direction: row;}
+.tabchangebox  ul li{text-align: center}
+.active{border-bottom: 2px solid #003f8a;color: #003f8a}

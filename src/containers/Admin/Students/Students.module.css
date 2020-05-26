@@ -103,3 +103,20 @@ li {
   color: 003f8a;
   font-weight: bold;
 }
+
+table.gradeTable {
+  margin-top: 5vh;
+  table-layout: fixed;
+}
+tr th{
+  font-weight: bold;
+}
+tr {
+  border-bottom: 1px solid grey;
+  overflow: hidden;
+  height: 8vh;
+  white-space: nowrap;
+}
+tr td {
+  width: 25%;
+}  

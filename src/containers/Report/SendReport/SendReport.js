@@ -7,6 +7,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import GroupTab from '../../../components/GroupTab/GroupTab';
+import { connect } from 'react-redux';
+import * as result from '../../../store/actions/result';
 
 class SendReport extends React.Component {
   state = {
@@ -23,7 +25,9 @@ class SendReport extends React.Component {
 
   onDelete = () => {};
 
-  onSend = () => {};
+  onSend = (data) => {
+    result.onSendReport(data);
+  };
 
   record = () => {
     const player = document.getElementById('player');
@@ -119,4 +123,12 @@ class SendReport extends React.Component {
   }
 }
 
-export default SendReport;
+const mapStateToProps = (state) => {
+  return null;
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return null;
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SendReport);
