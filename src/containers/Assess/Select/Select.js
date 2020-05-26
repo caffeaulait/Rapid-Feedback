@@ -2,26 +2,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/student';
-import SelectCard from './SelectStuCard';
+import SelectStuCard from './SelectStuCard';
 import SelectGroCard from'./SelectGroCard';
 import styles from './Select.module.css';
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
 
-const StyledTableCell = withStyles(theme => ({
-    head: {
-      backgroundColor: "#003f8a",
-      color: theme.palette.common.white,
-      fontWeight: "bold"
-    },
-  }))(TableCell);
   
-
 class Select extends React.Component {
   // constructor(props) {
   //   super(props);
@@ -68,10 +53,11 @@ class Select extends React.Component {
     if (this.props.students) {
       students = this.props.students.map((student, key) => {
         return (
-          <SelectCard
+          <SelectStuCard
             key={key}
             student={student}
             assess={() => this.goStuAssess(student.id)}
+            assessed={() => this.goStuAssess(student.id)}
           />
         );
       });
@@ -91,15 +77,17 @@ class Select extends React.Component {
         mapGroup[groupId].push(temp);
       }
     };
-    let groups = Object.keys(mapGroup).map(function(key){
+    let groups = Object.keys(mapGroup).map((key, index) =>{
+      if(index !== 0){
       return(
         <SelectGroCard
-        key={key}
+        key={index}
         groupid = {key}
         students = {mapGroup[key]}
         assess={() => this.goGroAssess(key)}
+        assessed={() => this.goGroAssess(key)}
       /> 
-      )  
+      );} 
     }); 
 
     const StudentTool = (
@@ -115,19 +103,19 @@ class Select extends React.Component {
                 Back
             </button>
             </div>
-            <TableContainer component={Paper}>
-                <Table aria-label="customized table">
-                    <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Number</StyledTableCell>
-                        <StyledTableCell align="center">Name</StyledTableCell>
-                        <StyledTableCell align="right">Email</StyledTableCell>
-                        <StyledTableCell align="right">Status</StyledTableCell>
-                    </TableRow>
-                    </TableHead>
-                </Table>
-            </TableContainer>
-            <div>{students}</div>
+            <table className={styles.gradeTable}>
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>{students}</tbody>
+          </table>
+
         </div>
       );
     // };
@@ -145,7 +133,7 @@ class Select extends React.Component {
                   Back
               </button>
               </div>
-              <TableContainer component={Paper}>
+              {/* <TableContainer component={Paper}>
                   <Table aria-label="customized table">
                       <TableHead>
                       <TableRow>
@@ -157,7 +145,19 @@ class Select extends React.Component {
                       </TableHead>
                   </Table>
               </TableContainer>
-              <div>{groups}</div>
+              <div>{groups}</div> */}
+              <table className={styles.gradeTable}>
+                    <thead>
+                    <tr>
+                        <th>Group</th>
+                        <th>Number</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th> </th>
+                    </tr>
+                    </thead>
+                    <tbody>{groups}</tbody>
+                </table>
           </div>
         );
     //   };

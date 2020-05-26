@@ -1,8 +1,6 @@
 import React from 'react';
-import styles from './SelectGroCard.module.css';
-import Table from 'react-bootstrap/Table'
 
-const SelectGroCard = (props) => {
+const ReviewGroCard = (props) => {
 
   let studentNumber = props.students.map(function (student, index) {
     return (
@@ -26,7 +24,7 @@ const SelectGroCard = (props) => {
         <td>
         {student.is_assessed === 0 ? <button onClick={props.assess}>Assess</button> : <button onClick={props.assessed}>Assessed</button>}
         </td>
-        
+
     );
   })
 
@@ -59,4 +57,4 @@ const SelectGroCard = (props) => {
   );
 }
 
-export default SelectGroCard;
+export default ReviewGroCard;

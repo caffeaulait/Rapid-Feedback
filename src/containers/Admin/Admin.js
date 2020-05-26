@@ -36,6 +36,7 @@ class Admin extends React.Component {
           ></Route>
           <Route
             path={url + '/projects/:pid/groups'}
+            exact
             component={Groups}
           ></Route>
           <Route

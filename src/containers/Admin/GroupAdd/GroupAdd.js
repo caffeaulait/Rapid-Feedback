@@ -1,172 +1,123 @@
 import React from 'react';
-import SearchBar from '../../../components/SearchBar/SearchBar';
-import CurrentMarkerView from '../../../components/CurrentMarkerView/CurrentMarkerView';
-import * as actions from '../../../store/actions/markers';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import * as actions from '../../../store/actions/student';
+import StudentList from './StudentList';
+import styles from '../Students/Students.module.css';
 
-class Markers extends React.Component {
-  state = {
-    hasTerm: false,
-    searchedMarker: [],
-    isFound: false,
-    isClick: false,
-  };
 
-  componentDidMount() {
-    console.log(this.props);
-    if (this.props.allMarkers.length === 0) {
-      console.log('fetching markers');
-      this.props.fetchMarkers();
-    }
-    if (this.props.currentMarkers.length === 0) {
-      this.props.fetchCurrentMarkers();
-    }
-  }
+class GroupAdd extends React.Component {
   // constructor(props) {
   //   super(props);
-
-  //   this.state = {
-  //     lat: null,
-  //     errorMessage: ''
-  //   }
-  //   window.navigator.geolocation.getCurrentPosition(
-  //     (pos) => {
-  //       this.setState({lat:pos.coords.latitude})
-  //     },
-  //     (err) => {
-  //       this.setState({errorMessage: err.message})
-  //     }
-  //   );
-
-  findMarkerIndex = (marker) => {
-    let array = this.props.allMarkers.map((a) => a.Number);
-    var index = array.indexOf(marker.Number);
-
-    return index;
-  };
-
-  addMarker = (marker) => {
-    // this.setState({ markers: [...this.state.markers, marker] })
-    // let index = this.findMarkerIndex(marker);
-    // let backUp = [...this.props.allMarkers];
-    // backUp[index].isSelected = true;
-    // this.setState({ allMarkers: backUp });
-    // console.log("Addddddddd");
-    this.props.addCurrentMarker(marker);
-  };
-
-  deleteMarker = (marker) => {
-    // let backUp = [...this.state.markers];
-    // let array = this.state.markers.map(a => a.Number);
-    // var index = array.indexOf(marker.Number)
-    // if (index !== -1) {
-    //   backUp.splice(index, 1);
-    //   this.setState({ markers: backUp });
-    // }
-
-    // this.props.deleteCurrentMarker(marker);
-
-    // let index1 = this.findMarkerIndex(marker);
-    // let backUp1 = [...this.props.allMarkers];
-    // backUp1[index1].isSelected = false;
-    // this.setState({ allMarkers: backUp1 });
-    // console.log("Deleteeeeeeee");
-    this.props.deleteCurrentMarker(marker);
-  };
-
-  search = (key, inputArray) => {
-    console.log(key);
-    console.log(inputArray);
-    let array = [];
-    for (let i = 0; i < inputArray.length; i++) {
-      if (
-        inputArray[i].Name == key ||
-        inputArray[i].Number == key ||
-        inputArray[i].Email == key
-      ) {
-        array.push(i);
-      }
-    }
-    return array;
-  };
-
-  onClearArray = () => {
-    this.setState({ searchedMarker: [] });
-  };
-
-  onSearchSubmit = (term) => {
-    term === ''
-      ? this.setState({ hasTerm: false })
-      : this.setState({ hasTerm: true });
-    console.log(term);
-    this.setState({ isClick: true });
-    let slots = [];
-    slots = this.search(term, this.props.allMarkers);
-    console.log(slots);
-    if (slots.length > 0) {
-      this.setState({ isFound: true });
-      this.setState({
-        searchedMarker: slots,
-      });
-    } else {
-      this.setState({ searchedMarker: [] });
-    }
-  };
-
-  goBack = () => {
-    console.log('click');
-    this.props.history.goBack();
+  state = {
+    projectid: null,
+    groid: 0,
   };
 
   // }
+  componentDidMount() {
+    const proid = this.props.match.params.pid;
+    this.setState({ projectid: proid });
+    if (this.props.students) {
+      if (this.props.students.length === 0) {
+        console.log('fetching students');
+        this.props.fetchStudents(proid);
+      }
+    }
+  }
+
+  
+
+  goBack = () => {
+    this.props.history.goBack();
+  }
+  clickStudentButton = (student) => {
+    if(student.selected){
+      this.props.deleteCurentStudent(student,this.props.students);
+    }else{
+      
+      this.props.addCurrentStudent(student,this.props.students);
+    }
+  }
+  confirmGroupStudent =() =>{
+    let selectedStudent = this.props.students.map(function(val){
+      if(val.selected){
+        return {'student_id': val.id};
+      }
+    })
+    let groupId = this.state.groid;
+    this.props.confirmStudentGroup(this.state.projectid,groupId,selectedStudent);
+    this.goBack();
+
+  }
+
+  
 
   render() {
-    if (!this.props.isAuthenticated) {
-      this.props.history.replace('/login');
+    // if (!this.props.isAuthenticated) {
+    //   this.props.history.replace('/login');
+    // }
+    //当前选中的students 
+    let selectStudent =(
+      <div>currnetStudent</div>
+    )
+    selectStudent = this.props.students.map((student,key)=>{
+      if(student.selected){
+        return (
+          <div key={key}>{student.first_name + student.last_name}</div>
+        )
+      } 
+    })
+    
+    let students = (
+      <p style={{ textAlign: 'center' }}>Please add new student</p>
+    );
+
+    console.log(this.props.students);
+    
+
+    if (this.props.students) {
+      students = this.props.students.map((student, key) => {
+        if(student.group_id >= this.state.groid){
+          this.setState({groid: student.group_id + 1});
+        }
+        if (student.group_id === 0){
+        return (
+          <StudentList
+            key={key}
+            student={student}
+            delete={() => this.clickStudentButton(student)}
+          />
+        );}
+      });
     }
 
-    return (
-      <div className='ui container'>
-        <div style={{ marginTop: '30px', marginBottom: '20px' }}>
-          <h1
-            style={{
-              color: '#003F8A',
-              marginLeft: '120px',
-              fontSize: '60px',
-              display: 'inline-block',
-              width: '100%',
-              marginRight: '-30%',
-            }}
-          >
-            Add New Group
-          </h1>
-          <button
-            style={{
-              fontSize: '30px',
-              padding: '10px 40px',
-              color: 'white',
-              background: '#003F8A',
-              verticalAlign: 'top',
-              borderRadius: '15px',
-            }}
-            onClick={this.goBack}
-          >
-            Confirm
-          </button>
-        </div>
+    const StudentTool = (
 
-        <CurrentMarkerView markers={this.props.currentMarkers} />
-        <SearchBar
-          allMarkers={this.props.allMarkers}
-          addMarker={this.addMarker}
-          deleteMarker={this.deleteMarker}
-          onSubmit={this.onSearchSubmit}
-          hasTerm={this.state.hasTerm}
-          searchedMarker={this.state.searchedMarker}
-          isFound={this.state.isFound}
-          isClick={this.state.isClick}
-        />
+        <div className='studentToolContaner'>
+          <div>Group: {this.state.groid}</div>
+          <button onClick={this.confirmGroupStudent} style={{float:'right'}}>confirm</button>
+          <div style={{display:'flex'}}>
+          <div>Current Group Member:</div>
+          <div>{selectStudent}</div>
+          </div>
+          <table className={styles.gradeTable}>
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>{students}</tbody>
+          </table>
+        </div>
+      );
+    
+
+    return (
+      <div style={{ margin: '5vh 20vh' }}>
+        {StudentTool}
       </div>
     );
   }
@@ -175,26 +126,27 @@ class Markers extends React.Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
-    allMarkers: state.marker.markers,
-    currentMarkers: state.marker.currentMarkers,
+    students: state.student.students,
+    currentStudents : state.currentStudents,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchMarkers: () => {
-      dispatch(actions.onFetchMarkers());
+    fetchStudents: (pid) => {
+      dispatch(actions.onFetchStudents(pid));
     },
-    fetchCurrentMarkers: () => {
-      dispatch(actions.onFetchCurrentMarkers());
+    addCurrentStudent:(student,students) =>{
+      dispatch(actions.addCurrentStudent(student,students));
     },
-    addCurrentMarker: (marker) => {
-      dispatch(actions.addSuccess(marker));
+    deleteCurentStudent: (student,students) => {
+      dispatch(actions.deleteCurentStudent(student,students));
     },
-    deleteCurrentMarker: (marker) => {
-      dispatch(actions.deleteSuccess(marker));
-    },
+    confirmStudentGroup:(pid,groupId,students)=> {
+      dispatch(actions.confirmStudentGroup(pid,groupId,students))
+    }
+
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Markers);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupAdd);
