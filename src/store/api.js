@@ -119,7 +119,15 @@ export const getAllResults = (pid, targetId) => {
 
 export const updateResults = (data) => {
   return instance.post();
-};
+}
+
+export const getComments = (mid) => {
+  return instance.get();
+}
+
+export const addComment = (mid) => {
+  return instance.post();
+}
 
 export const sendReport = (data) => {
   return instance.post();
