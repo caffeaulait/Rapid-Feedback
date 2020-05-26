@@ -136,7 +136,6 @@ class Criteria extends React.Component {
     //     editItem: true
     //   });
     // }
-
     let id = this.findCriteriaIndex(criteria);
     this.props.deletCriteria(id);
     this.setState({

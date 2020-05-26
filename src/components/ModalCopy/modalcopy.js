@@ -32,7 +32,7 @@ class Modal extends Component {
 
     render() {
         return (
-            <div className="modal fade" id="testModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="testModal" tabIndex="-1" role="dialog" aria-labelledby="testModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">

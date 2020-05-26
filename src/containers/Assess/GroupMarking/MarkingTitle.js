@@ -8,9 +8,9 @@ class MarkingTitle extends React.Component {
 
     assTargetBuild = () => {
         let str = "";
-        str = str.concat(this.props.assTarget.name);
-        str = str.concat("    ");
-        str = str.concat(this.props.assTarget.number);
+        str = str.concat(this.props.assTarget.Group);
+        str = str.concat(":  ");
+        str = str.concat(this.props.assTarget.Member.join("   "));
         return str;
     }
 
@@ -26,15 +26,16 @@ class MarkingTitle extends React.Component {
 
 
     render() {
-        console.log("running")
+        console.log(this.props)
+        let options = this.props.assTarget.Member.map((marker) => {
+            return <option key={marker.id} value={marker.name}>{marker.name}</option>
+        })
         return (
             <div className="title">
-                {/* <DropdownButton className="assTarget" id="dropdown-basic-button" title="Dropdown button">
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                </DropdownButton> */}
-                <span className="assTarget"><pre>{this.assTargetBuild()}</pre></span>
+                <select className="assTarget" id="mySelect" style={{ width: "40%" }} onChange={(e) => this.props.setTarget(e.target.value)}>
+                    <option value={this.props.assTarget.groupName}>{this.props.assTarget.groupName}</option>
+                    {options}
+                </select>
                 <ClockCount time={this.props.assTime} />
                 <span className="score">{this.totalScore()}</span>
             </div>

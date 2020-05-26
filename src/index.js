@@ -14,6 +14,7 @@ import criteriaReducer from './store/reducers/criteria';
 import studentReducer from './store/reducers/student';
 import groupReducer from './store/reducers/group';
 import resultReducer from './store/reducers/result';
+import commReducer from './store/reducers/comments';
 
 //enable redux devtools
 const enhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
   criteria: criteriaReducer,
   student: studentReducer,
   group: groupReducer,
-  result: resultReducer
+  result: resultReducer,
+  comment: commReducer
 })
 
 const store = createStore(rootReducer, enhancers(applyMiddleware(thunk)));

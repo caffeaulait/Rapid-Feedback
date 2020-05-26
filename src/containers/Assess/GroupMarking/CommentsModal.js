@@ -39,6 +39,8 @@ class Modal extends Component {
 
     }
 
+    
+
 
 
     render() {
@@ -54,7 +56,7 @@ class Modal extends Component {
                         </div>
                         <div className="modal-body">
                             <CommentsInput addComments={this.addNewComments}/>
-                            <CommentsList comments={this.props.comments} upItem = {this.props.updateItem} setId = {this.props.setId} id = {this.props.id} updateItem={this.props.updateItem} />
+                            <CommentsList comments={this.props.comments} target = {this.props.target} upItem = {this.props.updateItem} setId = {this.props.setId} id = {this.props.id} updateItem={this.props.updateItem} />
                         </div>
                         <div className="modal-footer">
                             <button type="button" style={{ fontSize: '10px', padding: '5px 10px', color: 'white', background: '#003F8A', borderRadius: '15px', width: "20%", verticalAlign: 'center' }} data-dismiss="modal">Close</button>

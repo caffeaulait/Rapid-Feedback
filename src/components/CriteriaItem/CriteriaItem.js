@@ -13,18 +13,18 @@ export default class CriteriaItem extends React.Component {
                     <span className="mx-2 text-success" data-toggle="modal" data-target="#testModal" onClick={this.props.editCriteria}>
                         <i className="fas fa-pencil-alt"></i>
                     </span>
-                    <Modal
-                        titleHandler={this.props.titleHandler}
-                        pointHandler={this.props.pointHandler}
-                        handleSubmit={this.props.handleSubmit}
-                        item={this.props.item}
-                        editItem={this.props.editItem}
-                    />
+
                     <span className="mx-2 text-danger" onClick={this.props.deletCriteria}>
                         <i className="fas fa-trash-alt"></i>
                     </span>
                 </div>
-
+                <Modal
+                    titleHandler={this.props.titleHandler}
+                    pointHandler={this.props.pointHandler}
+                    handleSubmit={this.props.handleSubmit}
+                    item={this.props.item}
+                    editItem={this.props.editItem}
+                />
             </li>
         );
     }

@@ -10,6 +10,8 @@ export default class CommentsList extends React.Component {
 
 
     render() {
+        console.log("target....")
+        console.log(this.props.target)
         function comp(context, type) {
             return (
                 <div className="comments">
@@ -39,7 +41,8 @@ export default class CommentsList extends React.Component {
                 })
 
                 this.setState({one:array[selected]})
-                this.props.upItem(array[selected])
+                // this.props.upItem(array[selected],this.props.comments[selected].type)
+                this.props.upItem(this.props.comments[selected])
                 this.props.setId(this.props.id)
             }}
         />

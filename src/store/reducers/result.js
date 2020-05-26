@@ -2,11 +2,7 @@ import * as actions from '../actions/actions';
 import { updateResultSuccess } from '../actions/result';
 
 const initialState = {
-    singleResult: [{ id: "1", point: 0, comment: '1' },
-    { id: "2", point: 5, comment: '2' },
-    { id: "3", point: 0, comment: '3' },
-    { id: "4", point: 5, comment: '4' },
-    { id: "5", point: 0, comment: '5' }],
+    singleResult: [],
     allResults: [],
     resultError: null
 };

@@ -1,0 +1,47 @@
+.all {
+    display:table;
+    padding-top: 0;
+    width:100%;
+    height: 15%;
+    background-color: white;
+    border-bottom: 1px solid black;
+    
+}
+
+.first {
+    display:table-cell;
+    width: 25%;
+    text-align: center;
+    color:black;
+    
+    border-right: 1px solid black;
+}
+
+.second {
+    display:table-cell;
+    width: 66%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+}
+
+.comments {
+    height:100%;
+    vertical-align: bottom;
+}
+
+.commentsArea {
+    height:100%;
+    width:85%;
+    background-color: rgb(202, 198, 198);
+}
+
+.addButton {
+    
+    margin-left: 2%;
+}
+
+.bar {
+    display: table;
+    padding: 2%;
+    width: 100%;
+}

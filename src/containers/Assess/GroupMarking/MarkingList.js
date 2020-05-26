@@ -15,9 +15,10 @@ class MarkingList extends React.Component {
     render() {
         console.log("result.....")
         console.log(this.props.result)
+        let close = this.props.target !== this.props.assTarget.groupName;
        
         const markingList = this.props.result.length !== 0 ? this.props.criteria.map((c) => {
-            return <MarkingItem key = {c.id} criteria={c} result={this.props.result[this.findCriteriaIndex(c)]} comments={this.props.comments} setId = {this.props.setId} addComments = {this.props.addComments} updateItem={this.props.updateItem} updatePoint = {this.props.updatePoint}/>;
+            return <MarkingItem key = {c.id} target = {this.props.target} close = {close} criteria={c} result={this.props.result[this.findCriteriaIndex(c)]} comments={this.props.comments} setId = {this.props.setId} addComments = {this.props.addComments} updateItem={this.props.updateItem} updatePoint = {this.props.updatePoint}/>;
         }) : <p>loading....</p>
         return (
             <div>
