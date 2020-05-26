@@ -1,5 +1,6 @@
 import * as actions from './actions';
 import * as request from '../api';
+import { onFetchStudents } from './student';
 
 export const fetchSuccess = (data) => {
   return {
@@ -132,7 +133,8 @@ export const onDeleteGroup = (pid, gid) => {
       .deleteGroup(pid, gid)
       .then((response) => {
         console.log(response);
-        dispatch(deleteSuccess(pid, gid));
+        dispatch(onFetchStudents(pid));
+        // dispatch(deleteSuccess(pid, gid));
       })
       .catch((err) => {
         dispatch(delelteFail(err));

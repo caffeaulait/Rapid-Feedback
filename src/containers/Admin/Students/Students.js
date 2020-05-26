@@ -120,7 +120,7 @@ class Students extends React.Component {
       <p style={{ textAlign: 'center' }}>Please add new student</p>
     );
 
-    // console.log(this.props.students);
+    console.log(this.props.students);
     if (this.props.students) {
       students = this.props.students.map((student, key) => {
         return (
@@ -132,12 +132,11 @@ class Students extends React.Component {
         );
       });
     }
-    const StudentTool = (props) => {
-      return (
+
+    const StudentTool = (
+
         <div className='studentToolContaner'>
-          <h1
-            style={{ fontSize: '40px', color: '#003f8a', fontWeight: 'bold' }}
-          >
+          <h1 style={{ fontSize: '40px', color: '#003f8a', fontWeight: 'bold' }}>
             Student List
           </h1>
           <br />
@@ -179,41 +178,25 @@ class Students extends React.Component {
             ></Template> */}
             <div style={{ clear: 'both' }}></div>
           </div>
+
+          <table className={styles.gradeTable}>
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>{students}</tbody>
+          </table>
         </div>
       );
-    };
+    
 
     return (
       <div style={{ margin: '5vh 20vh' }}>
-        <StudentTool></StudentTool>
-        {/* <div style={{ display: 'flex', marginBottom: '5vh' }}>
-          <h1 style={{ fontSize: '40px', color: '#003f8a', fontWeight: 'bold' }}>Student List</h1>
-          <button className={styles.back} onClick={this.goBack}>
-            Back
-          </button>
-          <button className={styles.add} onClick={this.goToAdd}>
-            Add
-          </button>
-          <button className={styles.import}>
-            Import
-          </button>
-        </div> */}
-
-        <div
-          style={{
-            marginTop: '5vh',
-            display: 'flex',
-            fontSize: '30px',
-            fontWeight: '900',
-            height: '50px',
-            borderBottom: '2px solid #cccccc',
-          }}
-        >
-          <p>Number</p>
-          <p style={{ margin: '0 20vh' }}>Name</p>
-          <p>Email</p>
-        </div>
-        <div>{students}</div>
+        {StudentTool}
       </div>
     );
   }
@@ -223,8 +206,6 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
     students: state.student.students,
-    // projectid:state.projectid
-    // projects: state.proj.projects,
   };
 };
 

@@ -7,12 +7,8 @@ import styles from './StudentAdd.module.css';
 class StudentAdd extends React.Component {
   state = {
     projectid: null,
+    project: null,
     student: {stuNo:'', firstName:'', lastName:'', email:'', id: null}
-    // stuNo: '',
-    // firstName: '',
-    // lastName: '',
-    // email: '',
-    // id: null,
   };
 
   componentDidMount() {
@@ -20,6 +16,8 @@ class StudentAdd extends React.Component {
     const pid = this.props.match.params.pid;
     this.setState({ projectid: pid });
     console.log(this.state.projectid);
+    const foundProj = this.props.projects.find((el) => el.id == pid);
+    this.setState({ project: foundProj });
   }
 
   inputChange = (event) => {
@@ -45,7 +43,11 @@ class StudentAdd extends React.Component {
     event.preventDefault();
     this.props.createStudent(this.state.student, this.state.projectid);
     console.log(this.state.student);
+    if (this.state.project.is_group === 0){
     this.props.history.push(`/admin/projects/${this.state.projectid}/students`);
+    }else{
+      this.props.history.push(`/admin/projects/${this.state.projectid}/groups`);
+    }
   };
 
 
@@ -135,8 +137,8 @@ class StudentAdd extends React.Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
+    projects: state.proj.projects,
     // students: state.student.students,
-    // projects: state.proj.projects,
   };
 };
 

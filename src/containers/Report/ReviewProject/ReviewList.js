@@ -2,12 +2,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/student';
-import SelectStuCard from './SelectStuCard';
-import SelectGroCard from'./SelectGroCard';
-import styles from './Select.module.css';
+import ReviewStuCard from './ReviewStuCard';
+import ReviewGroCard from'./ReviewGroCard';
+import styles from './ReviewList.module.css';
 
   
-class Select extends React.Component {
+class ReviewList extends React.Component {
   // constructor(props) {
   //   super(props);
   state = {
@@ -35,11 +35,11 @@ class Select extends React.Component {
   };
 
   goStuAssess = (sid) => {
-    this.props.history.push(`/assess/projects/${this.state.projectid}/students/` + sid);
+    this.props.history.push(`/report/projects/${this.state.projectid}/students/` + sid);
   };
 
   goGroAssess = (gid) => {
-    this.props.history.push(`/assess/projects/${this.state.projectid}/groups/` + gid);
+    this.props.history.push(`/report/projects/${this.state.projectid}/groups/` + gid);
   };
 
   render() {
@@ -53,7 +53,7 @@ class Select extends React.Component {
     if (this.props.students) {
       students = this.props.students.map((student, key) => {
         return (
-          <SelectStuCard
+          <ReviewStuCard
             key={key}
             student={student}
             assess={() => this.goStuAssess(student.id)}
@@ -80,14 +80,14 @@ class Select extends React.Component {
     let groups = Object.keys(mapGroup).map((key, index) =>{
       if(index !== 0){
       return(
-        <SelectGroCard
+        <ReviewGroCard
         key={index}
         groupid = {key}
         students = {mapGroup[key]}
         assess={() => this.goGroAssess(key)}
         assessed={() => this.goGroAssess(key)}
       /> 
-      );} 
+      );}
     }); 
 
     const StudentTool = (
@@ -197,4 +197,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Select);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewList);

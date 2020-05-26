@@ -1,5 +1,6 @@
 import * as actions from './actions';
 import * as request from '../api';
+import { act } from 'react-dom/test-utils';
 
 export const fetchSuccess = (data) => {
   return {
@@ -71,6 +72,41 @@ export const importFail = (error) => {
     error,
   };
 };
+export const addCurrentStudentSuccess = (data)=>{
+  return {
+    type:actions.ADD_CURRENTSTUDENT_SUCCESS,
+    students: data,
+  }
+}
+export const addCurrentSutdentFail = (err) =>{
+  return {
+    type:actions.ADD_CURRENTSTUDENT_FAIL,
+    err
+  }
+}
+export const deleteCurrentSutdentFail = (err) =>{
+  return {
+    type:actions.DELETE_CURRENTSTUDENT_FAIL,
+    err
+  }
+} 
+export const deleteCurrentSutdentSuccess = (data) =>{
+  return {
+    type:actions.DELETE_CURRENTSTUDENT_SUCCESS,
+    students: data,
+  }
+}
+export const confirmGroupStudentSuccess = (err) =>{
+  return {
+    type:actions.CONFIRM_GROUP_STUDENT_SUCCESS,
+    err
+  }
+}
+export const confirmGroupStudentFail=(err)=>{
+  return{
+    type:actions.CONFIRM_GROUP_STUDENT_FAIL
+  }
+}
 
 export const onFetchStudents = (pid) => {
   return (dispatch, getState) => {
@@ -89,6 +125,61 @@ export const onFetchStudents = (pid) => {
       });
   };
 };
+export const addCurrentStudent = (student,students) =>{
+  var newStudents =  students.map(function(val,index){
+    if(val.id == student.id){
+      val.selected = true;
+    }
+    return val;
+  })
+  return (dispatch) =>{
+    dispatch(addCurrentStudentSuccess(newStudents))
+  }
+
+}
+export const  deleteCurentStudent = (student,students) =>{
+   var newStudents =  students.map(function(val,index){
+     if(val.id == student.id){
+       val.selected = false;
+     }
+     return val;
+   })
+    return (dispatch) =>{
+     dispatch(deleteCurrentSutdentSuccess(newStudents))
+    };
+
+}
+export const  confirmStudentGroup = (pid,groupid,students) =>{
+  // http://ec2-13-211-29-46.ap-southeast-2.compute.amazonaws.com:5001/v1/groups
+  // {
+  //   "project_id": 0,
+  //   "group_id": 0,
+  //   "studentList": [
+  //     {
+  //       "student_id": 0
+  //     }
+  //   ]
+  // }
+  let data =  {
+      "project_id": pid,
+      "group_id": groupid,
+      "studentList": students
+    }
+  return (dispatch) =>{
+    request.addStudentGroup(data).then((response) =>{
+      console.log(response);
+      dispatch(onFetchStudents(pid));
+      // dispatch(confirmGroupStudentSuccess())
+    }).catch((err)=>{
+      dispatch(confirmGroupStudentFail(err))
+    })
+  }
+
+}
+export const searchStudent = (student) =>{
+
+}
+
 
 export const onDeleteStudent = (pid, sid) => {
   //   console.log('deletion dispatched!');
@@ -204,6 +295,7 @@ const fakeData = [
     uni_email: 'mias@gmail.com',
     group_id: 0,
     id: 0,
+    is_assessed: 0,
   },
   {
     uni_student_number: 456654,
@@ -212,6 +304,8 @@ const fakeData = [
     uni_email: 'jerrys@gmail.com',
     group_id: 0,
     id: 1,
+    is_assessed: 0,
+
   },
   {
     uni_student_number: 789987,
@@ -220,6 +314,8 @@ const fakeData = [
     uni_email: 'chris@gmail.com',
     group_id: 0,
     id: 2,
+    is_assessed: 0,
+
   },
   {
     uni_student_number: 123321,
@@ -228,6 +324,8 @@ const fakeData = [
     uni_email: 'mias@gmail.com',
     group_id: 1,
     id: 4,
+    is_assessed: 0,
+
   },
   {
     uni_student_number: 456654,
@@ -236,6 +334,8 @@ const fakeData = [
     uni_email: 'jerrys@gmail.com',
     group_id: 1,
     id: 5,
+    is_assessed: 0,
+
   },
   {
     uni_student_number: 789987,
@@ -244,5 +344,7 @@ const fakeData = [
     uni_email: 'chris@gmail.com',
     group_id: 1,
     id: 6,
+    is_assessed: 0,
+
   },
 ];

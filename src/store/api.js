@@ -82,6 +82,10 @@ export const createStudent = (data) => {
   return instance.post(`/students`, data);
 };
 
+export const addStudentGroup = (data)=>{
+  return instance.post( `/groups`,data);
+}
+
 export const updateStudent = (data) => {
   return instance.put();
 };
