@@ -128,7 +128,6 @@ export const getComments = (mid) => {
 export const addComment = (mid) => {
   return instance.post();
 }
-};
 
 export const sendReport = (data) => {
   return instance.post();
