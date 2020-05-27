@@ -2,7 +2,7 @@
 import styles from './Header.module.css';
 import React from 'react';
 import Logo from '../../assets/images/logo.jpg';
-import { Link, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 const Header = (props) => (
   <div className={styles.container}>
@@ -10,24 +10,40 @@ const Header = (props) => (
     <div className={styles.title}>Rapid Feedback</div>
     <ul className={'nav justify-content-end ' + styles.mynav}>
       <li className='nav-item'>
-        <Link className='nav-link active' to='/home'>
+        <NavLink
+          className='nav-link '
+          activeStyle={{ color: '#348ceb' }}
+          to='/home'
+        >
           Home
-        </Link>
+        </NavLink>
       </li>
       <li className='nav-item'>
-        <Link className='nav-link' to='/admin'>
+        <NavLink
+          className='nav-link'
+          activeStyle={{ color: '#348ceb' }}
+          to='/admin'
+        >
           Administration
-        </Link>
+        </NavLink>
       </li>
       <li className='nav-item'>
-        <Link className='nav-link' to='/assess'>
+        <NavLink
+          className='nav-link'
+          activeStyle={{ color: '#348ceb' }}
+          to='/assess'
+        >
           Assessment
-        </Link>
+        </NavLink>
       </li>
       <li className='nav-item'>
-        <Link className='nav-link' to='/report'>
+        <NavLink
+          className='nav-link'
+          activeStyle={{ color: '#348ceb' }}
+          to='/report'
+        >
           Report
-        </Link>
+        </NavLink>
       </li>
     </ul>
   </div>

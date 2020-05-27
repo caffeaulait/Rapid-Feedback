@@ -2,8 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/student';
-import SelectStuCard from './SelectStuCard';
-import SelectGroCard from './SelectGroCard';
+import GroupCard from './GroupCard';
+import StudentCard from './StudentCard';
 import styles from './Select.module.css';
 
 class Select extends React.Component {
@@ -16,18 +16,26 @@ class Select extends React.Component {
 
   // }
   componentDidMount() {
-    const proid = this.props.match.params.pid;
-    this.setState({ projectid: proid });
-    const foundProj = this.props.projects.find((el) => el.id == proid);
-    this.setState({ project: foundProj });
+    const proid = parseInt(this.props.match.params.pid);
+    const foundProj = this.props.projects.find((el) => el.id === proid);
+    this.setState({ project: foundProj, projectid: proid });
+    console.log('fetching students');
+    this.props.fetchStudents(proid);
+  }
 
-    if (this.props.students) {
-      if (this.props.students.length === 0) {
-        console.log('fetching students');
-        this.props.fetchStudents(proid);
+  groupBy = (xs, key) => {
+    let obj = xs.reduce(function (rv, x) {
+      (rv[x[key]] = rv[x[key]] || []).push(x);
+      return rv;
+    }, {});
+    const results = [];
+    for (let k in obj) {
+      if (obj.hasOwnProperty(k)) {
+        results.push({ group_id: k, students: obj[k] });
       }
     }
-  }
+    return results.sort((a, b) => a.group_id < b.group_id);
+  };
 
   goBack = () => {
     this.props.history.goBack();
@@ -46,145 +54,137 @@ class Select extends React.Component {
   };
 
   render() {
+    if (!this.props.isAuthenticated) {
+      this.props.history.push('/login');
+    }
     let students = <p style={{ textAlign: 'center' }}>Student</p>;
+
+    let studentGroups = [];
+    const groupedStudents = this.props.students.filter(
+      (student) => student.group_id !== 0
+    );
+    // eslint-disable-next-line no-unused-vars
+    const unGroupedStudents = this.props.students.filter(
+      (student) => student.group_id === 0
+    );
+
+    studentGroups = this.groupBy(groupedStudents, 'group_id');
 
     console.log(this.props.students);
     if (this.props.students) {
-      students = this.props.students.map((student, key) => {
+      students = this.props.students.map((student) => {
         return (
-          <SelectStuCard
-            key={key}
+          <StudentCard
+            key={student.id}
             student={student}
             assess={() => this.goStuAssess(student.id)}
-            assessed={() => this.goStuAssess(student.id)}
           />
         );
       });
     }
 
-    //group by student according to group_id
-    let arr = this.props.students.slice();
-    var mapGroup = {};
-    for (var i = 0; i < arr.length; i++) {
-      var temp = arr[i];
-      let groupId = temp.group_id;
-      if (typeof mapGroup[groupId] == 'undefined') {
-        var groupArr = [];
-        groupArr.push(temp);
-        mapGroup[groupId] = groupArr;
-      } else {
-        mapGroup[groupId].push(temp);
-      }
-    }
-    let groups = Object.keys(mapGroup).map((key, index) => {
-      if (index !== 0) {
-        return (
-          <SelectGroCard
-            key={index}
-            groupid={key}
-            students={mapGroup[key]}
-            assess={() => this.goGroAssess(key)}
-            assessed={() => this.goGroAssess(key)}
-          />
-        );
-      }
+    let groups = null;
+    groups = studentGroups.map((el) => {
+      return (
+        <GroupCard
+          students={el.students}
+          groupid={el.group_id}
+          key={el.group_id}
+          assess={() => this.goGroAssess(el.group_id)}
+        ></GroupCard>
+      );
     });
 
-    const StudentTool = (
-      //   return (
-      <div>
-        <div style={{ display: 'flex', marginBottom: '5vh' }}>
-          <h1
-            style={{
-              fontSize: '40px',
-              color: '#003f8a',
-              fontWeight: 'bold',
-              marginRight: '20vh',
-            }}
-          >
-            Student List
-          </h1>
-          <button className={styles.back} onClick={this.goBack}>
-            Back
-          </button>
-        </div>
-        <table className={styles.gradeTable}>
-          <thead>
-            <tr>
-              <th>Number</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Status</th>
-              <th> </th>
-            </tr>
-          </thead>
-          <tbody>{students}</tbody>
-        </table>
-      </div>
+    let StudentTool = (
+      <p style={{ textAlign: 'center', marginTop: '10vh' }}>
+        No students available
+      </p>
     );
-    // };
-
-    const GroupTool = (
-      // return (
-      <div>
-        <div style={{ display: 'flex', marginBottom: '5vh' }}>
-          <h1
-            style={{
-              fontSize: '40px',
-              color: '#003f8a',
-              fontWeight: 'bold',
-              marginRight: '20vh',
-            }}
-          >
-            Group List
-          </h1>
-          <button className={styles.back} onClick={this.goBack}>
-            Back
-          </button>
+    if (this.props.students.length !== 0) {
+      StudentTool = (
+        <div className={styles.container}>
+          <div className={styles.top}>
+            <h1
+              style={{
+                fontSize: '40px',
+                color: '#003f8a',
+                fontWeight: 'bold',
+                marginRight: '20vh',
+              }}
+            >
+              Student List
+            </h1>
+            <button
+              className={'btn btn-danger ' + styles.back}
+              onClick={this.goBack}
+            >
+              Back
+            </button>
+          </div>
+          <div className={styles.bottom}>
+            <table className={styles.gradeTable}>
+              <thead>
+                <tr>
+                  <th>Number</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>{students}</tbody>
+            </table>
+          </div>
         </div>
-        {/* <TableContainer component={Paper}>
-                  <Table aria-label="customized table">
-                      <TableHead>
-                      <TableRow>
-                          <StyledTableCell>Group</StyledTableCell>
-                          <StyledTableCell align="center">Number</StyledTableCell>
-                          <StyledTableCell align="center">Name</StyledTableCell>
-                          <StyledTableCell align="right">Status</StyledTableCell>
-                      </TableRow>
-                      </TableHead>
-                  </Table>
-              </TableContainer>
-              <div>{groups}</div> */}
-        <table className={styles.gradeTable}>
-          <thead>
-            <tr>
-              <th>Group</th>
-              <th>Number</th>
-              <th>Name</th>
-              <th>Status</th>
-              <th> </th>
-            </tr>
-          </thead>
-          <tbody>{groups}</tbody>
-        </table>
-      </div>
-    );
-    //   };
-
-    let list = <p>Failed</p>;
-    if (this.state.project) {
-      list = (
-        <div>{this.state.project.is_group == 1 ? GroupTool : StudentTool}</div>
       );
     }
 
-    return (
-      <div style={{ margin: '5vh 20vh' }}>
-        {/* {StudentTool} */}
-        {/* {GroupTool} */}
-        {list}
-      </div>
+    let GroupTool = (
+      <p style={{ textAlign: 'center', marginTop: '10vh' }}>
+        No groups available
+      </p>
     );
+
+    if (studentGroups.length !== 0) {
+      GroupTool = (
+        // return (
+        <div className={styles.outer}>
+          <div
+            style={{
+              display: 'flex',
+              marginBottom: '5vh',
+              justifyContent: 'space-between',
+            }}
+          >
+            <h1
+              style={{
+                fontSize: '40px',
+                color: '#003f8a',
+                fontWeight: 'bold',
+                marginRight: '20vh',
+              }}
+            >
+              Group List
+            </h1>
+            <button
+              className={'btn btn-danger ' + styles.back}
+              onClick={this.goBack}
+            >
+              Back
+            </button>
+          </div>
+          {groups}
+        </div>
+      );
+    }
+
+    let list = <p>Failed to load project information</p>;
+    if (this.state.project) {
+      list = (
+        <div>{this.state.project.is_group === 1 ? GroupTool : StudentTool}</div>
+      );
+    }
+
+    return <div>{list}</div>;
   }
 }
 

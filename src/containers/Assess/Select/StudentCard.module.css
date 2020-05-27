@@ -1,0 +1,10 @@
+.assess {
+  width: 8vw;
+  height: 5vh;
+  /* margin-left: 2vw; */
+}
+
+th:last-child,
+td:last-child {
+  padding-left: 5vw;
+}

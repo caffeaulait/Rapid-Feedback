@@ -1,0 +1,31 @@
+.assess {
+  height: 6vh;
+  width: 10vw;
+  border-radius: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid #003f8a;
+  margin-top: 5vh;
+  align-items: center;
+}
+
+.left {
+  flex: 20%;
+  margin: 5vh 5vh;
+}
+
+.right {
+  flex: 60%;
+  margin: 2vh 5vh;
+}
+
+.outer {
+  width: 90%;
+}
+
+.btnContainer {
+  flex: 20%;
+}

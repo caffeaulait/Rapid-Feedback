@@ -11,11 +11,9 @@ class Projects extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.projects.length === 0) {
-      console.log('fetching projects');
-      this.props.fetchProjects();
-      console.log(this.props.match.path);
-    }
+    console.log('fetching projects');
+    this.props.fetchProjects();
+    console.log(this.props.match.path);
   }
 
   searchHandler = (value, event) => {

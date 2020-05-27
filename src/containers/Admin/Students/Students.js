@@ -29,12 +29,8 @@ class Students extends React.Component {
     }
     const proid = this.props.match.params.pid;
     this.setState({ projectid: proid, isGroup: isGroup });
-    if (this.props.students) {
-      if (this.props.students.length === 0) {
-        console.log('fetching students');
-        this.props.fetchStudents(proid);
-      }
-    }
+    console.log('fetching students');
+    this.props.fetchStudents(proid);
   }
 
   handleShow = () => {
@@ -123,9 +119,7 @@ class Students extends React.Component {
 
     const link = `${address}/students/template`;
 
-    let students = (
-      <p style={{ textAlign: 'center' }}>Please add new student</p>
-    );
+    let students = null;
 
     console.log(this.props.students);
     if (this.props.students) {
@@ -144,6 +138,28 @@ class Students extends React.Component {
     let group = null;
     if (this.state.isGroup) {
       group = <th>Group No.</th>;
+    }
+
+    let studentList = (
+      <p style={{ textAlign: 'center', marginTop: '10vh' }}>
+        No students available
+      </p>
+    );
+    if (this.props.students.length !== 0) {
+      studentList = (
+        <table className={styles.gradeTable}>
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>Name</th>
+              <th>Email</th>
+              {group}
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody>{students}</tbody>
+        </table>
+      );
     }
 
     const StudentTool = (
@@ -197,19 +213,7 @@ class Students extends React.Component {
             {/* <div style={{ clear: 'both' }}></div> */}
           </div>
         </div>
-
-        <table className={styles.gradeTable}>
-          <thead>
-            <tr>
-              <th>Number</th>
-              <th>Name</th>
-              <th>Email</th>
-              {group}
-              <th> </th>
-            </tr>
-          </thead>
-          <tbody>{students}</tbody>
-        </table>
+        {studentList}
       </div>
     );
 

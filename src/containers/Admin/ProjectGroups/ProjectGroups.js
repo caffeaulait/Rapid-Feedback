@@ -28,10 +28,8 @@ class ProjectGroups extends React.Component {
   componentDidMount() {
     const proid = this.props.match.params.pid;
     this.setState({ projectid: proid });
-    if (this.props.students.length === 0) {
-      console.log('fetching students');
-      this.props.fetchStudents(proid);
-    }
+    console.log('fetching students');
+    this.props.fetchStudents(proid);
   }
 
   goToAddGroup = () => {
@@ -54,8 +52,7 @@ class ProjectGroups extends React.Component {
     );
 
     studentGroups = this.groupBy(groupedStudents, 'group_id');
-    let content = null;
-    content = studentGroups.map((el) => {
+    let content = studentGroups.map((el) => {
       return (
         <GroupCard
           students={el.students}
@@ -65,6 +62,13 @@ class ProjectGroups extends React.Component {
         ></GroupCard>
       );
     });
+    if (!studentGroups || studentGroups.length === 0) {
+      content = (
+        <p style={{ textAlign: 'center', marginTop: '10vh' }}>
+          No groups available
+        </p>
+      );
+    }
     return (
       <div>
         <div>

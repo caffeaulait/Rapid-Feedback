@@ -18,12 +18,8 @@ class Groups extends React.Component {
   componentDidMount() {
     const proid = this.props.match.params.pid;
     this.setState({ projectid: proid });
-    if (this.props.students) {
-      if (this.props.students.length === 0) {
-        console.log('fetching students');
-        this.props.fetchStudents(proid);
-      }
-    }
+    console.log('fetching students');
+    this.props.fetchStudents(proid);
   }
 
   goBack = () => {
