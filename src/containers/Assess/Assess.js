@@ -12,9 +12,9 @@ class Assess extends React.Component {
   state = {};
 
   render() {
-      // if (!this.props.isAuthenticated) {
-      //   this.props.history.replace('/login');
-      // }
+    if (!this.props.isAuthenticated) {
+      this.props.history.replace('/login');
+    }
     let url = this.props.match.url;
     return (
       <>

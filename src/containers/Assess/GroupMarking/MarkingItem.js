@@ -44,9 +44,9 @@ export default class MarkingItem extends React.Component {
         }
         console.log("types.........")
         console.log(types)
-        let Normal = types.filter((v) => (v === "Normal")).length / types.length * 100 ;
-        let Well = types.filter((v) => (v === "Well")).length / types.length * 100 ;
-        let Improve = types.filter((v) => (v === "Need Improve")).length / types.length * 100  ;
+        let Normal = types.filter((v) => (v === "Natural")).length / types.length * 100 ;
+        let Well = types.filter((v) => (v === "Positive")).length / types.length * 100 ;
+        let Improve = types.filter((v) => (v === "Negative")).length / types.length * 100  ;
 
 
         const greenStyle = {
@@ -71,7 +71,7 @@ export default class MarkingItem extends React.Component {
 
             <div className="all">
                 <div className="first">
-                    <p className="content">{this.props.criteria.criteria}</p>
+                    <p className="content">{this.props.criteria.content}</p>
                     <p className="points">{this.props.result.point}</p>
                     {this.props.close ? <></> : <div className="bar">
                         <div className="green" style={greenStyle}>&nbsp;</div>
@@ -80,7 +80,7 @@ export default class MarkingItem extends React.Component {
                     </div>}
                 </div>
                 <div className="second">
-                    {this.props.close ? <></> : <Slider point={this.props.result.point} updatePoint={this.props.updatePoint} fullPoint={this.props.criteria.point} id={this.props.criteria.id} />}
+                    {this.props.close ? <></> : <Slider point={this.props.result.point} updatePoint={this.props.updatePoint} fullPoint={this.props.criteria.points} id={this.props.criteria.id} />}
                     <div className="comments">
                         <textarea className="commentsArea" placeholder="Here is your comments..." disabled value={commentsss}></textarea>
                         <input data-toggle="modal" data-target={"#commentsModal" + this.props.criteria.id} className="addButton" type="image" src={button} onClick={this.addComments}></input>

@@ -18,7 +18,7 @@ class MarkingTitle extends React.Component {
     totalScore = () => {
 
         let scoreGet = this.props.result.map(a => a.point).reduce((a, b) => a + b, 0);
-        let scoreTotal = this.props.criteria.map(a => a.point).reduce((a, b) => a + b, 0);
+        let scoreTotal = this.props.criteria.map(a => a.points).reduce((a, b) => a + b, 0);
 
         return scoreGet + "/" + scoreTotal;
 
@@ -35,7 +35,7 @@ class MarkingTitle extends React.Component {
                     <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                 </DropdownButton> */}
                 <span className="assTarget"><pre>{this.assTargetBuild()}</pre></span>
-                <ClockCount time={this.props.assTime} />
+                <ClockCount time={this.props.assTime} minutes = {this.props.minutes} seconds = {this.props.seconds} start = {this.props.start}/>
                 <span className="score">{this.totalScore()}</span>
             </div>
         )

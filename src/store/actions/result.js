@@ -57,21 +57,86 @@ const sendReportFail = (error) => {
   };
 };
 
-export const onFetchResult = (pid, tid, mid) => {
+export const onFetchResult = (
+  pid
+) => {
   return (dispatch, getState) => {
-    setTimeout(() => {
-      dispatch(
-        fetchSuccess([
-          { id: '1', point: 0, comment: '1' },
-          { id: '2', point: 5, comment: '2' },
-          { id: '3', point: 0, comment: '3' },
-          { id: '4', point: 5, comment: '4' },
-          { id: '5', point: 0, comment: '5' },
-        ])
-      );
-    }, 1000);
+    // setTimeout(() => {
+    //   dispatch(
+    //     fetchSuccess(
+    //       array
+    //     //   [
+    //     //   { id: '1', point: 0, comment: '' },
+    //     //   { id: '2', point: 0, comment: '' },
+    //     //   { id: '3', point: 0, comment: '' },
+    //     //   { id: '4', point: 0, comment: '' },
+    //     //   { id: '5', point: 0, comment: '' },
+    //     // ]
+    //     )
+    //   );
+    // }, 1000);
+    request
+      .getCriterias(pid)
+      .then((response) => {
+        console.log("response.....")
+        console.log(response);
+        let array = response.data.criteriaList.map((r) => {
+          return { id: r.criteriaId, point: 0, comment: "" };
+        })
+        // dispatch(fetchSuccess([{ id: "1", content: "voice, pace and confidence", points: "0" }
+        //     , { id: "2", content: "presentation structure", points: "0" }
+        //     , { id: "3", content: "quality of slides/visual aids", points: "0" }
+        //     , { id: "4", content: "knowledge of the material", points: "0" }
+        //     , { id: "5", content: "content", points: "0" }
+        // ]));
+        dispatch(fetchSuccess(array));
+      })
+      .catch((error) => {
+        dispatch(fetchFail(error));
+      });
   };
 };
+
+export const onFetchGroupResult = (
+  pid
+) => {
+  return (dispatch, getState) => {
+    // setTimeout(() => {
+    //   dispatch(
+    //     fetchSuccess(
+    //       array
+    //     //   [
+    //     //   { id: '1', point: 0, comment: '' },
+    //     //   { id: '2', point: 0, comment: '' },
+    //     //   { id: '3', point: 0, comment: '' },
+    //     //   { id: '4', point: 0, comment: '' },
+    //     //   { id: '5', point: 0, comment: '' },
+    //     // ]
+    //     )
+    //   );
+    // }, 1000);
+    request
+      .getCriterias(pid)
+      .then((response) => {
+        console.log("response.....")
+        console.log(response);
+        let array = response.data.criteriaList.map((r) => {
+          return { id: r.criteriaId, point: 0, comment: {} };
+        })
+        // dispatch(fetchSuccess([{ id: "1", content: "voice, pace and confidence", points: "0" }
+        //     , { id: "2", content: "presentation structure", points: "0" }
+        //     , { id: "3", content: "quality of slides/visual aids", points: "0" }
+        //     , { id: "4", content: "knowledge of the material", points: "0" }
+        //     , { id: "5", content: "content", points: "0" }
+        // ]));
+        dispatch(fetchSuccess(array));
+      })
+      .catch((error) => {
+        dispatch(fetchFail(error));
+      });
+  };
+};
+
 
 export const onFetchAllResult = (pid, tid) => {
   return (dispatch, getState) => {
@@ -131,34 +196,31 @@ export const onSendReport = (pid, tid) => {
   };
 };
 
-export const onUpdateMarkers = (stateData, pid, oldData) => {
-  //   const data = stateData.map((marker) => {
-  //     return Number(marker.id);
-  //   });
-  //   const preData = oldData.map((marker) => {
-  //     return Number(marker.id);
-  //   })
-  //   console.log("predata...")
-  //   console.log(preData)
-  //   let nData = data.filter(n => !preData.includes(n))
-  //   const dataPack = {
-  //     markerIdList: nData,
-  //     projectId: Number(pid)
-  //   }
-  //   console.log('updateing project..');
-  //   console.log(dataPack);
-  //   return (dispatch) => {
-  //     // setTimeout(() => {
-  //     //   dispatch(updateSuccess(data));
-  //     // }, 1000);
-  //     request
-  //       .updateMarkers(dataPack)
-  //       .then((response) => {
-  //         console.log(response);
-  //         // dispatch(updateSuccess(response.data));
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //         dispatch(updateFail(err));
-  //       });
+export const onUploadResult = (mid, pid, sid, assessList, assessedDate, gid) => {
+  const data = {
+    assessList: assessList,
+    projectId: pid,
+    markerId: mid,
+    studentId: sid,
+    groupId: gid,
+    assessedDate: assessedDate
+  }
+
+  console.log("upload resulttttttttttt")
+  console.log(data);
+  return (dispatch) => {
+    // setTimeout(() => {
+    //   dispatch(updateSuccess(data));
+    // }, 1000);
+    request
+      .uploadResults(data)
+      .then((response) => {
+        console.log(response);
+        // dispatch(updateSuccess(response.data));
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(updateResultFail(err));
+      });
+  }
 };
