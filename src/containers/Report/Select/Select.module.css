@@ -1,0 +1,35 @@
+.outer {
+  display: flex;
+  margin: 5vh 2vw;
+  flex-direction: row;
+}
+
+.left {
+  flex: 30%;
+  height: 100vh;
+  border-right: 1px solid gray;
+}
+
+.projTab {
+  height: 50%;
+}
+
+.right {
+  flex: 70%;
+  padding: 1vh 5vw;
+}
+
+.backBtn {
+  height: 6vh;
+  width: 8vw;
+  position: fixed;
+  bottom: 0;
+}
+
+.link {
+  color: black;
+}
+
+.proj {
+  font-size: 0.8em;
+}

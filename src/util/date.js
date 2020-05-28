@@ -12,3 +12,11 @@ export const months = {
   10: 'Nov',
   11: 'Dec',
 };
+
+export const formatDate = (date) => {
+  const year = date.getFullYear();
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+
+  return `${day} ${month} ${year}`;
+};

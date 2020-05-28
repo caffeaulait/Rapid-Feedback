@@ -1,0 +1,11 @@
+.review {
+  width: 6vw;
+  height: 5vh;
+  font-size: 1em;
+  /* margin-left: 2vw; */
+}
+
+th:last-child,
+td:last-child {
+  padding-left: 5vw;
+}

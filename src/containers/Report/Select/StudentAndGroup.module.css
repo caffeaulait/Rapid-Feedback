@@ -1,0 +1,45 @@
+.back {
+  border-radius: 10px;
+  width: 8vw;
+  height: 6vh;
+  margin-right: 8vw;
+}
+
+.container {
+  margin: 2vh 0;
+  padding: 1vh;
+  border: 1px solid #003f8a;
+}
+
+table.gradeTable {
+  margin-top: 2vh;
+  table-layout: fixed;
+  width: 100%;
+  font-size: smaller;
+}
+
+tr {
+  border-bottom: 1px solid grey;
+  overflow: hidden;
+  height: 8vh;
+  white-space: nowrap;
+}
+
+th:last-child,
+td:last-child {
+  padding-left: 1px;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.outer {
+  margin: 2vh 2vw;
+}
+
+.box {
+  padding: 3px;
+}

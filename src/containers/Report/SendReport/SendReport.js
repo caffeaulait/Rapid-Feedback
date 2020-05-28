@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React from 'react';
 import StudenTab from '../../../components/StudentTab/StudentTab';
 import styles from './SendReport.module.css';
@@ -14,7 +15,29 @@ class SendReport extends React.Component {
   state = {
     hasVoice: true,
     option: '0',
+    student: null,
+    grades: [],
+    project: null,
+    students: [],
+    isGroup: false,
   };
+
+  componentDidMount() {
+    const projectId = this.props.match.params.pid;
+    const studentId = this.props.match.params.sid;
+    const groupId = this.props.match.params.gid;
+    const project = this.props.projects.find((el) => el.id == projectId);
+    const isGroup = project ? project.is_group : false;
+    const student = this.props.students.find((el) => el.id == studentId);
+    const students = this.props.students.filter((el) => el.group_id == groupId);
+    console.log('group students are:' + students);
+    this.setState({
+      student: student,
+      project: project,
+      students: students,
+      isGroup: isGroup,
+    });
+  }
 
   handleChange = (event) => {
     this.setState({ option: event.target.value });
@@ -25,8 +48,17 @@ class SendReport extends React.Component {
 
   onDelete = () => {};
 
-  onSend = (data) => {
-    result.onSendReport(data);
+  onSend = () => {
+    const data = {
+      project_id: this.projectId,
+      studentIdList: [],
+      option: parseInt(this.state.option),
+    };
+    this.props.sendReport(data);
+  };
+
+  goBack = () => {
+    this.props.history.goBack();
   };
 
   record = () => {
@@ -46,23 +78,29 @@ class SendReport extends React.Component {
   };
 
   render() {
-    const isGroup = true;
+    if (!this.props.isAuthenticated) {
+      this.props.history.push('/login');
+    }
     let tab = null;
-    if (isGroup) {
-      tab = (
-        <GroupTab
-          onUpload={this.onUpload}
-          hasVoice={this.state.hasVoice}
-        ></GroupTab>
-      );
-    } else {
+    if (this.state.student) {
       tab = (
         <StudenTab
-          onUpload={this.onUpload}
           hasVoice={this.state.hasVoice}
+          project={this.state.project}
+          student={this.state.student}
         ></StudenTab>
       );
     }
+    if (this.state.isGroup && this.state.students.length > 0) {
+      tab = (
+        <GroupTab
+          students={this.state.students}
+          project={this.state.project}
+          hasVoice={this.state.hasVoice}
+        ></GroupTab>
+      );
+    }
+
     return (
       <div className={styles.outer}>
         <div className={styles.left}>{tab}</div>
@@ -107,14 +145,17 @@ class SendReport extends React.Component {
             <span className={styles.grade}>&nbsp; 16.8 &nbsp;</span>
           </div>
           <div className={styles.btnGroup}>
-            <button className={'btn btn-primary ' + styles.backBtn}>
-              Back
-            </button>
             <button
-              className={'btn btn-danger ' + styles.sendBtn}
+              className={'btn btn-primary ' + styles.sendBtn}
               onClick={this.onSend}
             >
               Send
+            </button>
+            <button
+              className={'btn btn-danger ' + styles.backBtn}
+              onClick={this.goBack}
+            >
+              Back
             </button>
           </div>
         </div>
@@ -124,11 +165,20 @@ class SendReport extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return null;
+  return {
+    isAuthenticated: state.auth.token !== null,
+    students: state.student.students,
+    projects: state.proj.projects,
+    results: state.result.allResults,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return null;
+  return {
+    sendReport: (data) => {
+      dispatch(result.onSendReport(data));
+    },
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendReport);
