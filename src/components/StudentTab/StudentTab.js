@@ -3,6 +3,8 @@ import styles from './StudentTab.module.css';
 import Voice from '../../assets/images/voice.svg';
 
 const StudenTab = (props) => {
+  const student = props.student;
+  const project = props.project;
   let voice = null;
   if (props.hasVoice) {
     voice = (
@@ -22,13 +24,17 @@ const StudenTab = (props) => {
   return (
     <div>
       <div className={styles.label}>StudentName: </div>
-      <div className={styles.content}>Claire Huang</div>
+      <div className={styles.content}>
+        {student.first_name}&nbsp;{student.last_name}
+      </div>
       <div className={styles.label}>Student No: </div>
-      <div className={styles.content}>123456</div>
+      <div className={styles.content}>{student.uni_student_number}</div>
       <div className={styles.label}>Subject: </div>
-      <div className={styles.content}>Software Project</div>
+      <div className={styles.content}>
+        {project.subject_code}&nbsp;{project.subject_name}
+      </div>
       <div className={styles.label}>Project Name: </div>
-      <div className={styles.content}>Assignment 1</div>
+      <div className={styles.content}>{project.proj_name}</div>
       {voice}
     </div>
   );

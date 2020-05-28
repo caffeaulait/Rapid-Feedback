@@ -1,6 +1,8 @@
+/* eslint-disable eqeqeq */
 import React from 'react';
 import styles from './Grades.module.css';
 import StudenTab from '../../../components/StudentTab/StudentTab';
+import GroupTab from '../../../components/GroupTab/GroupTab';
 import Grade from '../../../components/Grade/Grade';
 import { connect } from 'react-redux';
 import * as result from '../../../store/actions/result';
@@ -10,58 +12,112 @@ class Grades extends React.Component {
     hasVoice: false,
     student: null,
     grades: [],
+    project: null,
+    students: [],
+    isGroup: false,
   };
-
-  // const data = {
-  //   uni_student_number: parseInt(stateData.stuNo),
-  //   first_name: stateData.firstName,
-  //   last_name: stateData.lastName,
-  //   uni_email: stateData.email,
-  //   project_id: pid,
-  // };
 
   componentDidMount() {
     const projectId = this.props.match.params.pid;
     const studentId = this.props.match.params.sid;
     const groupId = this.props.match.params.gid;
-    // eslint-disable-next-line eqeqeq
+    const project = this.props.projects.find((el) => el.id == projectId);
+    const isGroup = project ? project.is_group : false;
     const student = this.props.students.find((el) => el.id == studentId);
+    const students = this.props.students.filter((el) => el.group_id == groupId);
+    console.log('group students are:' + students);
     if (student) {
       this.props.fetchGrades(projectId, studentId);
     }
-    this.setState({ student: student });
+    this.setState({
+      student: student,
+      project: project,
+      students: students,
+      isGroup: isGroup,
+    });
   }
 
   toViewAssessment = () => {};
 
+  computeRow = (assessment) => {
+    let grade = 0;
+    let date = new Date();
+    let marker = null;
+    for (let el of assessment) {
+      grade += el.score;
+      date = new Date(el.assessedDate);
+      marker = el.firstName + ' ' + el.lastName;
+    }
+    return {
+      grade,
+      marker,
+      date,
+    };
+  };
+
+  goBack = () => {
+    this.props.history.goBack();
+  };
+
+  continue = () => {
+    let url = this.props.match.url;
+    this.props.history.push(url + '/review');
+  };
+
   render() {
-    const grades = [
-      {
-        id: 1,
-        grade: 16.0,
-        marker: 'Tutor A',
-        date: '9 Apr 2020',
-      },
-      {
-        id: 2,
-        grade: 17.0,
-        marker: 'Tutor B',
-        date: '10 Apr 2020',
-      },
-      {
-        id: 3,
-        grade: 15.0,
-        marker: 'Tutor C',
-        date: '11 Apr 2020',
-      },
-    ];
+    // const grades = [
+    //   {
+    //     id: 1,
+    //     grade: 16.0,
+    //     marker: 'Tutor A',
+    //     date: '9 Apr 2020',
+    //   },
+    //   {
+    //     id: 2,
+    //     grade: 17.0,
+    //     marker: 'Tutor B',
+    //     date: '10 Apr 2020',
+    //   },
+    //   {
+    //     id: 3,
+    //     grade: 15.0,
+    //     marker: 'Tutor C',
+    //     date: '11 Apr 2020',
+    //   },
+    // ];
 
-    let tab = <StudenTab hasVoice={this.state.hasVoice}></StudenTab>;
+    if (!this.props.isAuthenticated) {
+      this.props.history.push('/login');
+    }
+    let grades = [];
+    for (let obj of this.state.grades) {
+      grades.push(this.computeRow(obj.results));
+    }
+    let tab = null;
 
-    const gradeRow = grades.map((el) => (
+    if (this.state.student) {
+      tab = (
+        <StudenTab
+          hasVoice={this.state.hasVoice}
+          project={this.state.project}
+          student={this.state.student}
+        ></StudenTab>
+      );
+    }
+    if (this.state.isGroup && this.state.students.length > 0) {
+      tab = (
+        <GroupTab
+          students={this.state.students}
+          project={this.state.project}
+          hasVoice={this.state.hasVoice}
+        ></GroupTab>
+      );
+    }
+
+    const gradeRow = grades.map((el, index) => (
       <Grade
         key={el.id}
-        index={el.id}
+        index={index + 1}
         grade={el.grade}
         marker={el.marker}
         date={el.date}
@@ -87,10 +143,16 @@ class Grades extends React.Component {
           </table>
 
           <div className={styles.btnGroup}>
-            <button className={'btn btn-danger ' + styles.controlBtn}>
+            <button
+              className={'btn btn-danger ' + styles.controlBtn}
+              onClick={this.goBack}
+            >
               Back
             </button>
-            <button className={'btn btn-primary ' + styles.controlBtn}>
+            <button
+              className={'btn btn-primary ' + styles.controlBtn}
+              onClick={this.continue}
+            >
               Continue
             </button>
           </div>
@@ -104,8 +166,8 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
     students: state.student.students,
-    // projectid:state.projectid
-    // projects: state.proj.projects,
+    projects: state.proj.projects,
+    results: state.result.allResults,
   };
 };
 

@@ -1,0 +1,31 @@
+.review {
+  height: 5vh;
+  width: 7vw;
+  border-radius: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid #003f8a;
+  margin-top: 5vh;
+  align-items: center;
+}
+
+.left {
+  flex: 20%;
+  margin: 5vh 2vh;
+}
+
+.right {
+  flex: 60%;
+  margin: 2vh 5vh;
+}
+
+.outer {
+  width: 100%;
+}
+
+.btnContainer {
+  flex: 20%;
+}

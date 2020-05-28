@@ -73,52 +73,39 @@ export const onFetchResult = (pid, tid, mid) => {
   };
 };
 
+const groupBy = (xs, key) => {
+  let obj = xs.reduce(function (rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+  const results = [];
+  for (let k in obj) {
+    if (obj.hasOwnProperty(k)) {
+      results.push({ marker_id: k, results: obj[k] });
+    }
+  }
+  return results;
+};
+
 export const onFetchAllResult = (pid, tid) => {
   return (dispatch, getState) => {
-    setTimeout(() => {
-      dispatch(
-        fetchSuccess([
-          {
-            id: 1,
-            result: [
-              { id: '1', point: 0, comment: '1' },
-              { id: '2', point: 1, comment: '2' },
-              { id: '3', point: 2, comment: '3' },
-              { id: '4', point: 5, comment: '4' },
-              { id: '5', point: 5, comment: '5' },
-            ],
-            assessDate: '08.2.2020',
-          },
-          {
-            id: 2,
-            result: [
-              { id: '1', point: 0, comment: '13434' },
-              { id: '2', point: 5, comment: '2434' },
-              { id: '3', point: 8, comment: '343' },
-              { id: '4', point: 5, comment: '4343' },
-              { id: '5', point: 10, comment: '54343' },
-            ],
-            assessDate: '23.8.2020',
-          },
-          {
-            id: 3,
-            result: [
-              { id: '1', point: 0, comment: '1grg' },
-              { id: '2', point: 5, comment: '2ghgh' },
-              { id: '3', point: 5, comment: '3hg' },
-              { id: '4', point: 3, comment: '4hgh' },
-              { id: '5', point: 7, comment: '5ghgh' },
-            ],
-            assessDate: '25.12.2020',
-          },
-        ])
-      );
-    }, 1000);
+    request
+      .getAllResults(pid, tid)
+      .then((response) => {
+        console.log(response);
+        dispatch(
+          fetchAllResultSuccess(
+            groupBy(response.data.individualResults, 'markerId')
+          )
+        );
+      })
+      .catch((err) => {
+        dispatch(fetchAllResultFail(err));
+      });
   };
 };
 
-export const onSendReport = (pid, tid) => {
-  const data = null;
+export const onSendReport = (data) => {
   return (dispatch) => {
     request
       .sendReport(data)
