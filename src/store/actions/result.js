@@ -93,11 +93,8 @@ export const onFetchAllResult = (pid, tid) => {
       .getAllResults(pid, tid)
       .then((response) => {
         console.log(response);
-        dispatch(
-          fetchAllResultSuccess(
-            groupBy(response.data.individualResults, 'markerId')
-          )
-        );
+        const results = groupBy(response.data.individualResults, 'markerId');
+        dispatch(fetchAllResultSuccess(results));
       })
       .catch((err) => {
         dispatch(fetchAllResultFail(err));

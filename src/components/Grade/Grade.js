@@ -1,6 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import styles from './Grade.module.css';
+import * as format from '../../util/date';
 
 const Grade = (props) => {
   return (
@@ -8,7 +9,7 @@ const Grade = (props) => {
       <td>{props.index}</td>
       <td>{props.grade}</td>
       <td>{props.marker}</td>
-      <td>{props.date}</td>
+      <td>{format.formatDate(props.date)}</td>
       <td>
         {/* <button
             onClick={props.goToView}

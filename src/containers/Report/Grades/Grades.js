@@ -11,7 +11,7 @@ class Grades extends React.Component {
   state = {
     hasVoice: false,
     student: null,
-    grades: [],
+    // grades: [],
     project: null,
     students: [],
     isGroup: false,
@@ -90,7 +90,7 @@ class Grades extends React.Component {
       this.props.history.push('/login');
     }
     let grades = [];
-    for (let obj of this.state.grades) {
+    for (let obj of this.props.results) {
       grades.push(this.computeRow(obj.results));
     }
     let tab = null;
@@ -116,7 +116,7 @@ class Grades extends React.Component {
 
     const gradeRow = grades.map((el, index) => (
       <Grade
-        key={el.id}
+        key={index}
         index={index + 1}
         grade={el.grade}
         marker={el.marker}
