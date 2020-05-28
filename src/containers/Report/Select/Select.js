@@ -16,6 +16,10 @@ class Select extends React.Component {
     this.props.fetchProjects();
   }
 
+  goBack = () => {
+    this.props.history.push('/home');
+  };
+
   render() {
     if (!this.props.isAuthenticated) {
       this.props.history.push('/login');
@@ -47,7 +51,10 @@ class Select extends React.Component {
               <li className='nav-item' key={project.id}>
                 <NavLink
                   className='nav-link link'
-                  activeStyle={{ color: '#003f8a' }}
+                  activeStyle={{
+                    color: '#003f8a',
+                    textDecoration: 'underline solid #003f8a',
+                  }}
                   style={{ color: 'black' }}
                   to={this.url + '/' + project.id}
                 >
@@ -66,7 +73,12 @@ class Select extends React.Component {
       <div className={styles.outer}>
         <div className={styles.left}>
           {projectTab}
-          <button className={'btn btn-danger ' + styles.backBtn}>Back</button>
+          <button
+            className={'btn btn-danger ' + styles.backBtn}
+            onClick={this.goBack}
+          >
+            Back
+          </button>
         </div>
         <div className={styles.right}>
           <Switch>
