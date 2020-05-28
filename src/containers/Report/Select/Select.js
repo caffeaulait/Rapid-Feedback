@@ -46,25 +46,27 @@ class Select extends React.Component {
         <>
           <h2 style={{ marginBottom: '10vh' }}>Current Project: </h2>
           {headDesc}
-          <ul className='nav flex-column'>
-            {this.props.projects.map((project) => (
-              <li className='nav-item' key={project.id}>
-                <NavLink
-                  className='nav-link link'
-                  activeStyle={{
-                    color: '#003f8a',
-                    textDecoration: 'underline solid #003f8a',
-                  }}
-                  style={{ color: 'black' }}
-                  to={this.url + '/' + project.id}
-                >
-                  <div className={styles.proj}>
-                    {project.subject_code} {project.subject_name}
-                  </div>
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+          <div className={styles.projTab}>
+            <ul className='nav flex-column'>
+              {this.props.projects.map((project) => (
+                <li className='nav-item' key={project.id}>
+                  <NavLink
+                    className='nav-link link'
+                    activeStyle={{
+                      color: '#003f8a',
+                      textDecoration: 'underline solid #003f8a',
+                    }}
+                    style={{ color: 'black' }}
+                    to={this.url + '/' + project.id}
+                  >
+                    <div className={styles.proj}>
+                      {project.subject_code} {project.subject_name}
+                    </div>
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
         </>
       );
     }
@@ -89,7 +91,9 @@ class Select extends React.Component {
               )}
             ></Route>
             <Route path={this.url}>
-              <div>Please select a project</div>
+              <div>
+                <b>Please select a project on the left</b>
+              </div>
             </Route>
           </Switch>
         </div>

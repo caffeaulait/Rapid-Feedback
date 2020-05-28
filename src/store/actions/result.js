@@ -81,7 +81,7 @@ const groupBy = (xs, key) => {
   const results = [];
   for (let k in obj) {
     if (obj.hasOwnProperty(k)) {
-      results.push({ marker_id: k, results: obj[k] });
+      results.push({ markerId: k, results: obj[k] });
     }
   }
   return results;

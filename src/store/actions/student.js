@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as actions from './actions';
 import * as request from '../api';
 

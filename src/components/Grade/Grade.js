@@ -11,11 +11,11 @@ const Grade = (props) => {
       <td>{props.date}</td>
       <td>
         {/* <button
-          onClick={props.goToView}
-          className={'btn btn-outline-success ' + styles.viewBtn}
-        >
-          View
-        </button> */}
+            onClick={props.goToView}
+            className={'btn btn-outline-success ' + styles.viewBtn}
+          >
+            View
+          </button> */}
       </td>
     </tr>
   );
