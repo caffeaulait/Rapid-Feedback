@@ -10,7 +10,7 @@ export default class CriteriaItem extends React.Component {
                 <h6>{this.props.criteria.content}</h6>
                 <div className="todo-icon">
                     <span>Points: {this.props.criteria.points}</span>
-                    <span className="mx-2 text-success" data-toggle="modal" data-target="#testModal" onClick={this.props.editCriteria}>
+                    <span className="mx-2 text-success" data-toggle="modal" data-target={"#"+this.props.id} onClick={this.props.editCriteria}>
                         <i className="fas fa-pencil-alt"></i>
                     </span>
 
@@ -24,6 +24,9 @@ export default class CriteriaItem extends React.Component {
                     handleSubmit={this.props.handleSubmit}
                     item={this.props.item}
                     editItem={this.props.editItem}
+                    handleUpdate ={this.props.handleUpdate}
+                    id = {this.props.id}
+                    cid = {this.props.cid}
                 />
             </li>
         );

@@ -32,7 +32,7 @@ class Modal extends Component {
 
     render() {
         return (
-            <div className="modal fade" id="testModal" tabIndex="-1" role="dialog" aria-labelledby="testModalLabel" aria-hidden="true">
+            <div className="modal fade" id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby="testModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -47,7 +47,7 @@ class Modal extends Component {
                         </div>
                         <div className="modal-footer">
                             <button type="button" style={{ fontSize: '10px', padding: '5px 10px', color: 'white', background: '#003F8A', borderRadius: '15px', width: "20%", verticalAlign: 'center' }} data-dismiss="modal">Close</button>
-                            <button type="button" style={{ fontSize: '10px', padding: '5px 10px', color: 'white', background: '#003F8A', borderRadius: '15px', width: "20%", verticalAlign: 'center' }} data-dismiss="modal" onClick={this.props.handleSubmit}> Save changes </button>
+                            <button type="button" style={{ fontSize: '10px', padding: '5px 10px', color: 'white', background: '#003F8A', borderRadius: '15px', width: "20%", verticalAlign: 'center' }} data-dismiss="modal" onClick={(e) => this.props.handleUpdate(e,this.props.cid)}> Save changes </button>
                         </div>
                     </div>
                 </div>

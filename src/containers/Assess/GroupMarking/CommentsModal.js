@@ -19,7 +19,7 @@ class Modal extends Component {
     
     componentDidMount() {
         console.log('fetching comments........lalalalala');
-        this.props.fetchComments(0);
+        this.props.fetchComments(this.props.markerId);
     
     }
 
@@ -28,14 +28,16 @@ class Modal extends Component {
     }
 
     addNewComments = (comments,type) => {
-        let id = nextID(this.props.comments.map((item) => {
-            return Number(item.id);
-        }));
-        const newId = id.toString();
+        // let id = nextID(this.props.comments.map((item) => {
+        //     return Number(item.id);
+        // }));
+        // const newId = id.toString();
 
-        let target = {id:newId,content:comments,type:type};
-        this.props.addComment(target)
+        // let target = {id:newId,content:comments,type:type};
+        // this.props.addComment(target)
         //this.setState({comments:[...this.props.comments,target]});
+
+        this.props.uploadComments(this.props.markerId,{comments:comments,type:type})
 
     }
 
@@ -72,7 +74,8 @@ class Modal extends Component {
 const mapStateToProps = (state) => {
     return {
         // isAuthenticated: state.auth.token !== null,
-        comments: state.comment.comments
+        comments: state.comment.comments,
+        markerId: state.auth.uid,
     };
 };
 

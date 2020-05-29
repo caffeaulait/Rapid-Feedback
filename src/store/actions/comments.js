@@ -32,14 +32,22 @@ export const createFail = (error) => {
 
 export const onFetchComments = (mid) => {
     return (dispatch, getState) => {
-        setTimeout(() => {
-            dispatch(fetchSuccess([{ id: "1", content: "good", type: "Well" },
-            { id: "2", content: "need improve", type: "Need Improve" },
-            { id: "3", content: "so so", type: "Normal" },
-            { id: "4", content: "great", type: "Well" },
-            { id: "5", content: "beautiful", type: "Normal" },
-            { id: "6", content: "normal", type: "Normal" }]));
-        }, 1000);
+        // setTimeout(() => {
+        //     dispatch(fetchSuccess([{ id: "1", content: "good", type: "Well" },
+        //     { id: "2", content: "need improve", type: "Need Improve" },
+        //     { id: "3", content: "so so", type: "Normal" },
+        //     { id: "4", content: "great", type: "Well" },
+        //     { id: "5", content: "beautiful", type: "Normal" },
+        //     { id: "6", content: "normal", type: "Normal" }]));
+        // }, 1000);
+
+        request.getComments(mid).then((response) => {
+            console.log(response)
+            let array = response.data.comments.map((c) => {
+                return {id: c.id,content:c.text,type:c.polarity}
+            })
+            dispatch(fetchSuccess(array))
+        }) 
 
         //   request
         //     .getProjects(getState().auth.uid)
@@ -55,25 +63,30 @@ export const onFetchComments = (mid) => {
 
 
 export const onCreateComment = (mid,stateData) => {
-    // const data = {
-    //   subject_code: stateData.subjectCode,
-    //   subject_name: stateData.subjectName,
-    //   proj_name: stateData.projectName,
-    //   duration: parseInt(stateData.durationMin),
-    //   // duration_sec: parseInt(stateData.durationSec),
-    //   is_group: stateData.isGroup ? 1 : 0,
-    //   proj_description: stateData.description,
-    //   due_date: stateData.date.toJSON(),
-    //   markerId: stateData.uid,
-    // };
-    // console.log('creating project..');
-    // console.log(data);
+   let data = {
+       markerId: mid,
+       text: stateData.comments,
+       polarity: stateData.type
+
+   }
+   console.log(data)
     return (dispatch, getState) => {
         // const newId = getState().proj.projects.length;
         // console.log({ ...data, id: newId });
-        setTimeout(() => {
-            dispatch(createSuccess({ stateData }));
-        }, 1000);
+        // setTimeout(() => {
+        //     dispatch(createSuccess({ stateData }));
+        // }, 1000);
+        
+        request.addComment(data).then(
+            
+            (response) => {
+                console.log(response)
+                let id = response.data.commentId;
+                let target = {id:id,content:stateData.comments,type:stateData.type};
+                dispatch(createSuccess(target));
+
+            }
+        )
         //const marker_id = stateData.uid;
         //   request
         //     .createProject(data)

@@ -101,10 +101,16 @@ class Criteria extends React.Component {
     e.preventDefault();
     console.log(this.state.item);
     // this.setState({ criteriaLists: [...this.state.criteriaLists, this.state.item], editItem: false, item: { content: "", points: "" } })
-    this.props.createCriteria(this.state.item);
+    this.props.createCriteria(this.state.item,this.state.project.id);
     this.setState({editItem: false, item: { content: "", points: "" }})
     console.log("Add Successful")
     console.log(this.props.criteriaLists)
+  }
+
+  handleUpdate = (e,id) => {
+    e.preventDefault();
+    console.log(this.state.item.id)
+    this.props.updateCriteria(this.state.project.id,id,this.state.item.points,this.state.item)
   }
 
   findCriteriaIndex = (criteria) => {
@@ -121,8 +127,8 @@ class Criteria extends React.Component {
     //   backUp.splice(index, 1);
     //   this.setState({ criteriaLists: backUp });
     // }
-    let id = this.findCriteriaIndex(criteria);
-    this.props.deletCriteria(id);
+    //let id = this.findCriteriaIndex(criteria);
+    this.props.deletCriteria(this.props.match.params.pid,criteria.id);
   }
 
   handleEdit = (criteria) => {
@@ -137,9 +143,11 @@ class Criteria extends React.Component {
     //   });
     // }
     let id = this.findCriteriaIndex(criteria);
-    this.props.deletCriteria(id);
+    console.log(id + ".............")
+    //this.props.updateCriteria(this.state.project.id,id,criteria.points)
+    //this.props.deletCriteria(id);
     this.setState({
-      item: { content: criteria.content || "", points: criteria.points || "" },
+      item: { id: criteria.id,content: criteria.content || "", points: criteria.points || "" },
       editItem: true
     });
 
@@ -164,7 +172,7 @@ class Criteria extends React.Component {
             <CriteriaAdd item={this.state.item} handleChange={this.handleChange} handleSubmit={this.handleSubmit} editItem={this.state.editItem}
               titleHandler={this.titleHandler} pointHandler={this.pointHandler} id={"exampleModal"} />
             <CriteriaList criterias={this.props.criteriaLists} deletCriteria={this.handleDelet} editCriteria={this.handleEdit}
-              item={this.state.item} titleHandler={this.titleHandler} pointHandler={this.pointHandler} handleSubmit={this.handleSubmit} editItem={this.state.editItem} id={"testModal"} />
+              item={this.state.item} titleHandler={this.titleHandler} pointHandler={this.pointHandler} handleUpdate={this.handleUpdate} handleSubmit={this.handleSubmit} editItem={this.state.editItem} id={"testModal"} />
           </div>
         </div>
 
@@ -188,14 +196,14 @@ const mapDispatchToProps = (dispatch) => {
     fetchCriteria: (pid) => {
       dispatch(actions.onFetchCriterias(pid));
     },
-    createCriteria: (data) => {
-      dispatch(actions.onCreateCriteria(data));
+    createCriteria: (data,id) => {
+      dispatch(actions.onCreateCriteria(data,id));
     },
-    deletCriteria: (data) => {
-      dispatch(actions.onDeleteCriteria(data));
+    deletCriteria: (pid,cid) => {
+      dispatch(actions.onDeleteCriteria(pid,cid));
     },
-    updateCriteria: (data) => {
-      dispatch(actions.onUpdateCriteria(data));
+    updateCriteria: (pid,cid,point,item) => {
+      dispatch(actions.onUpdateCriteria(pid,cid,point,item));
     }
   };
 };

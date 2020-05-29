@@ -22,8 +22,8 @@ export default class MarkingItem extends React.Component {
         return (
            
             <div className="all">
-                 <div className="first"><p className="content">{this.props.criteria.criteria}</p><p className="points">{this.props.result.point}</p><p className="bar">this is bar</p></div>
-                 <div className="second"><Slider point={this.props.result.point} updatePoint = {this.props.updatePoint} fullPoint = {this.props.criteria.point} id={this.props.criteria.id}/><div className="comments"><textarea className="commentsArea" placeholder="Here is your comments..." disabled value={this.props.result.comment}></textarea>
+                 <div className="first"><p className="content">{this.props.criteria.content}</p><p className="points">{this.props.result.point}</p></div>
+                 <div className="second"><Slider point={this.props.result.point} updatePoint = {this.props.updatePoint} fullPoint = {this.props.criteria.points} id={this.props.criteria.id}/><div className="comments"><textarea className="commentsArea" placeholder="Here is your comments..." disabled value={this.props.result.comment}></textarea>
                  <input data-toggle="modal" data-target={"#commentsModal"+this.props.criteria.id} className="addButton" type="image" src={button} onClick = {this.addComments}></input>
                  </div></div>
                  <Modal addComments = {this.props.addComments} setId = {this.props.setId} id = {this.props.criteria.id} updateItem={this.props.updateItem} />
