@@ -27,8 +27,8 @@ class Grades extends React.Component {
     const students = this.props.students.filter((el) => el.group_id == groupId);
     if (!isGroup & student) {
       this.props.fetchGrades(projectId, studentId);
-    } else if (isGroup) {
-      this.props.fetchGrades(projectId, groupId);
+    } else if (isGroup && students.length > 0) {
+      this.props.fetchGrades(projectId, students[0].id);
     }
     this.setState({
       student: student,
