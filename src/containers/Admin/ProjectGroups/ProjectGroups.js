@@ -25,6 +25,10 @@ class ProjectGroups extends React.Component {
     return results.sort((a, b) => a.group_id < b.group_id);
   };
 
+  componentWillMount() {
+    this.props.clearStudents();
+  }
+
   componentDidMount() {
     const proid = this.props.match.params.pid;
     this.setState({ projectid: proid });
@@ -100,6 +104,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteGroup: (pid, gid) => {
       dispatch(groupActions.onDeleteGroup(pid, gid));
+    },
+    clearStudents: () => {
+      dispatch(studentActions.onClearStudents());
     },
   };
 };

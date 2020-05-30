@@ -87,6 +87,13 @@ const updateFail = (state, action) => {
   };
 };
 
+const clearStudents = (state, action) => {
+  return {
+    ...state,
+    students: [],
+  };
+};
+
 const studentReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.GET_STUDENT_LIST_SUCCESS:
@@ -109,6 +116,8 @@ const studentReducer = (state = initialState, action) => {
       return importSuccess(state, action);
     case actions.IMPORT_STUDENTS_FAIL:
       return importFail(state, action);
+    case actions.CLEAR_STUDENTS:
+      return clearStudents(state, action);
     default:
       return state;
   }

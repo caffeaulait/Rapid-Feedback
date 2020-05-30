@@ -20,6 +20,10 @@ class Students extends React.Component {
     isGroup: false,
   };
 
+  componentWillMount() {
+    this.props.clearStudents();
+  }
+
   // }
   componentDidMount() {
     // console.log(this.props.match.params);
@@ -238,6 +242,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     importStudents: (pid, students) => {
       dispatch(actions.onImportStudents(pid, students));
+    },
+    clearStudents: () => {
+      dispatch(actions.onClearStudents());
     },
   };
 };

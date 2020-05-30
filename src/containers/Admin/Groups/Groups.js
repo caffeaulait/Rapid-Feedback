@@ -15,6 +15,10 @@ class Groups extends React.Component {
       show: false,
     };
   }
+  componentWillMount() {
+    this.props.clearStudents();
+  }
+
   componentDidMount() {
     const proid = this.props.match.params.pid;
     this.setState({ projectid: proid });
@@ -88,6 +92,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     importStudents: (pid, students) => {
       dispatch(actions2.onImportStudents(pid, students));
+    },
+    clearStudents: () => {
+      dispatch(actions2.onClearStudents());
     },
   };
 };

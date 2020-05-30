@@ -85,6 +85,18 @@ export const confirmGroupStudentFail = (err) => {
   };
 };
 
+export const clearStudnets = () => {
+  return {
+    type: actions.CLEAR_STUDENTS,
+  };
+};
+
+export const onClearStudents = () => {
+  return (dispatch) => {
+    dispatch(clearStudnets());
+  };
+};
+
 export const onFetchStudents = (pid) => {
   return (dispatch, getState) => {
     // setTimeout(() => {
