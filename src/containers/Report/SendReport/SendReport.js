@@ -16,7 +16,7 @@ class SendReport extends React.Component {
     hasVoice: true,
     option: '0',
     student: null,
-    grades: [],
+    grades: "",
     project: null,
     students: [],
     isGroup: false,
@@ -30,12 +30,15 @@ class SendReport extends React.Component {
     const isGroup = project ? project.is_group : false;
     const student = this.props.students.find((el) => el.id == studentId);
     const students = this.props.students.filter((el) => el.group_id == groupId);
+    const grades = new URLSearchParams(this.props.location.search).get('grades');
+    
     console.log('group students are:' + students);
     this.setState({
       student: student,
       project: project,
       students: students,
       isGroup: isGroup,
+      grades: grades
     });
   }
 
@@ -142,7 +145,7 @@ class SendReport extends React.Component {
           </div>
           <div className={styles.textBox}>
             Final Grade: &emsp;{' '}
-            <span className={styles.grade}>&nbsp; 16.8 &nbsp;</span>
+            <span className={styles.grade}>&nbsp; {this.state.grades} &nbsp;</span>
           </div>
           <div className={styles.btnGroup}>
             <button

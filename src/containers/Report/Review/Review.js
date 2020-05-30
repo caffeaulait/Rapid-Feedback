@@ -2,71 +2,63 @@ import React from 'react';
 import styles from './Review.module.css';
 import ProjectTab from './ProjectTab';
 import CriteriaDetail from './CriteriaDetail';
-import ScrollArea from 'react-scrollbar';
-import { ThemeConsumer } from 'styled-components';
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/result';
+import uuid from 'react-uuid';
 
-export default class Review extends React.Component {
+class Review extends React.Component {
   state = {
-    studentInfo: {
-      studentName: 'Claire Huang',
-      studentId: '99999',
-      subject: 'COMP90082 Software Project',
-      projectName: 'xxx Application',
+    targetInfo: {
+      targetName: '',
+      students: [],
+      subject: "",
+      projectName: '',
+      group: 0
     },
     markerInfo: {
-      name: 'john',
-      id: 1,
+      name: '',
+      id: 0,
     },
-    criteria: [
-      { id: '1', criteria: 'Voice, peace and confidence', point: 10 },
-      { id: '2', criteria: 'Knowledge of Material', point: 10 },
-      { id: '3', criteria: 'Content', point: 10 },
-      { id: '4', criteria: 'Concluding remarks', point: 10 },
-      { id: '5', criteria: 'PPT', point: 10 },
-    ],
+
     result: [
-      { id: '1', point: 0, comment: '1' },
-      { id: '2', point: 5, comment: '2' },
-      { id: '3', point: 0, comment: '3' },
-      { id: '4', point: 5, comment: '4' },
-      { id: '5', point: 0, comment: '5' },
+      { id: '1', point: 0, comment: '1', criteria: 'Voice, peace and confidence', weight: 10 },
+      { id: '2', point: 5, comment: '2', criteria: 'Knowledge of Material', weight: 10 },
+      { id: '3', point: 0, comment: '3', criteria: 'Content', weight: 10 },
+      { id: '4', point: 5, comment: '4', criteria: 'Concluding remarks', weight: 10 },
+      { id: '5', point: 0, comment: '5', criteria: 'PPT', weight: 10 },
     ],
-    markers: [
-      { id: 1, name: 'john' },
-      { id: 2, name: 'alex' },
-      { id: 3, name: 'wall' },
-    ],
+    markers: [],
     backupresult: [
       {
         id: 1,
         result: [
-          { id: '1', point: 0, comment: '1' },
-          { id: '2', point: 1, comment: '2' },
-          { id: '3', point: 2, comment: '3' },
-          { id: '4', point: 5, comment: '4' },
-          { id: '5', point: 5, comment: '5' },
+          { id: '1', point: 0, comment: '1', criteria: 'Voice, peace and confidence', weight: 10 },
+          { id: '2', point: 5, comment: '2', criteria: 'Knowledge of Material', weight: 10 },
+          { id: '3', point: 0, comment: '3', criteria: 'Content', weight: 10 },
+          { id: '4', point: 5, comment: '4', criteria: 'Concluding remarks', weight: 10 },
+          { id: '5', point: 0, comment: '5', criteria: 'PPT', weight: 10 },
         ],
         assessDate: '08.2.2020',
       },
       {
         id: 2,
         result: [
-          { id: '1', point: 0, comment: '13434' },
-          { id: '2', point: 5, comment: '2434' },
-          { id: '3', point: 8, comment: '343' },
-          { id: '4', point: 5, comment: '4343' },
-          { id: '5', point: 10, comment: '54343' },
+          { id: '1', point: 0, comment: '1', criteria: 'Voice, peace and confidence', weight: 10 },
+          { id: '2', point: 5, comment: '2', criteria: 'Knowledge of Material', weight: 10 },
+          { id: '3', point: 0, comment: '3', criteria: 'Content', weight: 10 },
+          { id: '4', point: 5, comment: '4', criteria: 'Concluding remarks', weight: 10 },
+          { id: '5', point: 0, comment: '5', criteria: 'PPT', weight: 10 },
         ],
         assessDate: '23.8.2020',
       },
       {
         id: 3,
         result: [
-          { id: '1', point: 0, comment: '1grg' },
-          { id: '2', point: 5, comment: '2ghgh' },
-          { id: '3', point: 5, comment: '3hg' },
-          { id: '4', point: 3, comment: '4hgh' },
-          { id: '5', point: 7, comment: '5ghgh' },
+          { id: '1', point: 0, comment: '1', criteria: 'Voice, peace and confidence', weight: 10 },
+          { id: '2', point: 5, comment: '2', criteria: 'Knowledge of Material', weight: 10 },
+          { id: '3', point: 0, comment: '3', criteria: 'Content', weight: 10 },
+          { id: '4', point: 5, comment: '4', criteria: 'Concluding remarks', weight: 10 },
+          { id: '5', point: 0, comment: '5', criteria: 'PPT', weight: 10 },
         ],
         assessDate: '25.12.2020',
       },
@@ -75,12 +67,75 @@ export default class Review extends React.Component {
   };
 
   componentDidMount() {
-    // let d = new Date();
-    // let date = d.getDate();
-    // let month = d.getMonth() + 1;
-    // let year = d.getFullYear();
-    // var dateStr = date + "/" + month + "/" + year;
-    // this.setState({ assessDate: dateStr});
+    console.log('fetching results........lalalalala');
+    let pathArray = this.props.location.pathname.split("/");
+    let array = [];
+    let targetName = '';
+    let group = null;
+    if (pathArray[pathArray.length - 3] === "groups") {
+      let gid = pathArray[pathArray.length - 2];
+      let students = this.props.students.filter((student) => student.group_id == gid)
+      array = students.map((s) => {
+        return { name: s.first_name + " " + s.last_name, id: s.id }
+      })
+      group = gid
+      targetName = "Group" + gid
+    } else {
+      let gid = 0;
+      let students = this.props.students.filter((student) => student.id == pathArray[pathArray.length - 2])
+      array = students.map((s) => {
+        return { name: s.first_name + " " + s.last_name, id: s.id }
+      })
+      group = gid
+      targetName = array[0].name
+    }
+    let pid = pathArray[pathArray.length - 4];
+    let project = this.props.projects.filter((project) => project.id == pid)[0];
+
+    this.setState({
+      targetInfo: {
+        targetName: targetName,
+        students: array,
+        subject: project.subject_name,
+        projectName: project.proj_name,
+        group: group
+      }
+    })
+
+    let markers = this.props.backupresult.map((r) => (
+      { id: r.markerId, name: r.results[0].firstName + " " + r.results[0].lastName }
+    ))
+
+    this.setState({ markers: markers, markerInfo: markers[0] })
+
+
+
+
+    let backupResult = this.props.backupresult.map((r) => {
+      let date = null;
+      let result = r.results.map((s) => {
+        date = new Date(s.assessedDate)
+        return { id: "", point: s.score, comment: s.comment, criteria: s.criteria, weight: s.fullMark }
+      })
+      for (let i = 0; i < result.length; i++) {
+        result[i].id = i.toString();
+      }
+
+      console.log(date)
+      date = date.toLocaleDateString("en-GB");
+      return { id: r.markerId, result: result, assessDate: date }
+    })
+    console.log("backupResult.....");
+    console.log(backupResult)
+    this.setState({ backupresult: backupResult, assessDate: backupResult[0].assessDate, result: backupResult[0].result });
+
+
+
+
+
+
+
+
   }
 
   goBack = () => {
@@ -89,24 +144,46 @@ export default class Review extends React.Component {
 
   continue = () => {
     let url = this.props.match.url;
-    url = url.substring(0, url.length - 6) + 'report';
+    let date = new Date();
+    let assessedDate = date.toJSON();
+    let pathArray = this.props.location.pathname.split("/");
+    let pid = pathArray[pathArray.length - 4];
+    let list = this.state.result.map((r) => {
+      return {
+        criteriaId: r.id,
+        comment: r.comment,
+        score: r.point
+      }
+    })
+    let gid = this.state.targetInfo.group;
+    let scoreGet = this.state.result.map(a => a.point).reduce((a, b) => a + b, 0);
+    url = url.substring(0, url.length - 6) + 'report' + "?grades=" + scoreGet;
+    this.state.targetInfo.students.map((m) => {
+      this.props.uploadResults(
+        this.props.markerId,
+        pid,
+        m.id,
+        list,
+        assessedDate,
+        gid)
+    })
     this.props.history.push(url);
   };
 
   setCurrentMarker = (e) => {
-    if (e === 'Course Coordinator') {
+    if (e === this.props.markerName) {
       let d = new Date();
 
       let date = d.getDate();
       let month = d.getMonth() + 1;
       let year = d.getFullYear();
 
-      var dateStr = date + '.' + month + '.' + year;
+      var dateStr = d.toLocaleDateString("en-GB");
       this.setState({ assessDate: dateStr });
       let aggResult = [];
       this.state.result.forEach((r) => {
         let targetId = r.id;
-        let record = { id: targetId, point: 0, comment: '' };
+        let record = { id: targetId, point: 0, comment: '', criteria: r.criteria, weight: r.weight };
         for (let i = 0; i < this.state.backupresult.length; i++) {
           console.log(this.state.backupresult[i]['assessDate']);
           let targetRecord = this.state.backupresult[i].result.filter(
@@ -116,7 +193,7 @@ export default class Review extends React.Component {
           record.comment +=
             'Marker ' +
             Number(i + 1).toString() +
-            ':' +
+            '  Comments :\n' +
             targetRecord[0].comment;
           if (i !== this.state.backupresult.length - 1) {
             record.comment += '\n';
@@ -127,7 +204,7 @@ export default class Review extends React.Component {
       });
       this.setState({
         result: aggResult,
-        markerInfo: { name: 'Course Coordinator', id: null },
+        markerInfo: { name: this.props.markerName, id: this.props.markerId },
         assessDate: dateStr,
       });
       console.log(aggResult);
@@ -166,7 +243,7 @@ export default class Review extends React.Component {
     });
     copy = [
       ...copy,
-      { id: id, point: Number(value), comment: target[0].comment },
+      { id: id, point: Number(value), comment: target[0].comment, criteria: target[0].criteria, weight: target[0].weight },
     ];
 
     // targetMarker.result = copy;
@@ -182,22 +259,25 @@ export default class Review extends React.Component {
     let target = this.state.result.filter((item) => {
       return item.id == id;
     });
-    copy = [...copy, { id: id, point: target[0].point, comment: value }];
+    copy = [...copy, { id: id, point: target[0].point, comment: value, criteria: target[0].criteria, weight: target[0].weight }];
     this.setState({ result: copy });
   };
 
   render() {
+    if (!this.props.isAuthenticated || this.props.projects.length == 0) {
+      this.props.history.replace('/login');
+    }
     return (
       <div className={styles.outer}>
         <div className={styles.left}>
           <ProjectTab
             markers={this.state.markers}
             setMarker={this.setCurrentMarker}
-            criteria={this.state.criteria}
             result={this.state.result}
             markerInfo={this.state.markerInfo}
-            studentInfo={this.state.studentInfo}
+            studentInfo={this.state.targetInfo}
             assessDate={this.state.assessDate}
+            name={this.props.markerName}
           />
         </div>
         <div className={styles.right}>
@@ -208,7 +288,7 @@ export default class Review extends React.Component {
             <tbody style={{ width: '100%' }}>
               <CriteriaDetail
                 marker={this.state.markerInfo}
-                criteria={this.state.criteria}
+
                 result={this.state.result}
                 updatePoint={this.handleUpdatePoint}
                 updateComments={this.handleUpdateComments}
@@ -226,6 +306,7 @@ export default class Review extends React.Component {
             <button
               className={'btn btn-primary ' + styles.controlBtn}
               onClick={this.continue}
+              disabled={this.state.markerInfo.id != this.props.markerId}
             >
               Continue
             </button>
@@ -235,3 +316,24 @@ export default class Review extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+    backupresult: state.result.allResults,
+    students: state.student.students,
+    markerId: state.auth.uid,
+    markerName: state.auth.firstName + " " + state.auth.lastName,
+    projects: state.proj.projects
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    uploadResults: (mid, pid, sid, assessList, assessedDate, gid) => {
+      dispatch(actions.onUploadResult(mid, pid, sid, assessList, assessedDate, gid))
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Review);
+
