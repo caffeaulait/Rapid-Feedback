@@ -115,17 +115,13 @@ class Review extends React.Component {
       let date = null;
       let result = r.results.map((s) => {
         date = new Date(s.assessedDate)
-        return { id: "", point: s.score, comment: s.comment, criteria: s.criteria, weight: s.fullMark }
+        return { id: s.criteriaId, point: s.score, comment: s.comment, criteria: s.criteria, weight: s.fullMark }
       })
-      for (let i = 0; i < result.length; i++) {
-        result[i].id = i.toString();
-      }
-
       console.log(date)
       date = date.toLocaleDateString("en-GB");
       return { id: r.markerId, result: result, assessDate: date }
     })
-    console.log("backupResult.....");
+    console.log("backupResult....");
     console.log(backupResult)
     this.setState({ backupresult: backupResult, assessDate: backupResult[0].assessDate, result: backupResult[0].result });
 
