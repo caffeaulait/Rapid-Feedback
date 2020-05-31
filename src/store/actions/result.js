@@ -57,9 +57,7 @@ const sendReportFail = (error) => {
   };
 };
 
-export const onFetchResult = (
-  pid
-) => {
+export const onFetchResult = (pid) => {
   return (dispatch, getState) => {
     // setTimeout(() => {
     //   dispatch(
@@ -78,11 +76,11 @@ export const onFetchResult = (
     request
       .getCriterias(pid)
       .then((response) => {
-        console.log("response.....")
+        console.log('response.....');
         console.log(response);
         let array = response.data.criteriaList.map((r) => {
-          return { id: r.criteriaId, point: 0, comment: "" };
-        })
+          return { id: r.criteriaId, point: 0, comment: '' };
+        });
         // dispatch(fetchSuccess([{ id: "1", content: "voice, pace and confidence", points: "0" }
         //     , { id: "2", content: "presentation structure", points: "0" }
         //     , { id: "3", content: "quality of slides/visual aids", points: "0" }
@@ -97,9 +95,7 @@ export const onFetchResult = (
   };
 };
 
-export const onFetchGroupResult = (
-  pid
-) => {
+export const onFetchGroupResult = (pid) => {
   return (dispatch, getState) => {
     // setTimeout(() => {
     //   dispatch(
@@ -118,11 +114,11 @@ export const onFetchGroupResult = (
     request
       .getCriterias(pid)
       .then((response) => {
-        console.log("response.....")
+        console.log('response.....');
         console.log(response);
         let array = response.data.criteriaList.map((r) => {
           return { id: r.criteriaId, point: 0, comment: {} };
-        })
+        });
         // dispatch(fetchSuccess([{ id: "1", content: "voice, pace and confidence", points: "0" }
         //     , { id: "2", content: "presentation structure", points: "0" }
         //     , { id: "3", content: "quality of slides/visual aids", points: "0" }
@@ -136,7 +132,6 @@ export const onFetchGroupResult = (
       });
   };
 };
-
 
 const groupBy = (xs, key) => {
   let obj = xs.reduce(function (rv, x) {
@@ -168,10 +163,12 @@ export const onFetchAllResult = (pid, tid) => {
 };
 
 export const onSendReport = (data) => {
+  console.log(data);
   return (dispatch) => {
     request
       .sendReport(data)
       .then((response) => {
+        console.log(response);
         dispatch(sendReportSuccess());
       })
       .catch((error) => {
@@ -180,17 +177,24 @@ export const onSendReport = (data) => {
   };
 };
 
-export const onUploadResult = (mid, pid, sid, assessList, assessedDate, gid) => {
+export const onUploadResult = (
+  mid,
+  pid,
+  sid,
+  assessList,
+  assessedDate,
+  gid
+) => {
   const data = {
     assessList: assessList,
     projectId: pid,
     markerId: mid,
     studentId: sid,
     groupId: gid,
-    assessedDate: assessedDate
-  }
+    assessedDate: assessedDate,
+  };
 
-  console.log("upload resulttttttttttt")
+  console.log('upload resulttttttttttt');
   console.log(data);
   return (dispatch) => {
     // setTimeout(() => {
@@ -206,5 +210,5 @@ export const onUploadResult = (mid, pid, sid, assessList, assessedDate, gid) => 
         console.log(err);
         dispatch(updateResultFail(err));
       });
-  }
+  };
 };

@@ -15,13 +15,14 @@ import * as result from '../../../store/actions/result';
 class SendReport extends React.Component {
   state = {
     hasVoice: true,
-    option: '0',
+    option: '1',
     student: null,
     grades: '',
     project: null,
     students: [],
     isGroup: false,
     score: 0,
+    projectId: null,
   };
 
   componentDidMount() {
@@ -44,6 +45,7 @@ class SendReport extends React.Component {
       students: students,
       isGroup: isGroup,
       grades: grades,
+      projectId: parseInt(projectId),
     });
   }
 
@@ -59,12 +61,12 @@ class SendReport extends React.Component {
   onSend = () => {
     const studentIdList = [];
     if (!this.props.isGroup) {
-      studentIdList.push(this.props.student.id);
+      studentIdList.push(this.state.student.id);
     } else {
-      studentIdList.concat(this.props.students.map((student) => student.id));
+      studentIdList.concat(this.state.students.map((student) => student.id));
     }
     const data = {
-      project_id: this.projectId,
+      project_id: this.state.projectId,
       studentIdList,
       option: parseInt(this.state.option),
     };
@@ -137,17 +139,17 @@ class SendReport extends React.Component {
                 onChange={this.handleChange}
               >
                 <FormControlLabel
-                  value='0'
+                  value='1'
                   control={<Radio />}
                   label='Send report to teaching team only'
                 />
                 <FormControlLabel
-                  value='1'
+                  value='2'
                   control={<Radio />}
                   label='Send report to student only'
                 />
                 <FormControlLabel
-                  value='2'
+                  value='3'
                   control={<Radio />}
                   label='Send report to both teaching team and student'
                 />

@@ -67,17 +67,17 @@ export const getCriterias = (id) => {
   return instance.get(`/projects/${id}/getCriteria`);
 };
 
-export const setCriteria = (pid,data) => {
-  return instance.put(`/projects/${pid}/setCriteria`,data)
-}
+export const setCriteria = (pid, data) => {
+  return instance.put(`/projects/${pid}/setCriteria`, data);
+};
 
 export const addCriteria = (data) => {
-  return instance.post(`/projects/addCriteria`,data)
-}
+  return instance.post(`/projects/addCriteria`, data);
+};
 
-export const deletCriteria = (pid,cid) => {
-  return instance.delete(`/projects/${pid}/${cid}`)
-}
+export const deletCriteria = (pid, cid) => {
+  return instance.delete(`/projects/${pid}/${cid}`);
+};
 
 export const getStudents = (pid) => {
   // /v1/students/{projectId}
@@ -125,17 +125,17 @@ export const getAllResults = (pid, targetId) => {
 };
 
 export const uploadResults = (data) => {
-  return instance.post("/assess",data);
-}
+  return instance.post('/assess', data);
+};
 
 export const getComments = (mid) => {
   return instance.get(`/comments/${mid}`);
-}
+};
 
 export const addComment = (data) => {
-  return instance.post("/addComment",data);
-}
+  return instance.post('/addComment', data);
+};
 
 export const sendReport = (data) => {
-  return instance.post();
+  return instance.post('/result/email', data);
 };
