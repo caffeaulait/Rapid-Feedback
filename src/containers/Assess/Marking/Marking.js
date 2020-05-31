@@ -149,9 +149,9 @@ class Marking extends React.Component {
     }
 
 render() {
-    // if (!this.props.isAuthenticated) {
-    //     this.props.history.replace('/login');
-    // }
+    if (!this.props.isAuthenticated) {
+        this.props.history.replace('/login');
+    }
     return (
         <div>
             <MarkingTitle minutes = {this.state.minutes} seconds = {this.state.seconds} start = {this.start} assTarget={this.state.assTarget} assTime={this.state.assTime} result={this.props.result} criteria={this.props.criteria}></MarkingTitle>

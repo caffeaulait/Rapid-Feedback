@@ -8,7 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import GroupTab from '../../../components/GroupTab/GroupTab';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 import { connect } from 'react-redux';
 import * as result from '../../../store/actions/result';
 
@@ -17,7 +17,7 @@ class SendReport extends React.Component {
     hasVoice: true,
     option: '0',
     student: null,
-    grades: [],
+    grades: '',
     project: null,
     students: [],
     isGroup: false,
@@ -25,8 +25,7 @@ class SendReport extends React.Component {
   };
 
   componentDidMount() {
-    const params = queryString.parse(this.props.location.search);
-    const score = params.score;
+    // const params = queryString.parse(this.props.location.search);
     const projectId = this.props.match.params.pid;
     const studentId = this.props.match.params.sid;
     const groupId = this.props.match.params.gid;
@@ -34,13 +33,17 @@ class SendReport extends React.Component {
     const isGroup = project ? project.is_group : false;
     const student = this.props.students.find((el) => el.id == studentId);
     const students = this.props.students.filter((el) => el.group_id == groupId);
+    const grades = new URLSearchParams(this.props.location.search).get(
+      'grades'
+    );
+
     console.log('group students are:' + students);
     this.setState({
       student: student,
       project: project,
       students: students,
       isGroup: isGroup,
-      score: score,
+      grades: grades,
     });
   }
 
@@ -154,7 +157,7 @@ class SendReport extends React.Component {
           <div className={styles.textBox}>
             Final Grade: &emsp;{' '}
             <span className={styles.grade}>
-              &nbsp; {this.state.score} &nbsp;
+              &nbsp; {this.state.grades} &nbsp;
             </span>
           </div>
           <div className={styles.btnGroup}>

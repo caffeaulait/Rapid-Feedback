@@ -192,9 +192,9 @@ class GroupMarking extends React.Component {
         clearInterval(this.myInterval)
     }
     render() {
-        // if (!this.props.isAuthenticated) {
-        //     this.props.history.replace('/login');
-        // }
+        if (!this.props.isAuthenticated) {
+            this.props.history.replace('/login');
+        }
         return (
             <div>
                 <MarkingTitle
