@@ -167,7 +167,7 @@ class Review extends React.Component {
   };
 
   setCurrentMarker = (e) => {
-    if (e === this.props.markerName) {
+    if (e === this.props.markerId) {
       let d = new Date();
 
       let date = d.getDate();
@@ -205,7 +205,7 @@ class Review extends React.Component {
       });
       console.log(aggResult);
     } else {
-      let marker = this.state.markers.filter((marker) => marker.name === e);
+      let marker = this.state.markers.filter((marker) => Number(marker.id) === Number(e));
       let id = marker[0].id;
       let target = this.state.backupresult.filter((result) => result.id == id);
       console.log(target);
@@ -274,6 +274,7 @@ class Review extends React.Component {
             studentInfo={this.state.targetInfo}
             assessDate={this.state.assessDate}
             name={this.props.markerName}
+            id = {this.props.markerId}
           />
         </div>
         <div className={styles.right}>
@@ -284,7 +285,7 @@ class Review extends React.Component {
             <tbody style={{ width: '100%' }}>
               <CriteriaDetail
                 marker={this.state.markerInfo}
-
+                id = {this.props.markerId}
                 result={this.state.result}
                 updatePoint={this.handleUpdatePoint}
                 updateComments={this.handleUpdateComments}
