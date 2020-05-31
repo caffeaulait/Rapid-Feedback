@@ -8,18 +8,21 @@ const StudentCard = (props) => {
       <td>{props.student.first_name + ' ' + props.student.last_name}</td>
       <td>{props.student.uni_email}</td>
       <td>
-        {/* {props.student.is_assessed === 0 ? ( */}
-        <button
-          onClick={props.assess}
-          className={'btn btn-outline-primary ' + styles.assess}
-        >
-          Assess
-        </button>
-        {/* ) : (
-          <button disabled className={styles.assessed}>
-            Completed
+        {props.student.isAssessed === 0 ? (
+          <button
+            onClick={props.assess}
+            className={'btn btn-outline-primary ' + styles.assess}
+          >
+            Assess
           </button>
-        )} */}
+        ) : (
+          <button
+            onClick={props.assess}
+            className={'btn btn-outline-success ' + styles.assess}
+          >
+            Assessed
+          </button>
+        )}
       </td>
     </tr>
   );

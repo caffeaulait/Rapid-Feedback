@@ -4,6 +4,11 @@
   font-size: 1em;
   /* margin-left: 2vw; */
 }
+.notAssed {
+  width: 6vw;
+  height: 5vh;
+  font-size: 0.8em;
+}
 
 th:last-child,
 td:last-child {

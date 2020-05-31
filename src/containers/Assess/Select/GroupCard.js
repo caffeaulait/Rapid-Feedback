@@ -12,14 +12,17 @@ const GroupCard = (props) => {
   ));
   let isAssessed = false;
   for (let student of props.students) {
-    if (student.is_assessed) {
+    if (student.isAssessed) {
       isAssessed = true;
       break;
     }
   }
   let btn = isAssessed ? (
-    <button onClick={props.assess} disabled>
-      Completed
+    <button
+      onClick={props.assess}
+      className={'btn btn-outline-success ' + styles.assess}
+    >
+      Assessed
     </button>
   ) : (
     <button

@@ -8,6 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import GroupTab from '../../../components/GroupTab/GroupTab';
+// import queryString from 'query-string';
 import { connect } from 'react-redux';
 import * as result from '../../../store/actions/result';
 
@@ -16,13 +17,15 @@ class SendReport extends React.Component {
     hasVoice: true,
     option: '0',
     student: null,
-    grades: "",
+    grades: '',
     project: null,
     students: [],
     isGroup: false,
+    score: 0,
   };
 
   componentDidMount() {
+    // const params = queryString.parse(this.props.location.search);
     const projectId = this.props.match.params.pid;
     const studentId = this.props.match.params.sid;
     const groupId = this.props.match.params.gid;
@@ -30,15 +33,17 @@ class SendReport extends React.Component {
     const isGroup = project ? project.is_group : false;
     const student = this.props.students.find((el) => el.id == studentId);
     const students = this.props.students.filter((el) => el.group_id == groupId);
-    const grades = new URLSearchParams(this.props.location.search).get('grades');
-    
+    const grades = new URLSearchParams(this.props.location.search).get(
+      'grades'
+    );
+
     console.log('group students are:' + students);
     this.setState({
       student: student,
       project: project,
       students: students,
       isGroup: isGroup,
-      grades: grades
+      grades: grades,
     });
   }
 
@@ -52,9 +57,15 @@ class SendReport extends React.Component {
   onDelete = () => {};
 
   onSend = () => {
+    const studentIdList = [];
+    if (!this.props.isGroup) {
+      studentIdList.push(this.props.student.id);
+    } else {
+      studentIdList.concat(this.props.students.map((student) => student.id));
+    }
     const data = {
       project_id: this.projectId,
-      studentIdList: [],
+      studentIdList,
       option: parseInt(this.state.option),
     };
     this.props.sendReport(data);
@@ -145,7 +156,9 @@ class SendReport extends React.Component {
           </div>
           <div className={styles.textBox}>
             Final Grade: &emsp;{' '}
-            <span className={styles.grade}>&nbsp; {this.state.grades} &nbsp;</span>
+            <span className={styles.grade}>
+              &nbsp; {this.state.grades} &nbsp;
+            </span>
           </div>
           <div className={styles.btnGroup}>
             <button
