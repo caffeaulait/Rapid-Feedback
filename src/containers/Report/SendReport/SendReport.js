@@ -73,6 +73,7 @@ class SendReport extends React.Component {
 
   onUpload = () => {
     let studentIdList = [];
+    const formData = new FormData();
     if (!this.state.isGroup) {
       studentIdList.push(this.state.student.id);
     } else {
@@ -80,11 +81,22 @@ class SendReport extends React.Component {
       studentIdList = studentIdList.concat(ids);
       console.log(studentIdList);
     }
-    const formData = new FormData();
+    let strList = this.listToString(studentIdList);
     formData.append('project_id', this.state.projectId);
-    formData.append('studentIdList', studentIdList);
+    formData.append('studentIdList', strList);
     formData.append('audio', this.state.blob, this.state.filename);
     this.props.uploadAudio(formData);
+  };
+
+  listToString = (list) => {
+    let result = '';
+    for (let i = 0; i < list.length; i++) {
+      result = result + list[i];
+      if (i !== list.length - 1) {
+        result = result + ',';
+      }
+    }
+    return result;
   };
 
   onRecord = () => {

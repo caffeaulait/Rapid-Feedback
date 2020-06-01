@@ -129,8 +129,8 @@ export const uploadResults = (data) => {
 };
 
 export const upDateResult = (data) => {
-  return instance.put("/updateAssess",data)
-}
+  return instance.put('/updateAssess', data);
+};
 
 export const getComments = (mid) => {
   return instance.get(`/comments/${mid}`);
@@ -152,5 +152,5 @@ export const uploadAudio = (data, boundary) => {
       token: localStorage.getItem('token'),
     },
   };
-  return axios.post(`${address}/v1/result/audio`, data, config);
+  return axios.post(`${address}/result/audio`, data, config);
 };

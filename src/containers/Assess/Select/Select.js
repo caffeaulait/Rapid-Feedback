@@ -14,6 +14,10 @@ class Select extends React.Component {
     projectid: null,
   };
 
+  componentWillMount() {
+    this.props.clearStudents();
+  }
+
   // }
   componentDidMount() {
     const proid = parseInt(this.props.match.params.pid);
@@ -200,6 +204,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchStudents: (pid) => {
       dispatch(actions.onFetchStudents(pid));
+    },
+    clearStudents: () => {
+      dispatch(actions.onClearStudents());
     },
   };
 };

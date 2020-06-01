@@ -192,6 +192,7 @@ export const onSendReport = (data) => {
 
 export const onUploadAudio = (data) => {
   return (dispatch) => {
+    console.log(data);
     request
       .uploadAudio(data)
       .then((response) => {
@@ -203,7 +204,6 @@ export const onUploadAudio = (data) => {
       });
   };
 };
-
 
 export const onUpdateResult = (
   mid,
@@ -238,41 +238,41 @@ export const onUpdateResult = (
         console.log(err);
         dispatch(updateResultFail(err));
       });
-    };
+  };
+};
+
+export const onUploadResult = (
+  mid,
+  pid,
+  sid,
+  assessList,
+  assessedDate,
+  gid
+) => {
+  const data = {
+    assessList: assessList,
+    projectId: pid,
+    markerId: mid,
+    studentId: sid,
+    groupId: gid,
+    assessedDate: assessedDate,
   };
 
-  export const onUploadResult = (
-    mid,
-    pid,
-    sid,
-    assessList,
-    assessedDate,
-    gid
-  ) => {
-    const data = {
-      assessList: assessList,
-      projectId: pid,
-      markerId: mid,
-      studentId: sid,
-      groupId: gid,
-      assessedDate: assessedDate,
-    };
-
-    console.log('upload resulttttttttttt');
-    console.log(data);
-    return (dispatch) => {
-      // setTimeout(() => {
-      //   dispatch(updateSuccess(data));
-      // }, 1000);
-      request
-        .uploadResults(data)
-        .then((response) => {
-          console.log(response);
-          // dispatch(updateSuccess(response.data));
-        })
-        .catch((err) => {
-          console.log(err);
-          dispatch(updateResultFail(err));
-        });
-    };
+  console.log('upload resulttttttttttt');
+  console.log(data);
+  return (dispatch) => {
+    // setTimeout(() => {
+    //   dispatch(updateSuccess(data));
+    // }, 1000);
+    request
+      .uploadResults(data)
+      .then((response) => {
+        console.log(response);
+        // dispatch(updateSuccess(response.data));
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(updateResultFail(err));
+      });
   };
+};
