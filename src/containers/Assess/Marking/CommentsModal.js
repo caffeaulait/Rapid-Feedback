@@ -35,7 +35,7 @@ class Modal extends Component {
 
         // let target = {id:newId,content:comments,type:type};
         // this.props.addComment(target)
-        this.props.uploadComments(this.props.markerId,{comments:comments,type:type})
+        this.props.uploadComments(this.props.markerId,{comments:comments+"["+ this.props.content +"]",type:type},this.props.content)
         //this.setState({comments:[...this.props.comments,target]});
 
     }
@@ -54,8 +54,8 @@ class Modal extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <CommentsInput addComments={this.addNewComments}/>
-                            <CommentsList comments={this.props.comments} upItem = {this.props.updateItem} setId = {this.props.setId} id = {this.props.id} updateItem={this.props.updateItem} />
+                            <CommentsInput content={this.props.content} addComments={this.addNewComments}/>
+                            <CommentsList comments={this.props.comments[this.props.content]} upItem = {this.props.updateItem} setId = {this.props.setId} id = {this.props.id} updateItem={this.props.updateItem} />
                         </div>
                         <div className="modal-footer">
                             <button type="button" style={{ fontSize: '10px', padding: '5px 10px', color: 'white', background: '#003F8A', borderRadius: '15px', width: "20%", verticalAlign: 'center' }} data-dismiss="modal">Close</button>
@@ -81,8 +81,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchComments: (mid) => {
             dispatch(actions.onFetchComments(mid));
         },
-        uploadComments: (mid,comment) => {
-            dispatch(actions.onCreateComment(mid,comment))
+        uploadComments: (mid,comment,content) => {
+            dispatch(actions.onCreateComment(mid,comment,content))
         },
         addComment: (comment) => {
             dispatch(actions.createSuccess(comment))

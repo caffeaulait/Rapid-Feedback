@@ -30,6 +30,13 @@ export const createFail = (error) => {
     };
 };
 
+function groupBy(xs, f) {
+    return xs.reduce((r, v, i, a, k = f(v)) => ((r[k] || (r[k] = [])).push(v), r), {});
+}
+
+
+
+
 export const onFetchComments = (mid) => {
     return (dispatch, getState) => {
         // setTimeout(() => {
@@ -44,9 +51,14 @@ export const onFetchComments = (mid) => {
         request.getComments(mid).then((response) => {
             console.log(response)
             let array = response.data.comments.map((c) => {
-                return {id: c.id,content:c.text,type:c.polarity}
+                let start = c.text.indexOf("[")
+                let end = c.text.indexOf("]")
+                return {id: c.id,content:c.text.substring(0,start),type:c.polarity,criteria:c.text.substring(start + 1, end)}
             })
-            dispatch(fetchSuccess(array))
+            console.log(array)
+            let comments = groupBy(array,(c) => c.criteria)
+            console.log(comments)
+            dispatch(fetchSuccess(comments))
         }) 
 
         //   request
@@ -62,7 +74,7 @@ export const onFetchComments = (mid) => {
 };
 
 
-export const onCreateComment = (mid,stateData) => {
+export const onCreateComment = (mid,stateData,criteria) => {
    let data = {
        markerId: mid,
        text: stateData.comments,
@@ -82,7 +94,8 @@ export const onCreateComment = (mid,stateData) => {
             (response) => {
                 console.log(response)
                 let id = response.data.commentId;
-                let target = {id:id,content:stateData.comments,type:stateData.type};
+                let start = stateData.comments.indexOf("[")
+                let target = {id:id,content:stateData.comments.substring(0,start),type:stateData.type,criteria:criteria};
                 dispatch(createSuccess(target));
 
             }

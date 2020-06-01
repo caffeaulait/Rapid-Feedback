@@ -30,7 +30,7 @@ export default class CommentsList extends React.Component {
         
 
 
-        let list = <List
+        let list = this.props.comments == undefined ? "loading":<List
             items={this.props.comments.map((comment) => {
                 return comp(comment.content,comment.type);
             })}

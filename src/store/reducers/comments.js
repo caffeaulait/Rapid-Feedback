@@ -1,7 +1,7 @@
 import * as actions from '../actions/actions';
 
 const initialState = {
-    comments: [],
+    comments: {},
     commentsError: null,
 };
 
@@ -21,9 +21,15 @@ const fetchFail = (state, action) => {
 
 const createSuccess = (state, action) => {
     const newComment = action.comment;
+    let array = Object.assign({},state.comments);
+    let dummy = state.comments[action.comment.criteria] == undefined ? []:state.comments[action.comment.criteria];
+    dummy = dummy.concat(newComment);
+    console.log(dummy);
+    array[action.comment.criteria] = dummy
+    console.log(array);
     return {
         ...state,
-        comments: state.comments.concat(newComment),
+        comments: array,
     };
 };
 

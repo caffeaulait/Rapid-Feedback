@@ -19,16 +19,10 @@ export default class CommentsList extends React.Component {
             )
         }
         
-        let comps = [
-            comp('Mike', 'mike@server.com'),
-            comp('John', 'john@server.com'),
-            comp('Bob', 'bob@server.com'),
-            comp('Max', 'max@server.com'),
-        ]
         
 
-
-        let list = <List
+        console.log(this.props.comments)
+        let list = this.props.comments == undefined ? "loading":<List
             items={this.props.comments.map((comment) => {
                 return comp(comment.content,comment.type);
             })}
