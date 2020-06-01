@@ -136,7 +136,7 @@ class Markers extends React.Component {
           <h1
             style={{
               color: '#003F8A',
-              marginLeft: '120px',
+              marginLeft: '0',
               fontSize: '60px',
               display: 'inline-block',
               width: '100%',

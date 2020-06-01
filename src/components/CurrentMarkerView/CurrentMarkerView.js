@@ -8,7 +8,7 @@ class CurrentMarkerView extends React.Component {
         })
         return (
             <div>
-                <label className="MarkerLabel"style={{fontSize: '30px',padding:'10px 20px',color:'black',marginLeft:'120px',display:'inline-block'}}>Current Marker</label>
+                <label className="MarkerLabel"style={{fontSize: '30px',padding:'10px 20px',color:'black',marginLeft:'0',display:'inline-block'}}>Current Marker</label>
                 <div className="selectedmarker" style={{display:'inline-block'}}>{selected}</div>
             </div>
             );
