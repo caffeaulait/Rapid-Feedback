@@ -5,14 +5,18 @@ import Grades from './Grades/Grades';
 import SendReport from './SendReport/SendReport';
 import Review from './Review/Review';
 import Select from './Select/Select';
+import { connect } from 'react-redux';
 
 class Report extends React.Component {
   render() {
     const url = this.props.match.url;
 
+    if (!this.props.isAuthenticated) {
+      this.props.history.push('/login');
+    }
     return (
       <>
-        <Header></Header>
+        <Header isCoordinator={this.props.isCoordinator}></Header>
         <Switch>
           {/* 5. send pdf page */}
           <Route
@@ -53,4 +57,11 @@ class Report extends React.Component {
   }
 }
 
-export default Report;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.token !== null,
+    isCoordinator: state.auth.isCoordinator,
+  };
+};
+
+export default connect(mapStateToProps, null)(Report);

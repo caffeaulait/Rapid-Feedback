@@ -67,7 +67,7 @@ class Home extends React.Component {
 
     return (
       <Fragment>
-        <Header></Header>
+        <Header isCoordinator={this.props.isCoordinator}></Header>
         <div className={styles.main}>
           <div className={styles.left}>
             <div className={styles.box}>

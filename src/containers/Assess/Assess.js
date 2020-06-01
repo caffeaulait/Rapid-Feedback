@@ -18,7 +18,7 @@ class Assess extends React.Component {
     let url = this.props.match.url;
     return (
       <>
-        <Header></Header>
+        <Header isCoordinator={this.props.isCoordinator}></Header>
         <Switch>
           {/* 4, marking a group or student, use path to differentiate*/}
           <Route
@@ -52,6 +52,7 @@ class Assess extends React.Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
+    isCoordinator: state.auth.isCoordinator,
   };
 };
 

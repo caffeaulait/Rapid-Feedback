@@ -17,13 +17,14 @@ class Admin extends React.Component {
   state = {};
 
   render() {
+    console.log(this.props.isCoordinator);
     if (!this.props.isAuthenticated) {
       this.props.history.replace('/login');
     }
     let url = this.props.match.url;
     return (
       <>
-        <Header></Header>
+        <Header isCoordinator={this.props.isCoordinator}></Header>
         <Switch>
           <Route
             path={url + '/projects/:pid/students'}
@@ -71,6 +72,7 @@ class Admin extends React.Component {
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.token !== null,
+    isCoordinator: state.auth.isCoordinator,
   };
 };
 
