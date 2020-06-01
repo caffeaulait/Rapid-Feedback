@@ -66,7 +66,7 @@ class SearchBar extends React.Component {
       <div className='titleAndSearch'>
         <table
           style={{
-            marginLeft: '120px',
+            marginLeft: '0',
             marginRight: '50px',
             marginTop: '30px',
             marginBottom: '20px',
