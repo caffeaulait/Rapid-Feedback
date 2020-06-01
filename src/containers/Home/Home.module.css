@@ -90,3 +90,9 @@ div.right p {
   font-size: 2em;
   flex: 70%;
 }
+
+.name {
+  margin-top: 3vh;
+  font-size: 1.2em;
+  font-weight: bold;
+}
