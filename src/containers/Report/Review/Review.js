@@ -151,17 +151,36 @@ class Review extends React.Component {
         score: r.point
       }
     })
+
+    let backupResult = this.props.backupresult.map((r) => {
+      return r.markerId;
+    })
+    console.log(backupResult)
+
+    let exist = backupResult.includes(this.props.markerId.toString());
+    console.log(exist);
     let gid = this.state.targetInfo.group;
     let scoreGet = this.state.result.map(a => a.point).reduce((a, b) => a + b, 0);
     url = url.substring(0, url.length - 6) + 'report' + "?grades=" + scoreGet;
     this.state.targetInfo.students.map((m) => {
-      this.props.uploadResults(
-        this.props.markerId,
-        pid,
-        m.id,
-        list,
-        assessedDate,
-        gid)
+      if (exist) {
+        this.props.upDateResults(
+          this.props.markerId,
+          pid,
+          m.id,
+          list,
+          assessedDate,
+          gid
+        )
+      } else {
+        this.props.uploadResults(
+          this.props.markerId,
+          pid,
+          m.id,
+          list,
+          assessedDate,
+          gid)
+      }
     })
     this.props.history.push(url);
   };
@@ -230,33 +249,59 @@ class Review extends React.Component {
     // })
     // console.log("current marker");
     // console.log(targetMarker);
+    let array = [...this.state.result];
+    let index = null;
+    for (let i = 0; i < array.length; i++) {
+      if (Number(array[i].id) === Number(id)) {
+        index = i;
+        break
+      }
+    }
 
-    let copy = this.state.result.filter((item) => {
-      return item.id != id;
-    });
+    console.log(index)
+
+    // let copy = this.state.result.filter((item) => {
+    //   return item.id != id;
+    // });
     let target = this.state.result.filter((item) => {
       return item.id == id;
     });
-    copy = [
-      ...copy,
-      { id: id, point: Number(value), comment: target[0].comment, criteria: target[0].criteria, weight: target[0].weight },
-    ];
+
+    array[index] = { id: id, point: Number(value), comment: target[0].comment, criteria: target[0].criteria, weight: target[0].weight }
+
+
+    // copy = [
+    //   ...copy,
+    //   { id: id, point: Number(value), comment: target[0].comment, criteria: target[0].criteria, weight: target[0].weight },
+    // ];
 
     // targetMarker.result = copy;
     // console.log(targetMarker);
-    this.setState({ result: copy });
+    //this.setState({ result: copy });
+    this.setState({ result: array });
     // this.setState({backupresult:[...copyMarker, targetMarker]})
   };
 
   handleUpdateComments = (value, id, marker) => {
-    let copy = this.state.result.filter((item) => {
-      return item.id != id;
-    });
+    //let copy = this.state.result.filter((item) => {
+    //   return item.id != id;
+    // });
+    let array = [...this.state.result];
+    let index = null;
+    for (let i = 0; i < array.length; i++) {
+      if (Number(array[i].id) === Number(id)) {
+        index = i;
+        break
+      }
+    }
+
+    console.log(index)
     let target = this.state.result.filter((item) => {
       return item.id == id;
     });
-    copy = [...copy, { id: id, point: target[0].point, comment: value, criteria: target[0].criteria, weight: target[0].weight }];
-    this.setState({ result: copy });
+    array[index] = { id: id, point: target[0].point, comment: value, criteria: target[0].criteria, weight: target[0].weight }
+    //copy = [...copy, { id: id, point: target[0].point, comment: value, criteria: target[0].criteria, weight: target[0].weight }];
+    this.setState({ result: array });
   };
 
   render() {
@@ -274,7 +319,7 @@ class Review extends React.Component {
             studentInfo={this.state.targetInfo}
             assessDate={this.state.assessDate}
             name={this.props.markerName}
-            id = {this.props.markerId}
+            id={this.props.markerId}
           />
         </div>
         <div className={styles.right}>
@@ -285,7 +330,7 @@ class Review extends React.Component {
             <tbody style={{ width: '100%' }}>
               <CriteriaDetail
                 marker={this.state.markerInfo}
-                id = {this.props.markerId}
+                id={this.props.markerId}
                 result={this.state.result}
                 updatePoint={this.handleUpdatePoint}
                 updateComments={this.handleUpdateComments}
@@ -329,6 +374,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     uploadResults: (mid, pid, sid, assessList, assessedDate, gid) => {
       dispatch(actions.onUploadResult(mid, pid, sid, assessList, assessedDate, gid))
+    },
+    upDateResults: (mid, pid, sid, assessList, assessedDate, gid) => {
+      dispatch(actions.onUpdateResult(mid, pid, sid, assessList, assessedDate, gid))
     },
   };
 };

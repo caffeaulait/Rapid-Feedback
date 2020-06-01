@@ -44,7 +44,7 @@ export default class MarkingItem extends React.Component {
         }
         console.log("types.........")
         console.log(types)
-        let Normal = types.filter((v) => (v === "Natural")).length / types.length * 100 ;
+        let Normal = types.filter((v) => (v === "Neutral")).length / types.length * 100 ;
         let Well = types.filter((v) => (v === "Positive")).length / types.length * 100 ;
         let Improve = types.filter((v) => (v === "Negative")).length / types.length * 100  ;
 

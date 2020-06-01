@@ -19,7 +19,7 @@ export default class CommentsInputs extends React.Component {
                     <input type="text" style={{ width: "70%", marginRight: "5%" }} onChange={(e) => this.setState({ input: e.target.value })} value={this.state.input} required></input>
                     <select id="mySelect" style={{ width: "20%" }} onChange={(e) => this.setState({ type: e.target.value })}>
                         <option value="Positive">Positive</option>
-                        <option value="Natural">Natural</option>
+                        <option value="Neutral">Neutral</option>
                         <option value="Negative">Negative</option>
                     </select><br />
                     <button type="submit" style={{ marginTop: "2%", marginBottom: "2%", fontSize: '10px', padding: '5px 10px', color: 'white', background: '#003F8A' }}>Create Comments</button>

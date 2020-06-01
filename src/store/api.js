@@ -136,6 +136,10 @@ export const uploadResults = (data) => {
   return instance.post('/assess', data);
 };
 
+export const upDateResult = (data) => {
+  return instance.put("/updateAssess",data)
+}
+
 export const getComments = (mid) => {
   return instance.get(`/comments/${mid}`);
 };
