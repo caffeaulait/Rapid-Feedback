@@ -34,10 +34,10 @@ class Criteria extends React.Component {
 
     author: '',
 
-   
+
 
     id: 0,
-    item: { id:"",content: "", points: "" },
+    item: { id: "", content: "", points: "" },
     editItem: false
 
   }
@@ -61,11 +61,9 @@ class Criteria extends React.Component {
     const author = this.props.author;
     console.log(foundProj);
     this.setState({ project: foundProj });
-    this.setState({author: author });
-    if (this.props.criteriaLists.length === 0) {
-      console.log('fetching criterias');
-      this.props.fetchCriteria(pid);
-    }
+    this.setState({ author: author });
+    console.log('fetching criterias......');
+    this.props.fetchCriteria(pid);
   }
 
 
@@ -84,12 +82,12 @@ class Criteria extends React.Component {
   }
 
   pointHandler = (e) => {
-    if(!isNaN(e.target.value)){
+    if (!isNaN(e.target.value)) {
       this.setState({ item: { content: this.state.item.content || '', points: e.target.value || "" } });
-    }else{
+    } else {
       e.target.value = "";
     }
-    
+
   }
 
   // nextID = (list) => {
@@ -101,16 +99,16 @@ class Criteria extends React.Component {
     e.preventDefault();
     console.log(this.state.item);
     // this.setState({ criteriaLists: [...this.state.criteriaLists, this.state.item], editItem: false, item: { content: "", points: "" } })
-    this.props.createCriteria(this.state.item,this.state.project.id);
-    this.setState({editItem: false, item: { content: "", points: "" }})
+    this.props.createCriteria(this.state.item, this.state.project.id);
+    this.setState({ editItem: false, item: { content: "", points: "" } })
     console.log("Add Successful")
     console.log(this.props.criteriaLists)
   }
 
-  handleUpdate = (e,id) => {
+  handleUpdate = (e, id) => {
     e.preventDefault();
     console.log(this.state.item.id)
-    this.props.updateCriteria(this.state.project.id,id,this.state.item.points,this.state.item)
+    this.props.updateCriteria(this.state.project.id, id, this.state.item.points, this.state.item)
   }
 
   findCriteriaIndex = (criteria) => {
@@ -128,7 +126,7 @@ class Criteria extends React.Component {
     //   this.setState({ criteriaLists: backUp });
     // }
     //let id = this.findCriteriaIndex(criteria);
-    this.props.deletCriteria(this.props.match.params.pid,criteria.id);
+    this.props.deletCriteria(this.props.match.params.pid, criteria.id);
   }
 
   handleEdit = (criteria) => {
@@ -147,7 +145,7 @@ class Criteria extends React.Component {
     //this.props.updateCriteria(this.state.project.id,id,criteria.points)
     //this.props.deletCriteria(id);
     this.setState({
-      item: { id: criteria.id,content: criteria.content || "", points: criteria.points || "" },
+      item: { id: criteria.id, content: criteria.content || "", points: criteria.points || "" },
       editItem: true
     });
 
@@ -167,7 +165,7 @@ class Criteria extends React.Component {
 
         </div>
         <div className="Box">
-          <ProjectInfoCard project={this.state.project} author={this.state.author}/>
+          <ProjectInfoCard project={this.state.project} author={this.state.author} />
           <div className="CriteriaCard" style={{ boxSizing: "border-box" }}>
             <CriteriaAdd item={this.state.item} handleChange={this.handleChange} handleSubmit={this.handleSubmit} editItem={this.state.editItem}
               titleHandler={this.titleHandler} pointHandler={this.pointHandler} id={"exampleModal"} />
@@ -196,14 +194,14 @@ const mapDispatchToProps = (dispatch) => {
     fetchCriteria: (pid) => {
       dispatch(actions.onFetchCriterias(pid));
     },
-    createCriteria: (data,id) => {
-      dispatch(actions.onCreateCriteria(data,id));
+    createCriteria: (data, id) => {
+      dispatch(actions.onCreateCriteria(data, id));
     },
-    deletCriteria: (pid,cid) => {
-      dispatch(actions.onDeleteCriteria(pid,cid));
+    deletCriteria: (pid, cid) => {
+      dispatch(actions.onDeleteCriteria(pid, cid));
     },
-    updateCriteria: (pid,cid,point,item) => {
-      dispatch(actions.onUpdateCriteria(pid,cid,point,item));
+    updateCriteria: (pid, cid, point, item) => {
+      dispatch(actions.onUpdateCriteria(pid, cid, point, item));
     }
   };
 };
