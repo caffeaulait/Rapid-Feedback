@@ -6,13 +6,14 @@ class ProjectTab extends React.Component {
 
   render() {
     let scoreGet = this.props.result.map(a => a.point).reduce((a, b) => a + b, 0);
-    let scoreTotal = this.props.result.map(a => a.point).reduce((a, b) => a + b, 0);
-    let dummy = this.props.markers.filter((marker) => 
-      Number(marker.id) !== Number(this.props.id)
-    )
-    let options = dummy.map((marker) => {
+    let scoreTotal = this.props.result.map(a => a.weight).reduce((a, b) => a + b, 0);
+    // let dummy = this.props.markers.filter((marker) => 
+    //   Number(marker.id) !== Number(this.props.id)
+    // )
+    let options = this.props.markers.map((marker) => {
       return <option key={marker.id} value={marker.id}>{marker.name}</option>
     })
+    options.push(<option key = {999} value={999}>Auto Generate</option>);
 
     let ids = this.props.studentInfo.students.map((student) => {
       return <div className={styles.content} key={student.id} >{student.name + "  " + student.id}</div>
@@ -34,7 +35,7 @@ class ProjectTab extends React.Component {
         <div className={styles.content}>
           <select id="mySelect" style={{ width: "40%" }} onChange={(e) => this.props.setMarker(e.target.value)}>
             {options}
-            <option value={this.props.id}>{this.props.name}</option>
+            {/* <option value={this.props.id}>{this.props.name}</option> */}
           </select><br />
         </div>
         <div className={styles.label}>Overall Result: </div>
