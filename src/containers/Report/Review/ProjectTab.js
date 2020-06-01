@@ -13,7 +13,7 @@ class ProjectTab extends React.Component {
     let options = this.props.markers.map((marker) => {
       return <option key={marker.id} value={marker.id}>{marker.name}</option>
     })
-    options.push(<option value={999}>Auto Generate</option>);
+    options.push(<option key = {999} value={999}>Auto Generate</option>);
 
     let ids = this.props.studentInfo.students.map((student) => {
       return <div className={styles.content} key={student.id} >{student.name + "  " + student.id}</div>
