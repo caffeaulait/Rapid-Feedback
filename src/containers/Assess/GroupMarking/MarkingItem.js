@@ -28,45 +28,67 @@ export default class MarkingItem extends React.Component {
 
 
     render() {
-        console.log(this.props.result);
-        console.log(this.props.criteria.id);
-
-        let commentsss = '';
-        let types = [];
-        for (var key in this.props.result.comment) {
-            if (this.props.result.comment.hasOwnProperty(key)) {
-                commentsss += key + " : " + this.props.result.comment[key].content + "\n"
-                types.push(this.props.result.comment[key].type)
-                console.log(key + " -> " + this.props.result.comment[key]);
-                console.log("types.........");
-                console.log(types);
-            }
-        }
-        console.log("types.........")
-        console.log(types)
-        let Normal = types.filter((v) => (v === "Neutral")).length / types.length * 100 ;
-        let Well = types.filter((v) => (v === "Positive")).length / types.length * 100 ;
-        let Improve = types.filter((v) => (v === "Negative")).length / types.length * 100  ;
-
-
-        const greenStyle = {
+        let commentsss = ''
+        let greenStyle = {
             backgroundColor: 'green',
-            width: Well + "%",
+            width: 33.33 + "%",
             height: "10%",
             display: "table-cell"
         };
-        const redStyle = {
+        let redStyle = {
             backgroundColor: 'red',
-            width: Improve + "%",
+            width: 33.33 + "%",
             height: "10%",
             display: "table-cell"
         };
-        const yellowStyle = {
+        let yellowStyle = {
             backgroundColor: 'yellow',
-            width: Normal + "%",
+            width: 33.33 + "%",
             height: "10%",
             display: "table-cell"
         };
+        if (this.props.result != undefined) {
+            console.log(this.props.result);
+            console.log(this.props.criteria.id);
+
+            commentsss = '';
+            let types = [];
+            for (var key in this.props.result.comment) {
+                if (this.props.result.comment.hasOwnProperty(key)) {
+                    commentsss += key + " : " + this.props.result.comment[key].content + "\n"
+                    types.push(this.props.result.comment[key].type)
+                    console.log(key + " -> " + this.props.result.comment[key]);
+                    console.log("types.........");
+                    console.log(types);
+                }
+            }
+            console.log("types.........")
+            console.log(types)
+            let Normal = types.filter((v) => (v === "Neutral")).length / types.length * 100;
+            let Well = types.filter((v) => (v === "Positive")).length / types.length * 100;
+            let Improve = types.filter((v) => (v === "Negative")).length / types.length * 100;
+
+
+            greenStyle = {
+                backgroundColor: 'green',
+                width: Well + "%",
+                height: "10%",
+                display: "table-cell"
+            };
+            redStyle = {
+                backgroundColor: 'red',
+                width: Improve + "%",
+                height: "10%",
+                display: "table-cell"
+            };
+            yellowStyle = {
+                backgroundColor: 'yellow',
+                width: Normal + "%",
+                height: "10%",
+                display: "table-cell"
+            };
+        }
+
         return (
 
             <div className="all">

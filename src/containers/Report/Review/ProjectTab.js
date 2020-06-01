@@ -11,7 +11,11 @@ class ProjectTab extends React.Component {
     //   Number(marker.id) !== Number(this.props.id)
     // )
     let options = this.props.markers.map((marker) => {
-      return <option key={marker.id} value={marker.id}>{marker.name}</option>
+      // if (Number(marker.id) === Number(this.props.markerInfo.id)){
+      //   return <option key={marker.id} value={marker.id} selected >{marker.name}</option>
+      // }else{
+        return <option key={marker.id} value={marker.id}>{marker.name}</option>
+      //}
     })
     options.push(<option key = {999} value={999}>Auto Generate</option>);
 
@@ -33,7 +37,7 @@ class ProjectTab extends React.Component {
         <div className={styles.content}>{this.props.assessDate}</div>
         <div className={styles.label}>Assessed By: </div>
         <div className={styles.content}>
-          <select id="mySelect" style={{ width: "40%" }} onChange={(e) => this.props.setMarker(e.target.value)}>
+          <select id="mySelect" style={{ width: "40%" }} value = {this.props.markerInfo.name } onChange={(e) => this.props.setMarker(e.target.value)}>
             {options}
             {/* <option value={this.props.id}>{this.props.name}</option> */}
           </select><br />
