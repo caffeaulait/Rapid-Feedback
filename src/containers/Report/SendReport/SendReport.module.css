@@ -67,3 +67,25 @@ span {
   height: 6vh;
   margin-left: 5vw;
 }
+
+.voiceBtn {
+  margin: auto 1vw;
+  height: 90%;
+  width: 22%;
+  border-radius: 1em;
+}
+
+.label {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.download {
+  text-decoration: none;
+  margin-left: 1vw;
+  height: 4vh;
+  width: 6vw;
+  display: inline-block;
+  border-radius: 1em;
+  margin: auto 1vw;
+}

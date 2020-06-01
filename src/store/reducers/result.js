@@ -5,6 +5,7 @@ const initialState = {
   allResults: [],
   resultError: null,
   reportError: null,
+  uploadError: null,
 };
 
 const fetchSingleSuccess = (state, action) => {
@@ -62,6 +63,19 @@ const sendReportFail = (state, action) => {
   };
 };
 
+const uploadAudioSuccess = (state, action) => {
+  return {
+    ...state,
+  };
+};
+
+const uploadAudioFail = (state, action) => {
+  return {
+    ...state,
+    uploadError: action.error,
+  };
+};
+
 const resultReducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.GET_SINGLE_RESULT_SUCCESS:
@@ -80,6 +94,10 @@ const resultReducer = (state = initialState, action) => {
       return sendReportSuccess(state, action);
     case actions.SEND_REPORT_FAIL:
       return sendReportFail(state, action);
+    case actions.UPLOAD_AUDIO_SUCCESS:
+      return uploadAudioSuccess(state, action);
+    case actions.UPLOAD_AUDIO_FAIL:
+      return uploadAudioFail(state, action);
     default:
       return state;
   }

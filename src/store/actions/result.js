@@ -57,6 +57,19 @@ const sendReportFail = (error) => {
   };
 };
 
+const uploadAudioSuccess = () => {
+  return {
+    type: actions.UPLOAD_AUDIO_SUCCESS,
+  };
+};
+
+const uploadAudioFail = (error) => {
+  return {
+    type: actions.UPLOAD_AUDIO_FAIL,
+    error,
+  };
+};
+
 export const onFetchResult = (pid) => {
   return (dispatch, getState) => {
     // setTimeout(() => {
@@ -173,6 +186,20 @@ export const onSendReport = (data) => {
       })
       .catch((error) => {
         dispatch(sendReportFail(error));
+      });
+  };
+};
+
+export const onUploadAudio = (data) => {
+  return (dispatch) => {
+    request
+      .uploadAudio(data)
+      .then((response) => {
+        console.log(response);
+        dispatch(uploadAudioSuccess());
+      })
+      .catch((error) => {
+        dispatch(uploadAudioFail(error));
       });
   };
 };

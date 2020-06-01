@@ -7,14 +7,3 @@
   margin-left: 3vw;
   margin-bottom: 10%;
 }
-
-.voiceBtn {
-  margin: auto 1vw;
-  height: 90%;
-  width: 22%;
-  border-radius: 1em;
-}
-
-audio {
-  margin-top: 1vh;
-}

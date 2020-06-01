@@ -29,6 +29,7 @@
     "react-search-field": "^1.0.0",
     "react-test-renderer": "^16.13.1",
     "react-uuid": "^1.0.2",
+    "recorderjs": "^1.0.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.1.0",

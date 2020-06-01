@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable eqeqeq */
 import React from 'react';
 import StudenTab from '../../../components/StudentTab/StudentTab';
@@ -11,10 +12,21 @@ import GroupTab from '../../../components/GroupTab/GroupTab';
 // import queryString from 'query-string';
 import { connect } from 'react-redux';
 import * as result from '../../../store/actions/result';
+import Voice from '../../../assets/images/voice.svg';
+// import Recorder from 'recorderjs';
+
+URL = window.URL || window.webkitURL;
+
+var gumStream; //stream from getUserMedia()
+var rec; //Recorder.js object
+var input; //MediaStreamAudioSourceNode we'll be recording
+
+// shim for AudioContext when it's not avb.
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var audioContext; //audio context to help us record
 
 class SendReport extends React.Component {
   state = {
-    hasVoice: true,
     option: '1',
     student: null,
     grades: '',
@@ -23,6 +35,11 @@ class SendReport extends React.Component {
     isGroup: false,
     score: 0,
     projectId: null,
+    src: null,
+    recording: false,
+    download: null,
+    blob: null,
+    filename: 'audio file',
   };
 
   componentDidMount() {
@@ -31,7 +48,8 @@ class SendReport extends React.Component {
     const studentId = this.props.match.params.sid;
     const groupId = this.props.match.params.gid;
     const project = this.props.projects.find((el) => el.id == projectId);
-    const isGroup = project ? project.is_group : false;
+    let isGroup = false;
+    if (project && project.is_group == 1) isGroup = true;
     const student = this.props.students.find((el) => el.id == studentId);
     const students = this.props.students.filter((el) => el.group_id == groupId);
     const grades = new URLSearchParams(this.props.location.search).get(
@@ -52,18 +70,128 @@ class SendReport extends React.Component {
   handleChange = (event) => {
     this.setState({ option: event.target.value });
   };
+
   onUpload = () => {
-    this.record();
-  };
-
-  onDelete = () => {};
-
-  onSend = () => {
-    const studentIdList = [];
-    if (!this.props.isGroup) {
+    let studentIdList = [];
+    if (!this.state.isGroup) {
       studentIdList.push(this.state.student.id);
     } else {
-      studentIdList.concat(this.state.students.map((student) => student.id));
+      const ids = this.state.students.map((el) => el.id);
+      studentIdList = studentIdList.concat(ids);
+      console.log(studentIdList);
+    }
+    const formData = new FormData();
+    formData.append('project_id', this.state.projectId);
+    formData.append('studentIdList', studentIdList);
+    formData.append('audio', this.state.blob, this.state.filename);
+    this.props.uploadAudio(formData);
+  };
+
+  onRecord = () => {
+    console.log('recordButton clicked');
+
+    /*
+      Simple constraints object, for more advanced audio features see
+      https://addpipe.com/blog/audio-constraints-getusermedia/
+    */
+
+    var constraints = { audio: true, video: false };
+
+    /*
+        Disable the record button until we get a success or fail from getUserMedia() 
+    */
+
+    this.recordButton.disabled = true;
+    this.stopButton.disabled = false;
+
+    /*
+        We're using the standard promise based getUserMedia() 
+        https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+    */
+
+    navigator.mediaDevices
+      .getUserMedia(constraints)
+      .then((stream) => {
+        console.log(
+          'getUserMedia() success, stream created, initializing Recorder.js ...'
+        );
+
+        /*
+        create an audio context after getUserMedia is called
+        sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
+        the sampleRate defaults to the one set in your OS for your playback device
+      */
+        audioContext = new AudioContext();
+
+        // //update the format
+        // document.getElementById('formats').innerHTML =
+        //   'Format: 1 channel pcm @ ' + audioContext.sampleRate / 1000 + 'kHz';
+
+        /*  assign to gumStream for later use  */
+        gumStream = stream;
+
+        /* use the stream */
+        input = audioContext.createMediaStreamSource(stream);
+
+        /* 
+        Create the Recorder object and configure to record mono sound (1 channel)
+        Recording 2 channels  will double the file size
+      */
+        rec = new window.Recorder(input, { numChannels: 1 });
+
+        //start the recording process
+        rec.record();
+
+        console.log('Recording started');
+      })
+      .catch((err) => {
+        //enable the record button if getUserMedia() fails
+        this.recordButton.disabled = false;
+        this.stopButton.disabled = true;
+        console.log(err);
+      });
+  };
+
+  onStop = () => {
+    console.log('stopButton clicked');
+
+    //disable the stop button, enable the record too allow for new recordings
+    this.stopButton.disabled = true;
+    this.recordButton.disabled = false;
+
+    //tell the recorder to stop the recording
+    rec.stop();
+
+    //stop microphone access
+    gumStream.getAudioTracks()[0].stop();
+
+    //create the wav blob and pass it on to createDownloadLink
+    rec.exportWAV(this.createDownloadLink);
+  };
+
+  createDownloadLink = (blob) => {
+    // console.log(blob);
+    var url = URL.createObjectURL(blob);
+    //name of .wav file to use during upload and download (without extendion)
+    var filename = new Date().toISOString();
+
+    this.setState({
+      src: url,
+      recording: true,
+      download: filename + '.wav',
+      blob: blob,
+      filename: filename,
+    });
+  };
+
+  onSend = () => {
+    let studentIdList = [];
+    if (!this.state.isGroup) {
+      studentIdList.push(this.state.student.id);
+    } else {
+      const ids = this.state.students.map((el) => el.id);
+      studentIdList = studentIdList.concat(ids);
+      console.log(studentIdList);
     }
     const data = {
       project_id: this.state.projectId,
@@ -77,43 +205,76 @@ class SendReport extends React.Component {
     this.props.history.goBack();
   };
 
-  record = () => {
-    const player = document.getElementById('player');
-
-    const handleSuccess = function (stream) {
-      if (window.URL) {
-        player.srcObject = stream;
-      } else {
-        player.src = stream;
-      }
-    };
-
-    navigator.mediaDevices
-      .getUserMedia({ audio: true, video: false })
-      .then(handleSuccess);
-  };
-
   render() {
     if (!this.props.isAuthenticated) {
       this.props.history.push('/login');
     }
+    let voice = (
+      <>
+        <div className={styles.label}>Audio Comment: </div>
+        <div>
+          <img src={Voice} alt='voice'></img>
+          <button
+            onClick={() => this.onRecord()}
+            className={styles.voiceBtn}
+            ref={(ref) => (this.recordButton = ref)}
+          >
+            record
+          </button>
+          <button
+            className={styles.voiceBtn}
+            onClick={() => this.onStop()}
+            ref={(ref) => (this.stopButton = ref)}
+          >
+            stop
+          </button>
+          <ol id='recordingsList' ref={(ref) => (this.recordingsList = ref)}>
+            <li style={{ display: this.state.recording ? 'block' : 'none' }}>
+              <audio controls={true} src={this.state.src}></audio>
+              <div>
+                <a
+                  href={this.state.src}
+                  download={this.state.download}
+                  className={'btn btn-link ' + styles.download}
+                >
+                  Download
+                </a>
+                <a
+                  href='#'
+                  className={'btn btn-link ' + styles.download}
+                  onClick={() => this.onUpload()}
+                >
+                  Upload
+                </a>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </>
+    );
     let tab = null;
     if (this.state.student) {
       tab = (
-        <StudenTab
-          hasVoice={this.state.hasVoice}
-          project={this.state.project}
-          student={this.state.student}
-        ></StudenTab>
+        <>
+          <StudenTab
+            hasVoice={this.state.hasVoice}
+            project={this.state.project}
+            student={this.state.student}
+          ></StudenTab>
+          {voice}
+        </>
       );
     }
     if (this.state.isGroup && this.state.students.length > 0) {
       tab = (
-        <GroupTab
-          students={this.state.students}
-          project={this.state.project}
-          hasVoice={this.state.hasVoice}
-        ></GroupTab>
+        <>
+          <GroupTab
+            students={this.state.students}
+            project={this.state.project}
+            hasVoice={this.state.hasVoice}
+          ></GroupTab>
+          {voice}
+        </>
       );
     }
 
@@ -195,6 +356,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     sendReport: (data) => {
       dispatch(result.onSendReport(data));
+    },
+    uploadAudio: (data) => {
+      dispatch(result.onUploadAudio(data));
     },
   };
 };

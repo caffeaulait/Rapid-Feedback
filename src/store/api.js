@@ -25,6 +25,14 @@ instance.interceptors.request.use(function (config) {
   return config;
 });
 
+//instance for sending multipart file
+const instance2 = axios.create({
+  timeout: 10000,
+  baseURL: proxy + address,
+  crossDomain: true,
+  withCredentials: true,
+});
+
 export const login = (data) => {
   return instance.post('/markers/login', data);
 };
@@ -138,4 +146,15 @@ export const addComment = (data) => {
 
 export const sendReport = (data) => {
   return instance.post('/result/email', data);
+};
+
+export const uploadAudio = (data, boundary) => {
+  let config = {
+    crossDomain: true,
+    withCredentials: true,
+    headers: {
+      token: localStorage.getItem('token'),
+    },
+  };
+  return axios.post(`${address}/v1/result/audio`, data, config);
 };
