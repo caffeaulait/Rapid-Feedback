@@ -15,11 +15,11 @@ class CriteriaDetail extends React.Component {
                         <div className={styles.title}>
                             <span className={styles.left}>{criteria.criteria}</span>
                             <span className={styles.right}>
-                                <input className={styles.nInput} type="number" max={criteria.weight} min={0} value={Number(criteria.point)} onChange={(e) => this.props.updatePoint(e.target.value, criteria.id, this.props.marker.id)} disabled={Number(this.props.marker.id) === Number(this.props.id) ? false:true}></input>{" /" + criteria.weight}
+                                <input className={styles.nInput} type="number" max={criteria.weight} min={0} value={Number(criteria.point)} onChange={(e) => this.props.updatePoint(e.target.value, criteria.id, this.props.marker.id)} disabled={Number(this.props.marker.id) === Number(999) ? false:true}></input>{" /" + criteria.weight}
                             </span>
                         </div><br></br><br></br>
                         <div className={styles.comments}>
-                            <textarea value={criteria.comment} onChange={(e) => this.props.updateComments(e.target.value, criteria.id, this.props.marker.id)} disabled={Number(this.props.marker.id) === Number(this.props.id) ? false:true} ></textarea>
+                            <textarea value={criteria.comment} onChange={(e) => this.props.updateComments(e.target.value, criteria.id, this.props.marker.id)} disabled={Number(this.props.marker.id) === Number(999) ? false:true} ></textarea>
                         </div>
                     </td>
                 </tr>

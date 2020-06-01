@@ -186,7 +186,7 @@ class Review extends React.Component {
   };
 
   setCurrentMarker = (e) => {
-    if (e === this.props.markerId) {
+    if (Number(e) === Number(999)) {
       let d = new Date();
 
       let date = d.getDate();
@@ -219,7 +219,7 @@ class Review extends React.Component {
       });
       this.setState({
         result: aggResult,
-        markerInfo: { name: this.props.markerName, id: this.props.markerId },
+        markerInfo: { name: "Auto Generate", id: 999 },
         assessDate: dateStr,
       });
       console.log(aggResult);
@@ -348,7 +348,7 @@ class Review extends React.Component {
             <button
               className={'btn btn-primary ' + styles.controlBtn}
               onClick={this.continue}
-              disabled={this.state.markerInfo.id != this.props.markerId}
+              disabled={this.state.markerInfo.id != 999}
             >
               Continue
             </button>
