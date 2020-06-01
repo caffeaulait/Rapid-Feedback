@@ -120,7 +120,10 @@ export const onFetchMarkers = (pid) => {
           .then((response2) => {
             console.log("alll......");
             console.log(response2);
-            let markerList = response2.data.map((marker) => {
+            let dummy = response2.data.filter((marker) => 
+              Number(marker.is_coordinator) === 0
+            )
+            let markerList = dummy.map((marker) => {
               return {
                 id: marker.id,
                 Number: marker.uni_id,
