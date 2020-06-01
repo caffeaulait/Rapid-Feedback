@@ -25,14 +25,6 @@ instance.interceptors.request.use(function (config) {
   return config;
 });
 
-//instance for sending multipart file
-const instance2 = axios.create({
-  timeout: 10000,
-  baseURL: proxy + address,
-  crossDomain: true,
-  withCredentials: true,
-});
-
 export const login = (data) => {
   return instance.post('/markers/login', data);
 };

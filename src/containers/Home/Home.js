@@ -9,6 +9,7 @@ import Admin from '../../assets/images/admin.svg';
 import Assess from '../../assets/images/assess.svg';
 import Report from '../../assets/images/report.svg';
 import { NavLink } from 'react-router-dom';
+import * as format from '../../util/date';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -62,6 +63,8 @@ class Home extends React.Component {
       );
     }
 
+    let today = new Date();
+
     return (
       <Fragment>
         <Header></Header>
@@ -74,15 +77,15 @@ class Home extends React.Component {
                   alt='calendar'
                   className={styles.calendar}
                 ></img>
-                <p> Today 29 April 2020</p>
+                <p>{format.formatDate(today)}</p>
               </div>
-              <div className={styles.snd}>Sem 1 - Week 8 |</div>
+              <div className={styles.snd}>Sem 1 - Week 12 |</div>
             </div>
             <div className={styles.info}>
               <a alt='avatar' href='#' onClick={this.onChangeAvatar}>
                 <img src={Avatar} alt='avatar' className={styles.avatar}></img>
               </a>
-              <p>
+              <p className={styles.name}>
                 Welcome, {this.props.firstName} {this.props.lastName}
               </p>
             </div>
