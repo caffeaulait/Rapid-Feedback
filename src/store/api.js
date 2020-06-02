@@ -149,7 +149,7 @@ export const uploadAudio = (data, boundary) => {
     crossDomain: true,
     withCredentials: true,
     headers: {
-      token: localStorage.getItem('token'),
+      Authorization: localStorage.getItem('token'),
     },
   };
   return axios.post(`${address}/result/audio`, data, config);
