@@ -198,6 +198,7 @@ export const onUploadAudio = (data) => {
       .then((response) => {
         console.log(response);
         dispatch(uploadAudioSuccess());
+        alert('audio successfully uploaded!');
       })
       .catch((error) => {
         dispatch(uploadAudioFail(error));

@@ -40,6 +40,7 @@ class SendReport extends React.Component {
     download: null,
     blob: null,
     filename: 'audio file',
+    sent: false,
   };
 
   componentDidMount() {
@@ -211,6 +212,7 @@ class SendReport extends React.Component {
       option: parseInt(this.state.option),
     };
     this.props.sendReport(data);
+    this.setState({ sent: true });
   };
 
   goBack = () => {
@@ -348,6 +350,16 @@ class SendReport extends React.Component {
             >
               Back
             </button>
+          </div>
+          <div
+            className='alert alert-success'
+            role='alert'
+            style={{
+              display: this.state.sent ? 'block' : 'none',
+              marginTop: '2vh',
+            }}
+          >
+            The report has been sent!
           </div>
         </div>
       </div>
