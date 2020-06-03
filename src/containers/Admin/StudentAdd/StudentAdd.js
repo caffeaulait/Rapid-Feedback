@@ -34,7 +34,9 @@ class StudentAdd extends React.Component {
     console.log(this.state.student, data);
   };
 
-  goBack = () => {
+  goBack = (event) => {
+    event.preventDefault();
+    // console.log('goback');
     this.props.history.goBack();
   };
 
