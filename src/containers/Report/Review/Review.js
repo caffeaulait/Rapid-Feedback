@@ -219,7 +219,7 @@ class Review extends React.Component {
       });
       this.setState({
         result: aggResult,
-        markerInfo: { name: "Auto Generate", id: 999 },
+        markerInfo: { name: 'Auto Generate', id: 999 },
         assessDate: dateStr,
       });
       console.log(aggResult);
