@@ -53,9 +53,9 @@ class SendReport extends React.Component {
     if (project && project.is_group == 1) isGroup = true;
     const student = this.props.students.find((el) => el.id == studentId);
     const students = this.props.students.filter((el) => el.group_id == groupId);
-    const grades = new URLSearchParams(this.props.location.search).get(
-      'grades'
-    );
+    let grades = new URLSearchParams(this.props.location.search).get('grades');
+    grades = grades.substr(0, Math.min(4, grades.length));
+    // console.log(typeof grades);
 
     console.log('group students are:' + students);
     this.setState({
