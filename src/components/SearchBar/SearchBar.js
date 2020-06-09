@@ -1,6 +1,5 @@
 import React from 'react';
 import './SearchBar.css';
-import Search from '../../assets/images/search.png';
 import MarkerList from '../MarkerList/MarkerList';
 import SearchBox from '../SearchBox/SearchBox';
 

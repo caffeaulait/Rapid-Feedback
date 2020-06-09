@@ -5,7 +5,7 @@ import Logo from '../../assets/images/logo.jpg';
 import { NavLink, withRouter } from 'react-router-dom';
 
 const Header = (props) => {
-  console.log(props.isCoordinator);
+  // console.log(props.isCoordinator);
   return (
     <div className={styles.container}>
       <img src={Logo} alt='Unimelb logo' className={styles.logo}></img>

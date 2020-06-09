@@ -237,6 +237,7 @@ export const onImportStudents = (pid, students) => {
         result.forEach((student) => {
           student.id = student.student_id;
           delete student['student_id'];
+          student.group_id = 0;
           return student;
         });
         console.log(result);

@@ -17,7 +17,7 @@ class Admin extends React.Component {
   state = {};
 
   render() {
-    console.log(this.props.isCoordinator);
+    // console.log(this.props.isCoordinator);
     if (!this.props.isAuthenticated) {
       this.props.history.replace('/login');
     }

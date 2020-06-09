@@ -15,7 +15,7 @@ import * as result from '../../../store/actions/result';
 import Voice from '../../../assets/images/voice.svg';
 // import Recorder from 'recorderjs';
 
-URL = window.URL || window.webkitURL;
+let URL = window.URL || window.webkitURL;
 
 var gumStream; //stream from getUserMedia()
 var rec; //Recorder.js object

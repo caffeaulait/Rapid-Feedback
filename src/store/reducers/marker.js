@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
 import * as actions from '../actions/actions';
 
 const initialState = {
@@ -32,8 +34,7 @@ const fetchCurrentSuccess = (state, action) => {
   return {
     ...state,
     currentMarkers: action.currentMarkers,
-    previousMarkers: action.previousMarkers
-
+    previousMarkers: action.previousMarkers,
   };
 };
 

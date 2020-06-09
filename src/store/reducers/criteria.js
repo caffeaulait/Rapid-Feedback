@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import * as actions from '../actions/actions';
 
 const initialState = {

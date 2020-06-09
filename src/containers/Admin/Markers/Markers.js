@@ -1,9 +1,10 @@
+/* eslint-disable eqeqeq */
 import React from 'react';
 import SearchBar from '../../../components/SearchBar/SearchBar';
 import CurrentMarkerView from '../../../components/CurrentMarkerView/CurrentMarkerView';
 import * as actions from '../../../store/actions/markers';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 class Markers extends React.Component {
   state = {
@@ -11,8 +12,8 @@ class Markers extends React.Component {
     searchedMarker: [],
     isFound: false,
     isClick: false,
-    id: null
-  }
+    id: null,
+  };
 
   componentDidMount() {
     const pid = this.props.match.params.pid;
@@ -21,10 +22,8 @@ class Markers extends React.Component {
 
     this.props.fetchCurrentMarkers(pid);
 
-
     console.log('fetching markers');
     this.props.fetchMarkers(pid);
-
   }
   // constructor(props) {
   //   super(props);
@@ -118,8 +117,12 @@ class Markers extends React.Component {
   };
 
   goBack = () => {
-    console.log("click");
-    this.props.updateCurrentMarker(this.props.currentMarkers, this.state.id, this.props.previousMarkers);
+    console.log('click');
+    this.props.updateCurrentMarker(
+      this.props.currentMarkers,
+      this.state.id,
+      this.props.previousMarkers
+    );
     this.props.history.goBack();
   };
 
@@ -181,7 +184,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.auth.token !== null,
     allMarkers: state.marker.markers,
     currentMarkers: state.marker.currentMarkers,
-    previousMarkers: state.marker.previousMarkers
+    previousMarkers: state.marker.previousMarkers,
   };
 };
 
@@ -200,10 +203,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.deleteSuccess(marker));
     },
     updateCurrentMarker: (markers, projectId, previousMarkers) => {
-      dispatch(actions.onUpdateMarkers(markers, projectId, previousMarkers))
-    }
-
-
+      dispatch(actions.onUpdateMarkers(markers, projectId, previousMarkers));
+    },
   };
 };
 
