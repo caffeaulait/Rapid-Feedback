@@ -3,6 +3,10 @@
 ## Overview
 The main objective of developing this app is to solve academics’ difficulty in assessing oral presentations and providing feedback.
 
+## Deployement
+AWS: http://rapidfeedback.s3-website-us-east-1.amazonaws.com  
+Heroku: http://rapid-feedback.herokuapp.com/
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -42,7 +46,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 
 
-## Installed Dependencies:
+## Installed Dependencies
 
 State management: redux, react-redux, redux-thunk
 
@@ -61,8 +65,5 @@ ReadFile: xlsx, papaparse
 UI: bootstrap, @material-ui/core
 
 
-## Deployement: 
-http://rapid-feedback.herokuapp.com/
-
-## Backend:
+## Backend
 https://github.com/yutingcai-cyt/Rapid_feedback_backend
