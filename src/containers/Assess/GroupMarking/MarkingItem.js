@@ -64,6 +64,7 @@ export default class MarkingItem extends React.Component {
       console.log(types);
       let Normal =
         (types.filter((v) => v === 'Neutral').length / types.length) * 100;
+
       let Well =
         (types.filter((v) => v === 'Positive').length / types.length) * 100;
       let Improve =
@@ -73,19 +74,19 @@ export default class MarkingItem extends React.Component {
         backgroundColor: 'green',
         width: Well + '%',
         height: '10%',
-        display: 'table-cell',
+        display: Well == 0 ? "none":'table-cell',
       };
       redStyle = {
         backgroundColor: 'red',
         width: Improve + '%',
         height: '10%',
-        display: 'table-cell',
+        display: Improve == 0 ? "none":'table-cell',
       };
       yellowStyle = {
         backgroundColor: 'yellow',
         width: Normal + '%',
         height: '10%',
-        display: 'table-cell',
+        display: Normal == 0 ? "none":'table-cell',
       };
     }
 
