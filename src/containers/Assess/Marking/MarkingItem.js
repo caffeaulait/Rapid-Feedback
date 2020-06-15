@@ -19,11 +19,11 @@ export default class MarkingItem extends React.Component {
       <div className='all'>
         <div className='first'>
           <p className='content'>{this.props.criteria.content}</p>
-          <p className='points'>{this.props.result.point}</p>
+          <p className='points'>{this.props.result.point || 0}</p>
         </div>
         <div className='second'>
           <Slider
-            point={this.props.result.point}
+            point={this.props.result.point || 0}
             updatePoint={this.props.updatePoint}
             fullPoint={this.props.criteria.points}
             id={this.props.criteria.id}
@@ -33,7 +33,7 @@ export default class MarkingItem extends React.Component {
               className='commentsArea'
               placeholder='Here is your comments...'
               disabled
-              value={this.props.result.comment}
+              value={this.props.result.comment || ""} 
             ></textarea>
             <input
               data-toggle='modal'
