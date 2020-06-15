@@ -4,7 +4,7 @@ import axios from 'axios';
 const proxy = '';
 
 const address =
-  'http://ec2-13-211-29-46.ap-southeast-2.compute.amazonaws.com:8022/v1';
+  'http://ec2-100-25-151-95.compute-1.amazonaws.com:8022/v1';
 
 export default address;
 
