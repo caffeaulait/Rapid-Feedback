@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import Slider from './Slider';
@@ -74,19 +75,19 @@ export default class MarkingItem extends React.Component {
         backgroundColor: 'green',
         width: Well + '%',
         height: '10%',
-        display: Well == 0 ? "none":'table-cell',
+        display: Well == 0 ? 'none' : 'table-cell',
       };
       redStyle = {
         backgroundColor: 'red',
         width: Improve + '%',
         height: '10%',
-        display: Improve == 0 ? "none":'table-cell',
+        display: Improve == 0 ? 'none' : 'table-cell',
       };
       yellowStyle = {
         backgroundColor: 'yellow',
         width: Normal + '%',
         height: '10%',
-        display: Normal == 0 ? "none":'table-cell',
+        display: Normal == 0 ? 'none' : 'table-cell',
       };
     }
 
