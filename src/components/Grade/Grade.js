@@ -7,7 +7,9 @@ const Grade = (props) => {
   return (
     <tr>
       <td>{props.index}</td>
-      <td>{props.grade}</td>
+      <td>
+        {props.grade}/{props.fullMark}
+      </td>
       <td>{props.marker}</td>
       <td>{format.formatDate(props.date)}</td>
       <td>

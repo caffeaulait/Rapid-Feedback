@@ -42,10 +42,12 @@ class Grades extends React.Component {
 
   computeRow = (assessment) => {
     let grade = 0;
+    let fullMark = 0;
     let date = new Date();
     let marker = null;
     for (let el of assessment) {
       grade += el.score;
+      fullMark += el.fullMark;
       date = new Date(el.assessedDate);
       marker = el.firstName + ' ' + el.lastName;
     }
@@ -53,6 +55,7 @@ class Grades extends React.Component {
       grade,
       marker,
       date,
+      fullMark,
     };
   };
 
@@ -120,6 +123,7 @@ class Grades extends React.Component {
         key={index}
         index={index + 1}
         grade={el.grade}
+        fullMark={el.fullMark}
         marker={el.marker}
         date={el.date}
       ></Grade>
