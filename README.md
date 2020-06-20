@@ -1,15 +1,21 @@
 # Rapid Feedback
 
 ## Overview
-The main objective of developing this app is to solve academics’ difficulty in assessing oral presentations and providing feedback.
+The main objective of developing this app is to solve academics’ difficulty in assessing oral presentations and providing rapid feedback. It is part of COMP90082 Software Project in the University of Melbourne.
 
-## Deployement
+
+## Deployement    
 AWS: http://rapidfeedback.s3-website-us-east-1.amazonaws.com  
-Heroku: http://rapid-feedback.herokuapp.com/
+Heroku: http://rapid-feedback.herokuapp.com/  
+
+Note that the functionality for adding audio comment may not work in deployed version due to security concerns. Check https://stackoverflow.com/questions/56005165 for explanation. If you do need this feature, you can either run the app locally (localhost), or upgrade the system using HTTPS. For detailed instructions on how to enable HTTPS, please refer to our backend repo.
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm install`
+Install all required dependencies, this step should be done before your start the applicaiton.
 
 ### `npm start`
 
@@ -46,7 +52,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 
 
-## Installed Dependencies
+## Dependencies
 
 State management: redux, react-redux, redux-thunk
 
