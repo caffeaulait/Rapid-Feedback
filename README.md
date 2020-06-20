@@ -3,6 +3,16 @@
 ## Overview
 The main objective of developing this app is to solve academics’ difficulty in assessing oral presentations and providing rapid feedback. It is part of COMP90082 Software Project in the University of Melbourne.
 
+The application is developed using ReactJS. To learn React, check out the [React documentation](https://reactjs.org/).
+
+**Front-end Team Members:**
+* Yang Lu &emsp; yalu2@student.unimelb.edu.au   
+* Shun Yin  &emsp; yisy1@student.unimelb.edu.au   
+* Yueyi zhang	 &emsp; yueyiz1@student.unimelb.edu.au   
+
+## Video Demo
+https://www.youtube.com/watch?v=zNULAFZ2ru0
+
 
 ## Deployement    
 AWS: http://rapidfeedback.s3-website-us-east-1.amazonaws.com  
@@ -11,6 +21,8 @@ Heroku: http://rapid-feedback.herokuapp.com/
 Note that the functionality for adding audio comment may not work in deployed version due to security concerns. Check https://stackoverflow.com/questions/56005165 for explanation. If you do need this feature, you can either run the app locally (localhost), or upgrade the system using HTTPS. For detailed instructions on how to enable HTTPS, please refer to our backend repo.
 
 ## Available Scripts
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
+
 
 In the project directory, you can run:
 
